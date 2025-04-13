@@ -1,0 +1,115 @@
+export const buttonTheme = {
+  baseStyle: {},
+  variants: {
+    authSubmitBtn: {
+      background: "#10295A",
+      color: "#FFFFFF",
+      fontWeight: "600",
+      fontSize: "16px",
+      borderRadius: "8px",
+      padding: "22px 24px",
+      width: "100%",
+    },
+    blueBtn: {
+      background: "#10295A",
+      color: "#FFFFFF",
+      fontWeight: "600",
+      fontSize: "16px",
+      borderRadius: "8px",
+      padding: "10px 16px",
+      width: "100%",
+    },
+    outline: {
+      background: "#FFFFFF",
+      color: "#10295A",
+      height: "42px",
+      fontWeight: "600",
+      fontSize: "16px",
+      borderRadius: "8px",
+      borderColor: "#FFFFFF1F",
+      border: "2px solid #FFFFFF1F",
+      boxShadow:
+        "0px 1px 2px rgba(16, 24, 40, 0.05), inset 0px 0px 0px 1px rgba(10, 13, 18, 0.18), inset 0px -2px 0px rgba(10, 13, 18, 0.05)",
+      padding: "10px 16px",
+      width: "100%",
+    },
+    whiteGray: {
+      background: "#FAFAFA",
+      color: "#252B37",
+      fontWeight: "600",
+      fontSize: "13px",
+      borderRadius: "8px",
+      padding: "1px 24px",
+      lineHeight: "120%",
+      maxHeight: "32px",
+      border: "1px solid #D5D7DA",
+      boxShadow:
+        "0px 1px 2px 0px rgba(10, 13, 18, 0.05), 0px -2px 0px 0px rgba(10, 13, 18, 0.05) inset, 0px 0px 0px 1px rgba(10, 13, 18, 0.18) inset",
+    },
+    smallRemoveBtn: {
+      width: "fit-content",
+      background: "#fff",
+      color: "#be290e",
+      fontWeight: "600",
+      fontSize: "10px",
+      borderRadius: "4px",
+      padding: "0px 8px",
+      lineHeight: "120%",
+      maxHeight: "20px",
+      border: "1px solid #be290e",
+      boxShadow:
+        "0px 1px 2px 0px rgba(10, 13, 18, 0.05), 0px -2px 0px 0px rgba(10, 13, 18, 0.05) inset, 0px 0px 0px 1px rgba(10, 13, 18, 0.18) inset",
+      _hover: {
+        background: "#be290e",
+        color: "white",
+      },
+    },
+    formNextblueBtn: {
+      width: "fit-content",
+      background: "#10295A",
+      color: "white",
+      fontWeight: "600",
+      fontSize: "16px",
+      borderRadius: "8px",
+      padding: "23px 19.8px",
+      lineHeight: "120%",
+      maxHeight: "48px",
+      border: "1px solid transparent",
+      borderImage:
+        "linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%) 1",
+      boxShadow: `
+    0px 1px 2px 0px #0A0D120D, 
+    0px -2px 0px 0px #0A0D120D inset, 
+    0px 0px 0px 1px #0A0D122E inset
+  `,
+      _hover: {
+        // background: "#be290e",
+        // color: "white",
+      },
+    },
+    formBackWhiteBtn: {
+      width: "fit-content",
+      background: "#FFFFFF",
+      color: "#10295A",
+      fontWeight: "600",
+      fontSize: "16px",
+      borderRadius: "8px",
+      padding: "23px 19.8px",
+      lineHeight: "120%",
+      maxHeight: "48px",
+      border: "1px solid transparent",
+      borderImage:
+        "linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%) 1",
+      boxShadow: `
+    0px 1px 2px 0px #0A0D120D, 
+    0px -2px 0px 0px #0A0D120D inset, 
+    0px 0px 0px 1px #0A0D122E inset
+  `,
+      _hover: {
+        // background: "#be290e",
+        // color: "white",
+      },
+    },
+    plainText: {},
+  },
+};
