@@ -169,8 +169,7 @@ export const USER_DASH_OWNER_DASH = '/user/owner-dashboard/'
 // -----------------------------------------------------
 export const ADMIN_LOGIN = (protocol, environ, baseHost) =>
   makeWebsiteOrigin(protocol, environ, 'admin', baseHost) + '/admin/login'
-export const ADMIN_DASHBOARD = (protocol, environ, baseHost) =>
-  makeWebsiteOrigin(protocol, environ, 'admin', baseHost) + '/admin/dashboard'
+export const ADMIN_DASHBOARD = '/agents-list'
 export const MAKE_ADMIN_DASHBOARD = (
   protocol,
   environ,
