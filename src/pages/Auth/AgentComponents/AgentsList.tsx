@@ -51,14 +51,14 @@ import makeGetRequest from '../../../api/makeGetRequest'
 import ConfirmDeleteAgentModal from './admincompenets/ConfirmDeleteAgentModal'
 import makeDeleteRequest from '../../../api/makeDeleteRequest'
 import AppText from '../../../AppComponents/AppText-agent'
-import { AdminListFilterContext, AdminListFilterContextType } from './admincompenets/AdminListFilterProvider'
+import { AdminListFilterContext, } from './admincompenets/AdminListFilterProvider'
 import { useAppStore } from '../../../store-admin'
 import AssignAgentToBrokerageModal from './admincompenets/AssignAgentToBrokerageModal'
 import { ConfirmRemoveAgentModal } from './admincompenets/ConfirmRemoveAgentModal'
 
 const AgentsList = () => {
   const [dateRange, setDateRange] = useState({})
-  const agentsListFilterForm = useContext<AdminListFilterContextType>(AdminListFilterContext)?.agentsListFilterForm || {}
+  const agentsListFilterForm = useContext(AdminListFilterContext)
   const { register, control, watch, setValue } = agentsListFilterForm
   const navigate = useNavigate()
   const location = useLocation()

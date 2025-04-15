@@ -1,18 +1,22 @@
-import { createContext, ReactNode, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useLocation } from 'react-router-dom'; 
+import { createContext, ReactNode, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 
-import { useAppStore } from '../../../../store-admin';
-import AppLoader from './AppLoader';
+import { useAppStore } from "../../../../store-admin";
+import AppLoader from "./AppLoader";
 import {
   ADMIN_LOGIN_PAGE,
   agentProtectedRoutes,
   isPermitted,
-} from './roles-and-permissions';
+} from "./roles-and-permissions";
 
 export const AdminListFilterContext = createContext({});
 
-export const AdminListFilterProvider = ({ children }: { children?: ReactNode }) => {
+export const AdminListFilterProvider = ({
+  children,
+}: {
+  children?: ReactNode;
+}) => {
   const agentsListFilterForm = useForm();
   const TeamListFilterForm = useForm();
   const appliedAgentsFilterForm = useForm();
@@ -49,13 +53,7 @@ export const AdminListFilterProvider = ({ children }: { children?: ReactNode }) 
           setSponsors,
         }}
       >
-        {isAdminLoginPage ? (
-          children
-        ) : isRolesFetched ? (
-          isPermitted(pathname, children, adminRoles, [...agentProtectedRoutes])
-        ) : (
-          <AppLoader className="h-[80vh]" />
-        )}
+        {children}
       </AdminListFilterContext.Provider>
     </div>
   );

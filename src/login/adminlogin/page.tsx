@@ -18,7 +18,7 @@ const AdminLoginPage = () => {
     mutationFn: (body: any) => makePostRequest(REFRESH_API, body),
     onSuccess: (res) => {
       handleSetCookiesOnSuccess(res)
-      navigate(MAKE_ABSOLUTE_URL(ADMIN_DASHBOARD))
+      navigate(ADMIN_DASHBOARD)
     },
     retry: 1,
   })
