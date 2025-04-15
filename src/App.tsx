@@ -10,7 +10,7 @@ import AuthUILayout from "./pages/Auth/components/AuthUILayout";
 import { theme } from "./lib/chakra-ui/chakra-themes";
 import AppToast from "./AppComponents/AppToast";
 import { getUserToken } from "./utils/functions/tokenAndUserData";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AdminLoginPage from "./login/adminlogin/page";
 import AgentsList from "./pages/Auth/AgentComponents/AgentsList";
 import { AdminListFilterProvider } from "./pages/Auth/AgentComponents/admincompenets/AdminListFilterProvider";
@@ -18,7 +18,7 @@ import { AdminListFilterProvider } from "./pages/Auth/AgentComponents/admincompe
 function App() {
   // Create a new QueryClient instance
   const queryClient = new QueryClient();
-  
+
   const isAuthenticated = () => {
     const token = getUserToken();
     return Boolean(token);
@@ -39,7 +39,7 @@ function App() {
       children: [
         {
           path: "/login",
-          element: <AdminLoginPage />
+          element: <AdminLoginPage />,
         },
         // Other auth routes...
       ],
@@ -49,17 +49,16 @@ function App() {
       path: "/",
       element: <ProtectedRoute />,
       children: [
-
         {
-          path: "agents-list",
+          path: "agents/list",
           element: (
             <AdminListFilterProvider>
               <AgentsList />
             </AdminListFilterProvider>
-          )
-        }
-      ]
-    }
+          ),
+        },
+      ],
+    },
   ]);
 
   return (
