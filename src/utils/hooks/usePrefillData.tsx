@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { GET_ROA_APP_DATA } from "../../api/endpoints/endpoints";
 import makeGetRequest from "../../api/makeGetRequest";
 import { useEffect } from "react";

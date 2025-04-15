@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from 'react-query'
 
 import toast from 'react-hot-toast'
 
@@ -30,10 +30,10 @@ const useUploadFiles = ({
     // error,
     mutate: fileMutate,
   } = useMutation(
-    {mutationFn:(body) =>
+    (body) =>
       isForm ? makePatchRequest(API, body) : makePostRequest(API, body),
     
-      onSuccess: (res) => {
+      {onSuccess: (res) => {
         console.log(res)
         onSuccess && onSuccess(res)
       },

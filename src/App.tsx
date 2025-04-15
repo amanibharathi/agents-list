@@ -10,7 +10,7 @@ import AuthUILayout from "./pages/Auth/components/AuthUILayout";
 import { theme } from "./lib/chakra-ui/chakra-themes";
 import AppToast from "./AppComponents/AppToast";
 import { getUserToken } from "./utils/functions/tokenAndUserData";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import AdminLoginPage from "./login/adminlogin/page";
 import AgentsList from "./pages/Auth/AgentComponents/AgentsList";
 import { AdminListFilterProvider } from "./pages/Auth/AgentComponents/admincompenets/AdminListFilterProvider";

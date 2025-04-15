@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import useHandleDataSubmitForEachStep from "./useHandleDataSubmitForEachStep";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from "react-query";
 import makePostRequest from "../../api/makePostRequest";
 import useMultipartFormSteps from "./useMultipartFormSteps";
 import { setFormErrors, showToastError } from "../functions/commonFunctions";

@@ -11,7 +11,7 @@ import {
 import { FileUploader } from 'react-drag-drop-files'
 import { IoClose } from 'react-icons/io5'
 
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from 'react-query'
 
 import useUploadFiles from '../../../../utils/hooks/useUploadFiles'
 import makeDeleteRequest from '../../../../api/makeDeleteRequest'
@@ -65,10 +65,10 @@ const SupportDocumentUpload = ({
   })
 
   const { mutate: deleteMutate } = useMutation(
-    {mutationFn:(body: any) =>
+    (body: any) =>
       makeDeleteRequest(DELETE_AGENT_SUPPORT_DOCUMENT(body?.id), body),
     
-      onSuccess: (res) => {
+      {onSuccess: (res) => {
         setImageState(res)
       },
       onError: (err) => {

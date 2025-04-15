@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import LoginWrapper from '../LoginWrapper'
 import AdminLoginForm from './AdminLoginFormContainer'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import makePostRequest from '../../api/makePostRequest'
 import { REFRESH_API } from '../../api-utils'

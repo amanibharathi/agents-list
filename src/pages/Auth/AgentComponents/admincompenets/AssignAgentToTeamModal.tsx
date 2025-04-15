@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoIosRemoveCircleOutline } from 'react-icons/io'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import CkInput from './CkInput'
 import {   ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST,
   ADMIN_AGENT_TEAM_LIST,
@@ -100,7 +100,7 @@ const AssignAgentToTeamModal = ({
   const queryClient = useQueryClient()
 
   const { isLoading, mutate } = useMutation(
-    {mutationFn:(body) =>
+    (body) =>
       makePostRequest(
         isAssign
           ? ADMIN_TEAM_MEMBER_CREATE(watch('agent')?.value)
@@ -108,7 +108,7 @@ const AssignAgentToTeamModal = ({
         body
       ),
     
-      onSuccess: () => {
+      {onSuccess: () => {
         toast.success(
           isAssign ? 'Agent assigned Successfully' : 'Removed Successfully'
         )

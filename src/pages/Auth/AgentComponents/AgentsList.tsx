@@ -22,7 +22,7 @@ import {
 } from "../../Auth/AgentComponents/navigation/index"
 import { HiOutlineDotsHorizontal } from 'react-icons/hi'
 import { GoUpload } from 'react-icons/go'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from 'react-query'
 import toast from 'react-hot-toast'
 import moment from 'moment'
 

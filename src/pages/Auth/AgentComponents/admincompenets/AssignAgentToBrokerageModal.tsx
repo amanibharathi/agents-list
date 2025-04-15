@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoIosRemoveCircleOutline } from 'react-icons/io'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from 'react-query'
 
 import { ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST, AGENT_DASHBOARD_OFFICE_OR_BROKERAGE_LIST } from '../../../../api-utils'
 import AppButton from '../../../../AppComponents/AppButton-agent'
@@ -188,9 +188,9 @@ const AssignAgentToBrokerageModal = ({
     })
 
   const { mutate: officeMutate, isLoading } = useMutation(
-    {mutationFn:(body) => makePostRequest(ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST, body),
+    (body) => makePostRequest(ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST, body),
     
-      onSuccess: () => {
+      {onSuccess: () => {
         onClose()
         toast.success('Assigned Successfully')
         setSelected([])

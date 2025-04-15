@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { useDebounce } from './useDebounce'
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from 'react-query'
 import makeGetRequest from '../../api/makeGetRequest'
 
 

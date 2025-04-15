@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
@@ -40,11 +40,11 @@ export const ConfirmRemoveAgentModal = ({
 
   const { mutate, isLoading } = useMutation(
     //@ts-ignore
-    {mutationFn:(body) =>
+    (body) =>
       //@ts-ignore
       makeDeleteRequest(ADMIN_TEAM_MEMBER_DELETE(data?.team?.id, body?.id)),
     
-      onSuccess: () => {
+      {onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: [GET_ADMIN_TEAM_MEMBERS_LIST(data?.team?.id)],
         })

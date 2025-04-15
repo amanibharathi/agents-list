@@ -4,7 +4,7 @@ import AppInputRenderer from "../../AppComponents/AppForm/AppInputRenderer";
 import { useForm } from "react-hook-form";
 import AppButton from "../../AppComponents/AppButton";
 import { signupInputFields } from "./auth.data";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from "react-query";
 import makePostRequest from "../../api/makePostRequest";
 import {
   GET_STATES_META_API,

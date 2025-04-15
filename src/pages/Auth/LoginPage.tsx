@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import AppInputRenderer from "../../AppComponents/AppForm/AppInputRenderer";
 import { loginInputFields } from "./auth.data";
 import AppButton from "../../AppComponents/AppButton";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from "react-query";
 import makePostRequest from "../../api/makePostRequest";
 import { POST_LOGIN_API } from "../../api/endpoints/endpoints";
 import AppText from "../../AppComponents/AppText";
