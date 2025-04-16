@@ -1,10 +1,11 @@
-import AppText from '@/app/components/elements/AppText'
+// import AppText from '@/app/components/elements/AppText'
 import { Flex } from '@chakra-ui/react'
 import moment from 'moment'
-import React from 'react'
-import AppImage from '@/app/components/elements/AppImage'
+// import AppImage from '@/app/components/elements/AppImage'
 import { ColorTags } from './ColorTags'
 import ShowText from '../../onboarding-agents/[id]/components/ShowText'
+import AppText from '../../../AppComponents/AppText-agent'
+import AppImage from '../../../AppComponents/AppImage'
 
 export interface IAdminTeamHeaderPrimaryBox {
   name: string

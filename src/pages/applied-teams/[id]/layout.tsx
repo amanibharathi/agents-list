@@ -1,38 +1,39 @@
-'use client'
-import AdminBreadcrumbs from '@/app/admin/_AdminComponent/AdminBreadcrumbs/AdminBreadcrumbs'
-import AdminContainer from '@/app/admin/_AdminComponent/AdminContainer'
-import AppButton from '@/app/components/elements/AppButton'
+
 import { Box, Flex, useDisclosure } from '@chakra-ui/react'
-import React, { ReactNode, useMemo } from 'react'
-import SecondaryNav from '@/app/components/layouts/secondaryNav'
-import { usePathname } from 'next/navigation'
-import {
-  MAKE_ACTIVE_TEAMS_LIST_PAGE,
-  MAKE_ADMIN_APPLIED_TEAM_DETAIL_TAB,
-  MAKE_AGENT_RELATED_LIST_PAGE,
-} from '@/app/utils/navigation'
+import { ReactNode, useMemo } from 'react'
 import { useMutation, useQuery } from 'react-query'
-import makeGetRequest from '@/app/utils/api/makeGetRequest'
+import makeGetRequest from '../../../api/makeGetRequest'
 import {
   ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST,
   ADMIN_AGENT_TEAM_DETAIL,
   ADMIN_TEAM_CUD,
   AGENT_DASHBOARD_OFFICE_OR_BROKERAGE_LIST,
   REMOVE_OFFICE_AGENT,
-} from '@/app/api-utils'
-import CkAppModal from '@/app/components/modal/AppModal'
+} from '../../../api-utils'
+// import CkAppModal from '@/app/components/modal/AppModal'
 import ModalRejectComponent from '../../onboarding-agents/[id]/components/modal-reject-component'
-import makePostRequest from '@/app/utils/api/makePostRequest'
+// import makePostRequest from '@/app/utils/api/makePostRequest'
 import toast from 'react-hot-toast'
 import {
   extractIdentities,
   getFirstErrorMessage,
-} from '@/app/utils/functions/otherFunctions'
+} from '../../../utils/functions/commonFunctions'
 import AdminTeamHeaderBox from './components/AdminTeamHeaderBox'
-import makePatchRequest from '@/app/utils/api/makePatchRequest'
+// import makePatchRequest from '@/app/utils/api/makePatchRequest'
 import { useRouter } from 'next-nprogress-bar'
-import ConfirmDeleteTeamModal from '../../components/ListingComponents/ConfirmDeleteTeam'
+// import ConfirmDeleteTeamModal from '../../components/ListingComponents/ConfirmDeleteTeam'
 import { v4 as uuidv4 } from 'uuid'
+import AdminContainer from '../../../login/adminlogin/AdminContainer'
+import SecondaryNav from '../../onboarding-agents/[id]/on-oboarding-application/components/secondaryNav'
+import AdminBreadcrumbs from '../../Auth/AgentComponents/admincompenets/AdminBreadcrumbs'
+import AppButton from '../../../AppComponents/AppButton-agent'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { MAKE_ACTIVE_TEAMS_LIST_PAGE,MAKE_ADMIN_APPLIED_TEAM_DETAIL_TAB,
+  MAKE_AGENT_RELATED_LIST_PAGE, } from '../../Auth/AgentComponents/navigation/urls'
+import CkAppModal from '../../Auth/AgentComponents/admincompenets/AppModal'
+import makePostRequest from '../../../api/makePostRequest'
+import makePatchRequest from '../../../api/makePatchRequest'
+import ConfirmDeleteTeamModal from '../../onboarding-teams/[id]/[tab]/[memberId]/components/ConfirmDeleteTeam'
 
 const Layout = ({
   children,
@@ -42,7 +43,8 @@ const Layout = ({
   params: { id: string; tab: string }
 }) => {
   const id = params?.id
-  const pathname = usePathname()
+  const location = useLocation();
+  const pathname = location.pathname;
   const editPage = pathname.split('/')?.includes('edit')
   const { data: detailData, refetch } = useQuery(
     [ADMIN_AGENT_TEAM_DETAIL(id)],
@@ -133,13 +135,13 @@ const Layout = ({
     ],
     [officeList, detailData]
   )
-  const router = useRouter()
+  const router = useNavigate()
 
   const { mutate: approveOrRejectMutate, isLoading: approveOrRejectLoading } =
     useMutation((body) => makePatchRequest(ADMIN_TEAM_CUD(id), body), {
       onSuccess: (res) => {
         toast.success(`Team ${res?.data?.status} successfully`)
-        router.push(MAKE_ACTIVE_TEAMS_LIST_PAGE())
+        router(MAKE_ACTIVE_TEAMS_LIST_PAGE())
       },
       onError: (err: any) => {
         //@ts-ignore

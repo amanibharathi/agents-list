@@ -1,11 +1,13 @@
-import React from 'react'
+
 import { AgentProfileHeader } from './AgentProfileHeader'
-import AppText from '@/app/components/elements/AppText'
+// import AppText from '@/app/components/elements/AppText'
 import { Divider } from '@chakra-ui/react'
 import { NewAndRemovedDocumentsList } from './NewAndRemovedDocumentsList'
 import { EditFieldDetails } from './EditFieldDetails'
-import AgentTeamNotesComp from '@/app/(dashboards)/agent/my-team/overview/components/AgentTeamNotesComp'
+// import AgentTeamNotesComp from '@/app/(dashboards)/agent/my-team/overview/components/AgentTeamNotesComp'
 import { RoleChangeRequestDetail } from './RoleChangeRequestDetail'
+import AppText from '../../../../../../AppComponents/AppText-agent'
+import AgentTeamNotesComp from './AgentTeamNotesComp'
 
 export const RequestDetailBox = ({
   data,

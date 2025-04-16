@@ -1,7 +1,8 @@
-import AppText from '@/app/components/elements/AppText'
+// import AppText from '@/app/components/elements/AppText'
 import { Flex } from '@chakra-ui/react'
-import React, { memo, useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import ShowText from '../../../onboarding-agents/[id]/components/ShowText'
+import AppText from '../../../../AppComponents/AppText-agent'
 
 const AdminTeamHeaderFinalBox = ({
   state,

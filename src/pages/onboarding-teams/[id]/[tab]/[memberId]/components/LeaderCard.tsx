@@ -1,9 +1,11 @@
-import AppText from '@/app/components/elements/AppText'
-import EmailatIcon from '@/app/icons/emailatIcon'
-import PhoneIcon from '@/app/icons/phoneIcon'
-import { formatToUSPhone } from '@/app/utils/functions/otherFunctions'
+// import AppText from '@/app/components/elements/AppText'
+// import EmailatIcon from '@/app/icons/emailatIcon'
+// import PhoneIcon from '@/app/icons/phoneIcon'
+import { formatToUSPhone } from '../../../../../../utils/functions/commonFunctions'
 import { Avatar } from '@chakra-ui/react'
-import React from 'react'
+import AppText from '../../../../../../AppComponents/AppText-agent'
+import PhoneIcon from '../../../../../Auth/AgentComponents/admincompenets/phoneIcon'
+import EmailatIcon from '../../../../../Auth/AgentComponents/admincompenets/emailatIcon'
 
 interface User {
   id: number

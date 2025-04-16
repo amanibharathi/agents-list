@@ -12,18 +12,14 @@ import {
   GET_ADMIN_TEAM_MEMBERS_LIST,
 } from '../../../../../api-utils'
 import toast from 'react-hot-toast'
-// import makeGetRequest from '@/app/utils/api/makeGetRequest'
-import AppText from '@/app/components/elements/AppText'
-import AppLink from '@/app/components/elements/AppLink'
-import {
-  ADMIN_TEAM_REQUEST_INDIVIDUAL_PAGE,
-  MAKE_ADMIN_TEAM_DETAIL_TAB,
-} from '@/app/utils/navigation'
-import { useRouter } from 'next-nprogress-bar'
 import CkAppModal from '../../../../Auth/AgentComponents/admincompenets/AppModal'
 import ButtonPair from '../../../../Auth/AgentComponents/admincompenets/ButtonPair'
 import makeDeleteRequest from '../../../../../api/makeDeleteRequest'
 import makeGetRequest from '../../../../../api/makeGetRequest'
+import AppText from '../../../../../AppComponents/AppText-agent'
+import AppLink from '../../../../../AppComponents/AppLink'
+import { ADMIN_TEAM_REQUEST_INDIVIDUAL_PAGE,MAKE_ADMIN_TEAM_DETAIL_TAB, } from '../../../../Auth/AgentComponents/navigation/urls'
+import { useNavigate } from 'react-router-dom'
 
 export const ConfirmRemoveAgentModal = ({
   isOpen,
@@ -39,7 +35,7 @@ export const ConfirmRemoveAgentModal = ({
   isAgentDetail?: boolean
 }) => {
   const queryClient = useQueryClient()
-  const router = useRouter()
+  const router = useNavigate()
   const { mutate, isLoading } = useMutation(
     //@ts-ignore
     (body) =>
@@ -59,7 +55,7 @@ export const ConfirmRemoveAgentModal = ({
         onClose()
         toast.success('Team Member Removed Successfuly')
         !isAgentDetail &&
-          router.push(MAKE_ADMIN_TEAM_DETAIL_TAB(data?.team?.id))
+          router(MAKE_ADMIN_TEAM_DETAIL_TAB(data?.team?.id))
       },
       onError: (err) => {
         console.log(err)

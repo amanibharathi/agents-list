@@ -1,5 +1,5 @@
-import CkAppModal from '@/app/components/modal/AppModal'
-import React, { useEffect, useMemo } from 'react'
+// import CkAppModal from '@/app/components/modal/AppModal'
+import { useEffect, useMemo } from 'react'
 import AddATeamMemberModalStep1 from './AddATeamMemberModalStep1'
 import { useForm } from 'react-hook-form'
 import {
@@ -8,21 +8,24 @@ import {
   ADMIN_AGENT_STATE_LIST,
   ADMIN_AGENT_TEAM_DETAIL,
   ADMIN_AGENT_TEAM_UPDATE,
-} from '@/app/api-utils'
+} from '../../../../../api-utils'
 import { Flex } from '@chakra-ui/react'
-import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
+import ButtonPair from '../../../../Auth/AgentComponents/admincompenets/ButtonPair'
 import { useMutation, useQueryClient } from 'react-query'
 // import makeGetRequest from '@/app/utils/api/makeGetRequest'
-import { MAKE_ADMIN_TEAM_DETAIL_TAB } from '@/app/utils/navigation'
-import { useRouter } from 'next/navigation'
-import makePatchRequest from '@/app/utils/api/makePatchRequest'
+import { MAKE_ADMIN_TEAM_DETAIL_TAB } from '../../../../Auth/AgentComponents/navigation/urls'
+import makePatchRequest from '../../../../../api/makePatchRequest'
 import toast from 'react-hot-toast'
 import {
   getFirstErrorMessage,
+  getResponse,
   removeSpecialChars,
-} from '@/app/utils/functions/otherFunctions'
-import { getResponse } from '@/app/real-estate-agents/join/onboard/stage/utils/common'
-import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
+} from '../../../../../utils/functions/commonFunctions'
+// import { getResponse } from '@/app/real-estate-agents/join/onboard/stage/utils/common'
+// import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
+import CkAppModal from '../../../../Auth/AgentComponents/admincompenets/AppModal'
+import useGetMetaFromApi from '../../../../../utils/hooks/useGetMetaFromApi'
+import { useNavigate } from 'react-router-dom'
 
 const TeamDetailsEditModal = ({
   isOpen,
@@ -58,7 +61,7 @@ const TeamDetailsEditModal = ({
     }
   }, [data])
 
-  const router = useRouter()
+  const router = useNavigate()
   const queryClient = useQueryClient()
 
   const { mutate } = useMutation(
@@ -70,7 +73,7 @@ const TeamDetailsEditModal = ({
         queryClient.invalidateQueries({
           queryKey: [ADMIN_AGENT_TEAM_DETAIL(params)],
         })
-        router.push(MAKE_ADMIN_TEAM_DETAIL_TAB(params))
+        router(MAKE_ADMIN_TEAM_DETAIL_TAB(params))
         toast.success('Team Information Updated Sucessfully')
         onClose()
         formUtil.reset()

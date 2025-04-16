@@ -1,24 +1,23 @@
-//@ts-nocheck
-import AppButton from '@/app/components/elements/AppButton'
-import AppText from '@/app/components/elements/AppText'
+import AppButton from '../../../../../../AppComponents/AppButton-agent'
+import AppText from '../../../../../../AppComponents/AppText-agent'
 import { Box, Flex, useDisclosure } from '@chakra-ui/react'
-import React, { useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { FaRegEdit } from 'react-icons/fa'
 import { GoArrowLeft } from 'react-icons/go'
 import { CommonDetailContainer } from './CommonDetailContainer'
-import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
-import { useRouter } from 'next-nprogress-bar'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
-import { ADMIN_TEAM_MEMBER_UPDATE } from '@/app/api-utils'
+import { ADMIN_TEAM_MEMBER_UPDATE } from '../../../../../../api-utils'
 import {
   commissionPlanOptions,
   getFirstErrorMessage,
-} from '@/app/utils/functions/otherFunctions'
-import { MAKE_ADMIN_TEAM_DETAIL_TAB } from '@/app/utils/navigation'
+} from '../../../../../../utils/functions/commonFunctions'
+import { MAKE_ADMIN_TEAM_DETAIL_TAB } from '../../../../../Auth/AgentComponents/navigation/urls'
 import toast from 'react-hot-toast'
-import makePutRequest from '@/app/utils/api/makePutRequest'
+import makePutRequest from '../../../../../../api/makePutRequest'
 import { ConfirmRemoveAgentModal } from '../../_TeamDocumentationTabModels/ConfirmRemoveAgentModal'
+import ButtonPair from '../../../../../Auth/AgentComponents/admincompenets/ButtonPair'
+import { useNavigate } from 'react-router-dom'
 
 interface ITeamMemberDetail {
   isDetail?: boolean
@@ -63,7 +62,7 @@ export const CommonTeamMemberDetail = ({
   documents,
   refetch,
 }: ITeamMemberDetail) => {
-  const router = useRouter()
+  const router = useNavigate()
   const editForm = useForm()
   const {
     isOpen: teamMemberRemoveIsOpen,
@@ -139,7 +138,7 @@ export const CommonTeamMemberDetail = ({
       ),
     {
       onSuccess: () => {
-        router.push(MAKE_ADMIN_TEAM_DETAIL_TAB(params?.id))
+        router(MAKE_ADMIN_TEAM_DETAIL_TAB(params?.id))
         toast.success('Team Member Details Updated Successfully')
       },
       onError: (err) => {
@@ -179,7 +178,7 @@ export const CommonTeamMemberDetail = ({
         <div className="py-[40px] flex justify-between items-center">
           <div className="flex items-center gap-[25px]">
             <GoArrowLeft
-              onClick={() => router.back()}
+              onClick={() => router(-1)}
               fontSize={'24px'}
               className="cursor-pointer"
             />

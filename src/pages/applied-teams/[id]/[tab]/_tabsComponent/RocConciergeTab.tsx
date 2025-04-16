@@ -1,18 +1,21 @@
-import AdminFormWrapper from '@/app/admin/_AdminComponent/AdminFormWrapper'
-import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
-import NewAdminInputRenderer from '@/app/admin/_AdminComponent/NewAdminInputRenderer'
+// import AdminFormWrapper from '@/app/admin/_AdminComponent/AdminFormWrapper'
+// import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
+// import NewAdminInputRenderer from '@/app/admin/_AdminComponent/NewAdminInputRenderer'
 import {
   ADMIN_AGENT_TEAM_DETAIL,
   ADMIN_AGENT_TEAM_UPDATE,
-} from '@/app/api-utils'
-import useFormUtils from '@/app/hooks/admin/useFormUtils'
-import makeGetRequest from '@/app/utils/api/makeGetRequest'
-import makePatchRequest from '@/app/utils/api/makePatchRequest'
+} from '../../../../../api-utils'
+// import useFormUtils from '@/app/hooks/admin/useFormUtils'
+import makeGetRequest from '../../../../../api/makeGetRequest'
+import makePatchRequest from '../../../../../api/makePatchRequest'
 import { Box, Flex } from '@chakra-ui/react'
-import React from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuid } from 'uuid'
 import { useMutation, useQuery } from 'react-query'
+import AdminFormWrapper from '../../../../../login/adminlogin/AdminFormWrapper'
+import ButtonPair from '../../../../Auth/AgentComponents/admincompenets/ButtonPair'
+import NewAdminInputRenderer from '../../../../../login/adminlogin/NewAdminInputRenderer'
+import useFormUtils from '../../../../../utils/hooks/useFormUtils'
 
 const RocConciergeTab = ({
   params,

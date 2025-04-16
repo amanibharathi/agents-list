@@ -1,34 +1,38 @@
-'use client'
+
 import { Box, Flex } from '@chakra-ui/react'
-import React, { createContext, useEffect, useRef, useState } from 'react'
-import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
-import { MAKE_ADMIN_TEAM_DETAIL_TAB } from '@/app/utils/navigation'
+import { createContext, useEffect, useRef, useState } from 'react'
+// import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
+import { MAKE_ADMIN_TEAM_DETAIL_TAB } from '../../../Auth/AgentComponents/navigation/urls'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { ADMIN_AGENT_TEAM_DETAIL, ADMIN_TEAM_CUD } from '@/app/api-utils'
+import { ADMIN_AGENT_TEAM_DETAIL, ADMIN_TEAM_CUD } from '../../../../api-utils'
 import toast from 'react-hot-toast'
 import {
   ADMIN_AGENT_MLS_LIST,
   ADMIN_AGENT_STATE_LIST,
   // ADMIN_AGENT_TEAM_MEMBERS_LIST,
-} from '@/app/api-utils'
-import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
-import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
+} from '../../../../api-utils'
+import useGetMetaFromApi from '../../../../utils/hooks/useGetMetaFromApi'
+import AdminInputRenderer from '../../../../login/adminlogin/AdminInputRenderer'
 import {
   addSpecialCharsForPhoneNumber,
   closedValueOptions,
   getFirstErrorMessage,
+  getResponse,
   removeSpecialChars,
   transformSelectData,
-} from '@/app/utils/functions/otherFunctions'
-import AdminFormWrapperTeam from '@/app/admin/_AdminComponent/AdminFormWrapperTeam'
-import AppImage from '@/app/components/elements/AppImage'
-import AppButton from '@/app/components/elements/AppButton'
+} from '../../../../utils/functions/commonFunctions'
+import AdminFormWrapperTeam from '../../../../login/adminlogin/AdminFormWrapperTeam'
+// import AppImage from '@/app/components/elements/AppImage'
+// import AppButton from '@/app/components/elements/AppButton'
 import { GoPencil, GoTrash } from 'react-icons/go'
-import makeGetRequest from '@/app/utils/api/makeGetRequest'
-import { getResponse } from '@/app/real-estate-agents/join/onboard/stage/utils/common'
-import makePutRequest from '@/app/utils/api/makePutRequest'
-import { useRouter } from 'next-nprogress-bar'
-import { numberToNumeralSystem } from '@/app/utils/helpers'
+import makeGetRequest from '../../../../api/makeGetRequest'
+// import { getResponse } from '@/app/real-estate-agents/join/onboard/stage/utils/common'
+import makePutRequest from '../../../../api/makePutRequest'
+import ButtonPair from '../../../Auth/AgentComponents/admincompenets/ButtonPair'
+import AppImage from '../../../../AppComponents/AppImage'
+import AppButton from '../../../../AppComponents/AppButton-agent'
+import { numberToNumeralSystem } from '../../../Auth/AgentComponents/admincompenets'
+import { useNavigate } from 'react-router-dom'
 
 export const CreateTeamProvider = createContext({})
 
@@ -39,7 +43,7 @@ const EditTeamForm = ({
   newTeamForm: any
   id: string
 }) => {
-  const router = useRouter()
+  const router = useNavigate()
   const queryClient = useQueryClient()
   const [transactions, setTransactions] = useState('')
   const ref = useRef(null)
@@ -101,7 +105,7 @@ const EditTeamForm = ({
     {
       onSuccess: (res) => {
         const id = res?.data?.id
-        router.push(MAKE_ADMIN_TEAM_DETAIL_TAB(id))
+        router(MAKE_ADMIN_TEAM_DETAIL_TAB(id))
         queryClient.invalidateQueries([ADMIN_AGENT_TEAM_DETAIL(id)])
         toast.success('Team Details Updated Successfully')
       },
@@ -303,7 +307,7 @@ const EditTeamForm = ({
   ]
 
   const goToPrvPage = () => {
-    router.push(MAKE_ADMIN_TEAM_DETAIL_TAB(id))
+    router(MAKE_ADMIN_TEAM_DETAIL_TAB(id))
   }
 
   return (

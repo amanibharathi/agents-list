@@ -1,6 +1,6 @@
-import AppText from '@/app/components/elements/AppText'
+// import AppText from '@/app/components/elements/AppText'
 import { Box } from '@chakra-ui/react'
-import React from 'react'
+import AppText from '../../../AppComponents/AppText-agent'
 
 export const ColorTags = ({
   text,
@@ -20,7 +20,7 @@ export const ColorTags = ({
       style={{ backgroundColor: background }}
       className={`bg-[${background}] py-[6px] px-[12px] rounded-full ${className} inline-block max-w-fit`}
     >
-      <AppText
+      <AppText 
         style={{ color: textColor }}
         className={`!text-[${textColor}] text-[16px] ${fontClassName} font-[500] capitalize`}
         text={text}

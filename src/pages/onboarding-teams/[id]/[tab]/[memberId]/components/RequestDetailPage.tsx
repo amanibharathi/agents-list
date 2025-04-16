@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { RequestDetailCard } from './RequestDetailCard'
 import { GoArrowLeft } from 'react-icons/go'
-import { useRouter } from 'next-nprogress-bar'
-import AppText from '@/app/components/elements/AppText'
+import AppText from '../../../../../../AppComponents/AppText-agent'
 import { RequestDetailBox } from './RequestDetailBox'
 import { Flex, useDisclosure } from '@chakra-ui/react'
-import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
-import ConfirmDeleteTeamModal from '@/app/admin/agents/components/ListingComponents/ConfirmDeleteTeam'
+import ButtonPair from '../../../../../Auth/AgentComponents/admincompenets/ButtonPair'
+import { useNavigate } from 'react-router-dom'
+// import ConfirmDeleteTeamModal from '@/app/admin/agents/components/ListingComponents/ConfirmDeleteTeam'
 import { useMutation, useQueryClient } from 'react-query'
-import makePutRequest from '@/app/utils/api/makePutRequest'
+import makePutRequest from '../../../../../../api/makePutRequest'
 import toast from 'react-hot-toast'
 import {
   ADMIN_AGENT_TEAM_DETAIL,
   ADMIN_TEAM_REQUEST_LIST,
   ADMIN_TEAM_REQUEST_UPDATE,
-} from '@/app/api-utils'
-import { MAKE_ADMIN_TEAM_DETAIL_TAB } from '@/app/utils/navigation'
+} from '../../../../../../api-utils'
+import { MAKE_ADMIN_TEAM_DETAIL_TAB } from '../../../../../Auth/AgentComponents/navigation/urls'
+import ConfirmDeleteTeamModal from './ConfirmDeleteTeam'
 
 export const RequestDetailPage = ({
   data,
@@ -32,7 +33,7 @@ export const RequestDetailPage = ({
     isOpen: isRejectOpen,
     onClose: onRejectClose,
   } = useDisclosure()
-  const router = useRouter()
+  const router = useNavigate()
   const { mutate: requestMutate, isLoading: requestIsLoading } = useMutation(
     (body) =>
       makePutRequest(
@@ -46,7 +47,7 @@ export const RequestDetailPage = ({
         queryClient.invalidateQueries([ADMIN_TEAM_REQUEST_LIST(params?.id)])
         queryClient.invalidateQueries([ADMIN_AGENT_TEAM_DETAIL(params?.id)])
         toast.success(`Team request ${res?.data?.status} successfully`)
-        router.push(MAKE_ADMIN_TEAM_DETAIL_TAB(params?.id, params?.tab))
+        router(MAKE_ADMIN_TEAM_DETAIL_TAB(params?.id, params?.tab))
       },
     }
   )
@@ -83,7 +84,7 @@ export const RequestDetailPage = ({
     <div className="flex flex-col gap-[46px] py-[40px]">
       <div className="flex items-center gap-[25px]">
         <GoArrowLeft
-          onClick={() => router.back()}
+          onClick={() => router(-1)}
           fontSize={'24px'}
           className="cursor-pointer"
         />

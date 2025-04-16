@@ -1,52 +1,51 @@
 'use client'
 import { Box, Flex } from '@chakra-ui/react'
 import React, { createContext, useEffect, useMemo, useState } from 'react'
-import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
+import ButtonPair from '../../../Auth/AgentComponents/admincompenets/ButtonPair'
 import {
   MAKE_ACTIVE_TEAMS_LIST_PAGE,
   MAKE_ADMIN_TEAM_DETAIL_TAB,
-} from '@/app/utils/navigation'
+} from '../../../Auth/AgentComponents/navigation/urls'
 import { useMutation } from 'react-query'
 import {
   // ADMIN_AGENT_TEAM_CREATE,
   ADMIN_TEAM_CUD,
   ADMIN_TEAM_DOCUMENT_UPLOAD,
   GET_TEAM_AGENT_LIST,
-} from '@/app/api-utils'
-import makePostRequest from '@/app/utils/api/makePostRequest'
+} from '../../../../api-utils'
+import makePostRequest from '../../../../api/makePostRequest'
 import toast from 'react-hot-toast'
 import {
   ADMIN_AGENT_MLS_LIST,
   ADMIN_AGENT_STATE_LIST,
   // ADMIN_AGENT_TEAM_MEMBERS_LIST,
-} from '@/app/api-utils'
-import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
-import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
+} from '../../../../api-utils'
+// import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
+// import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
 import {
   addSpecialCharsForPhoneNumber,
   closedValueOptions,
   getFirstErrorMessage,
   removeSpecialChars,
   transformSelectData,
-} from '@/app/utils/functions/otherFunctions'
-import AdminFormWrapperTeam from '@/app/admin/_AdminComponent/AdminFormWrapperTeam'
-// import { AgentDetailSearch } from './AgentDetailSearch'
+} from '../../../../utils/functions/commonFunctions'
 import Select, { components } from 'react-select'
-import { useGetAgentList } from '@/app/hooks/useGetAgentList'
-import AppText from '@/app/components/elements/AppText'
-// import { AppSearchIcon } from '@/public/assets'
 import { GoSearch } from 'react-icons/go'
-import AppLoader from '@/app/components/elements/AppLoader'
-import { ExportUp } from '@/app/components/elements/ExportUp'
-// import AdminFileUpload from '@/app/admin/_AdminComponent/fileupload/AdminFileUpload'
-import MultiFileUpload from '@/app/admin/_AdminComponent/fileupload/MultiFileUpload'
-import { useRouter } from 'next-nprogress-bar'
-import { numberToNumeralSystem } from '@/app/utils/helpers'
+import useGetMetaFromApi from '../../../../utils/hooks/useGetMetaFromApi'
+import AdminInputRenderer from '../../../../login/adminlogin/AdminInputRenderer'
+import AdminFormWrapperTeam from '../../../../login/adminlogin/AdminFormWrapperTeam'
+import { useGetAgentList } from '../../../../utils/hooks/useGetAgentList'
+import AppText from '../../../../AppComponents/AppText-agent'
+import AppLoader from '../../../Auth/AgentComponents/admincompenets/AppLoader'
+import { ExportUp } from '../../[id]/[tab]/_TeamDocumentationTabModels/ExportUp'
+import MultiFileUpload from '../../../Auth/AgentComponents/admincompenets/MultiFileUpload'
+import { numberToNumeralSystem } from '../../../Auth/AgentComponents/admincompenets'
+import { useNavigate } from 'react-router-dom'
 
 export const CreateTeamProvider = createContext({})
 
 const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
-  const router = useRouter()
+  const router = useNavigate
   const [selectedAgent, setSelectAgent] = useState()
   const [transactions, setTransactions] = useState('')
 
@@ -55,7 +54,7 @@ const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
     {
       onSuccess: (res) => {
         const id = res?.data?.id
-        router.push(MAKE_ADMIN_TEAM_DETAIL_TAB(id))
+        router(MAKE_ADMIN_TEAM_DETAIL_TAB(id))
         toast.success('Team Created Successfully')
       },
       onError: (err) => {
@@ -267,7 +266,7 @@ const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
   )
 
   const goToPrvPage = () => {
-    router.push(MAKE_ACTIVE_TEAMS_LIST_PAGE())
+    router(MAKE_ACTIVE_TEAMS_LIST_PAGE())
   }
   const {
     // metaIsLoading,

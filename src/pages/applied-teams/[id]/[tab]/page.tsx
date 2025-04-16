@@ -1,6 +1,6 @@
-'use client'
+
 import { Box } from '@chakra-ui/react'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import TeamDocumentstab from './_tabsComponent/TeamDocumentstab'
 import TeamSystemLogsTab from './_tabsComponent/TeamSystemLogsTab'
 import TeamInformationTab from './_tabsComponent/TeamInformationTab'

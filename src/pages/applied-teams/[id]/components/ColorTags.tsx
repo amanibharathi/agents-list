@@ -1,6 +1,6 @@
-import AppText from '@/app/components/elements/AppText'
+// import AppText from '@/app/components/elements/AppText'
 import { Box } from '@chakra-ui/react'
-import React from 'react'
+import AppText from '../../../../AppComponents/AppText-agent'
 
 export const ColorTags = ({
   text,

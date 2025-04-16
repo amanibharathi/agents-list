@@ -1,16 +1,17 @@
-'use client'
+
 import { Box } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import DynamicTeamDetails from '../../components/DynamicTeamDetails'
 import { useQuery } from 'react-query'
-import { ADMIN_AGENT_TEAM_DETAIL } from '@/app/api-utils'
-import makeGetRequest from '@/app/utils/api/makeGetRequest'
+import { ADMIN_AGENT_TEAM_DETAIL } from '../../../../../api-utils'
+import makeGetRequest from '../../../../../api/makeGetRequest'
 import {
   addSpecialCharsForPhoneNumber,
+  getResponse,
   transformSelectData,
-} from '@/app/utils/functions/otherFunctions'
+} from '../../../../../utils/functions/commonFunctions'
 import { useMemo } from 'react'
-import { getResponse } from '@/app/real-estate-agents/join/onboard/stage/utils/common'
+// import { getResponse } from '@/app/real-estate-agents/join/onboard/stage/utils/common'
 
 const TeamInformationTab = ({
   params,
