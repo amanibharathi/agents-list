@@ -1,22 +1,18 @@
-'use client'
-import AdminFileUpload from '@/app/admin/_AdminComponent/fileupload/AdminFileUpload'
-import AppText from '@/app/components/elements/AppText'
-import CkAppModal from '@/app/components/modal/AppModal'
+
 import { Box, Checkbox, Flex } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { GrCloudUpload } from 'react-icons/gr'
-// import BulkUploadFileListUi from './BulkUploadFileListUi'
-import AppLoader from '@/app/components/elements/AppLoader'
-// import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
-import useGetTableList from '@/app/hooks/useGetTableList'
-import useHandlePagination from '@/app/hooks/useHandlePagination'
-import {
-  ADMIN_BULK_LIST_DOCUMENT,
-  ADMIN_BULK_LIST_DOCUMENT_META,
-  POST_AGENT_AND_TEAM_BULK_UPLOAD,
-} from '@/app/api-utils'
-import ListingTable from '@/app/components/table/ListingTable'
-import { useParams } from 'next/navigation'
+// import ListingTable from '@/app/components/table/ListingTable'
+import { useParams } from 'react-router-dom'
+import AdminFileUpload from '../../../../Auth/AgentComponents/fileupload/AdminFileUpload'
+import AppText from '../../../../../AppComponents/AppText-agent'
+import CkAppModal from '../../../../Auth/AgentComponents/admincompenets/AppModal'
+import AppLoader from '../../../../Auth/AgentComponents/admincompenets/AppLoader'
+import useGetTableList from '../../../../../utils/hooks/useGetTableList'
+import useHandlePagination from '../../../../../utils/hooks/useHandlePagination'
+import { ADMIN_BULK_LIST_DOCUMENT,  ADMIN_BULK_LIST_DOCUMENT_META,
+  POST_AGENT_AND_TEAM_BULK_UPLOAD, } from '../../../../../api-utils'
+import ListingTable from '../../../../Auth/AgentComponents/table/ListingTable'
 
 const BulkUploadTeamMembersModal = ({
   isOpen,

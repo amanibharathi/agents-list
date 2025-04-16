@@ -1,26 +1,24 @@
-'use client'
-import CkInput from '@/app/components/chakraOverwrites/CkInput'
-import CkSelect from '@/app/components/chakraOverwrites/CkSelect'
-import { splitByDotGetMany } from '@/app/utils/functions/otherFunctions'
-import { Box, Flex } from '@chakra-ui/react'
-import dynamic from 'next/dynamic'
-import React, { ReactNode, useMemo, useState } from 'react'
-import AdminFileUpload from './fileupload/AdminFileUpload'
-import AdminLabelToolTip from './AdminLabelToolTip/AdminLabelToolTip'
-import CkTextArea from '@/app/components/chakraOverwrites/CkTextArea'
-import { Checkbox, Text } from '@chakra-ui/react'
-import ReadOnlyDocsInputComponent from './ReadOnlyDocsInputComponent/ReadOnlyDocsInputComponent'
-// import AppRadioGroup from '@/app/components/elements/AppRadioGroup'
-import CustomRadio from '@/app/components/chakraOverwrites/CustomRadio'
-import AppButton from '@/app/components/elements/AppButton'
-import AppText from '@/app/components/elements/AppText'
-import MultiFileUpload from './fileupload/MultiFileUpload'
-import AppImage from '@/app/components/elements/AppImage'
-import SupportDocumentUpload from './fileupload/SupportDocumentUpload'
-import { CkCheckboxUsingController } from '@/app/components/chakraOverwrites/CkCheckboxUsingController'
-import Select from 'react-select'
-import { useGetMemberMlsList } from '@/app/hooks/useGetMemberList'
 
+import { Box, Flex } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
+import { ReactNode} from 'react'
+import { Checkbox, Text } from '@chakra-ui/react'
+import Select from 'react-select'
+import CkInput from '../../pages/Auth/AgentComponents/admincompenets/CkInput'
+import CkSelect from '../../pages/Auth/AgentComponents/admincompenets/CkSelect'
+import { splitByDotGetMany } from '../../utils/functions/commonFunctions'
+import AdminFileUpload from '../../pages/Auth/AgentComponents/fileupload/AdminFileUpload'
+import AdminLabelToolTip from '../../pages/Auth/AgentComponents/admincompenets/AdminLabelToolTip'
+import CkTextArea from '../../pages/Auth/AgentComponents/admincompenets/CkTextArea'
+import ReadOnlyDocsInputComponent from '../../pages/Auth/AgentComponents/admincompenets/ReadOnlyDocsInputComponent'
+import CustomRadio from '../../pages/Auth/AgentComponents/admincompenets/CustomRadio'
+import AppButton from '../../AppComponents/AppButton-agent'
+import AppText from '../../AppComponents/AppText-agent'
+import MultiFileUpload from '../../pages/Auth/AgentComponents/admincompenets/MultiFileUpload'
+import AppImage from '../../AppComponents/AppImage'
+import SupportDocumentUpload from '../../pages/Auth/AgentComponents/fileupload/SupportDocumentUpload'
+import { CkCheckboxUsingController } from '../../pages/Auth/AgentComponents/admincompenets/CkCheckboxUsingController'
+import { useGetMemberMlsList } from '../../utils/hooks/useGetMemberList'
 interface InputRendererProps {
   inputObj: {
     name: string
@@ -109,13 +107,13 @@ const AdminInputRenderer = ({
   labelContainerClassName = '',
   ...restProps
 }: InputRendererProps) => {
-  const QuillEditor = useMemo(
-    () =>
-      dynamic(() => import('../../components/ReactQuill/QuillEditorRaw'), {
-        ssr: false,
-      }),
-    []
-  )
+  const [QuillEditor, setQuillEditor] = useState<any>(null)
+
+  useEffect(() => {
+    import('./QuillEditorRaw').then((mod) => {
+      setQuillEditor(() => mod.default)
+    })
+  }, [])
   const { type, name, required, otherRegProps, ...rest } = inputObj
   const {
     groupedOptions: groupedOptionMls,
@@ -126,15 +124,15 @@ const AdminInputRenderer = ({
   } = useGetMemberMlsList()
   const customizeReg =
     type !== 'address' &&
-    type !== 'mls' &&
-    type !== 'license' &&
-    type !== 'custom-input'
+      type !== 'mls' &&
+      type !== 'license' &&
+      type !== 'custom-input'
       ? //@ts-ignore
-        register(`${noRegisterPrefix ? name : `data.${name}`}`, {
-          required: required ?? true,
-          //@ts-ignore
-          ...otherRegProps,
-        })
+      register(`${noRegisterPrefix ? name : `data.${name}`}`, {
+        required: required ?? true,
+        //@ts-ignore
+        ...otherRegProps,
+      })
       : ''
   const getInputField = () => {
     if (type == 'skip') return <div className="hidden md:block"></div>
@@ -404,7 +402,7 @@ const AdminInputRenderer = ({
           forceLabel={inputObj?.forceLabel}
           multiFiles={inputObj?.multiFiles}
           disabled={inputObj?.disabled}
-          // isError={false}
+        // isError={false}
         />
       )
 
@@ -421,7 +419,7 @@ const AdminInputRenderer = ({
           //@ts-ignore
           isError={errors?.[name]}
           customEndPoint={inputObj?.customEndPoint}
-          // isError={false}
+        // isError={false}
         />
       )
     if (type == 'support-doc-file')
@@ -475,9 +473,9 @@ const AdminInputRenderer = ({
               inputObj?.options && inputObj?.options?.length !== 0
                 ? inputObj?.options
                 : [
-                    { id: '1', label: 'Yes' },
-                    { id: '2', label: 'No' },
-                  ]
+                  { id: '1', label: 'Yes' },
+                  { id: '2', label: 'No' },
+                ]
             }
           />
         </div>
@@ -512,7 +510,7 @@ const AdminInputRenderer = ({
             inputControlClassName={inputControlClassName}
             //@ts-ignore
             readonly={inputObj?.readOnly}
-            // {...restProps}
+          // {...restProps}
           />
           <CkInput
             // @ts-ignore
@@ -533,7 +531,7 @@ const AdminInputRenderer = ({
             inputControlClassName={inputControlClassName}
             //@ts-ignore
             readonly={inputObj?.readOnly}
-            // {...restProps}
+          // {...restProps}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-[40px] gap-x-[20px]">
             <CkInput
@@ -555,7 +553,7 @@ const AdminInputRenderer = ({
               inputControlClassName={inputControlClassName}
               //@ts-ignore
               readonly={inputObj?.readOnly}
-              // {...restProps}
+            // {...restProps}
             />
             <CkSelect
               placeholder={'State'}
@@ -607,7 +605,7 @@ const AdminInputRenderer = ({
               inputControlClassName={inputControlClassName}
               //@ts-ignore
               readonly={inputObj?.readOnly}
-              // {...restProps}
+            // {...restProps}
             />
           </div>
         </div>
@@ -621,12 +619,12 @@ const AdminInputRenderer = ({
         value && value.length
           ? value
           : [
-              {
-                board: '',
-                membership: '',
-                mls_id: '',
-              },
-            ]
+            {
+              board: '',
+              membership: '',
+              mls_id: '',
+            },
+          ]
       )
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const [indexVal, setIndexVal] = useState(0)
@@ -668,7 +666,7 @@ const AdminInputRenderer = ({
       }
       const dependency = watch
         ? //@ts-ignore
-          watch(`data.question_${inputObj?.casecadeDepend?.tag}`)
+        watch(`data.question_${inputObj?.casecadeDepend?.tag}`)
         : null
       return (
         <div className="flex flex-col gap-[20px]">
@@ -748,7 +746,7 @@ const AdminInputRenderer = ({
                           }
                           maxLength={inputObj?.maxLength}
                           inputControlClassName={inputControlClassName}
-                          // {...restProps}
+                        // {...restProps}
                         />
                         <Select
                           inputId="mls-board-input"
@@ -820,7 +818,7 @@ const AdminInputRenderer = ({
                             inputControlClassName={inputControlClassName}
                             //@ts-ignore
                             readonly={inputObj?.readOnly}
-                            // {...restProps}
+                          // {...restProps}
                           />
                           <Select
                             inputId="mls-member-input"
@@ -848,19 +846,19 @@ const AdminInputRenderer = ({
                             isClearable
                             //@ts-ignore
                             isDisabled={inputObj?.readOnly}
-                            // isDisabled={
-                            //   //@ts-ignore
-                            //   watch && watch(`data.${name}.${index}.board`)?.value
-                            //     ? false
-                            //     : true
-                            // }
+                          // isDisabled={
+                          //   //@ts-ignore
+                          //   watch && watch(`data.${name}.${index}.board`)?.value
+                          //     ? false
+                          //     : true
+                          // }
                           />
                           {
                             //@ts-ignore
                             errors[name] && errors[name][index]?.membership && (
                               <AppText
                                 className="text-[11px] mt-[1px] !text-[#e53e3e]"
-                                // pos={'absolute'}
+                              // pos={'absolute'}
                               >
                                 Select the value
                               </AppText>
@@ -904,7 +902,7 @@ const AdminInputRenderer = ({
                           inputControlClassName={inputControlClassName}
                           //@ts-ignore
                           readonly={inputObj?.readOnly}
-                          // {...restProps}
+                        // {...restProps}
                         />
                       </div>
                       {/* <div className="flex flex-col gap-[16px]">
@@ -1257,7 +1255,7 @@ const AdminInputRenderer = ({
       //@ts-ignore
       const dependency = watch
         ? //@ts-ignore
-          watch(`data.question_${inputObj?.casecadeDepend?.tag}`)
+        watch(`data.question_${inputObj?.casecadeDepend?.tag}`)
         : null
       //@ts-ignore
       const selectVal = (index: number) => watch(`data.${name}.${index}.state`)
@@ -1335,28 +1333,28 @@ const AdminInputRenderer = ({
                       value:
                         value && value.length !== 0
                           ? {
-                              id:
-                                selectVal(index)?.id ||
-                                selectVal(index)?.value ||
-                                each?.state?.id ||
-                                null,
-                              label:
-                                selectVal(index)?.identity ||
-                                selectVal(index)?.label ||
-                                each?.state?.label ||
-                                each?.state?.identity ||
-                                null,
-                              identity:
-                                selectVal(index)?.identity ||
-                                selectVal(index)?.label ||
-                                each?.state?.identity ||
-                                null,
-                              value:
-                                selectVal(index)?.id ||
-                                selectVal(index)?.value ||
-                                each?.state?.id ||
-                                null,
-                            }
+                            id:
+                              selectVal(index)?.id ||
+                              selectVal(index)?.value ||
+                              each?.state?.id ||
+                              null,
+                            label:
+                              selectVal(index)?.identity ||
+                              selectVal(index)?.label ||
+                              each?.state?.label ||
+                              each?.state?.identity ||
+                              null,
+                            identity:
+                              selectVal(index)?.identity ||
+                              selectVal(index)?.label ||
+                              each?.state?.identity ||
+                              null,
+                            value:
+                              selectVal(index)?.id ||
+                              selectVal(index)?.value ||
+                              each?.state?.id ||
+                              null,
+                          }
                           : undefined,
                     })}
                     //@ts-ignore
@@ -1401,7 +1399,7 @@ const AdminInputRenderer = ({
                     inputControlClassName={inputControlClassName}
                     //@ts-ignore
                     readonly={inputObj?.readOnly}
-                    // {...restProps}
+                  // {...restProps}
                   />
                   {/* <div className="flex flex-col gap-[16px]">
                     <label
@@ -1463,7 +1461,7 @@ const AdminInputRenderer = ({
                       inputControlClassName={inputControlClassName}
                       //@ts-ignore
                       readonly={inputObj?.readOnly}
-                      // {...restProps}
+                    // {...restProps}
                     />
                   </div>
                 </div>

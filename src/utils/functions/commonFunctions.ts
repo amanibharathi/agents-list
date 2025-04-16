@@ -503,3 +503,37 @@ export const getResponseBasedOnInputType = (inputType: any, data: any) => {
   }
   return data?.response
 }
+export const formatDateTime = (datetimeStr: string) => {
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  }
+  const dt = new Date(datetimeStr)
+  return dt.toLocaleDateString('en-US', options)
+}
+export function upperToLowercaseInString(str: string) {
+  return str?.replace(
+    /\b[A-Z]+\b/g,
+    (word) => word[0] + word.slice(1).toLowerCase()
+  )
+}
+export function getNextMonthText(dateString) {
+  return moment(dateString, 'YYYY-MM-DD').add(1, 'month').format('MMMM')
+}
+export function transformSelectData(item) {
+  if (!item || typeof item !== 'object') return null
+
+  const id = item?.id ?? ''
+  const identity = item?.identity ?? ''
+
+  return {
+    id,
+    identity,
+    label: identity,
+    value: id,
+  }
+}

@@ -1,17 +1,7 @@
-'use client'
-import DropDownButton from '@/app/admin/_AdminComponent/DropDownButton'
-import PageHeader from '@/app/admin/_AdminComponent/PageHeader'
-import {
-  GET_ADMIN_TEAM_MEMBERS_LIST,
-  GET_ADMIN_TEAM_MEMBERS_LIST_META,
-  // ADMIN_TEAM_LIST_SEND_INVITE,
-  // GET_ADMINS_AGENT_ROLE_META,
-  ADMIN_AGENT_TEAM_LIST,
-  POST_REASSIGN_TEAM_MEMBER,
-} from '@/app/api-utils'
-import ListingTable from '@/app/components/table/ListingTable'
-import useGetTableList from '@/app/hooks/useGetTableList'
-import useHandlePagination from '@/app/hooks/useHandlePagination'
+
+// import ListingTable from '@/app/components/table/ListingTable'
+// import useGetTableList from '@/app/hooks/useGetTableList'
+// import useHandlePagination from '@/app/hooks/useHandlePagination'
 import {
   Box,
   Flex,
@@ -21,7 +11,7 @@ import {
   MenuList,
   useDisclosure,
 } from '@chakra-ui/react'
-import React, {
+import {
   useCallback,
   useEffect,
   useMemo,
@@ -33,29 +23,29 @@ import { IoPersonAddOutline } from 'react-icons/io5'
 import { HiOutlineDotsHorizontal } from 'react-icons/hi'
 import { useMutation } from 'react-query'
 import toast from 'react-hot-toast'
-import { useSearchParams } from 'next/navigation'
-import {
-  ADMIN_TEAM_MEMBERS_INDIVIDUAL_PAGE,
-  MAKE_TEAM_ROSTER_LIST_PAGE,
-} from '@/app/utils/navigation'
-// import AppButton from '@/app/components/elements/AppButton'
-import makePostRequest from '@/app/utils/api/makePostRequest'
-import AdminSerachComponent from '@/app/admin/_AdminComponent/AdminSerachComponent'
-import AdminFilterRenderer from '@/app/(dashboards)/components/AdminFilterRenderer'
-import { useDebounce } from '@/app/hooks/useDebounce'
-import {
-  commissionPlanOptions,
-  debouncerTimeAdmin,
-} from '@/app/utils/functions/otherFunctions'
-import CkAppModal from '@/app/components/modal/AppModal'
-import ModalRejectComponent from '@/app/admin/agents/onboarding-agents/[id]/components/modal-reject-component'
-import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
-import { AdminListFilterContext } from '@/app/provider/AdminListFilterProvider'
-import AppText from '@/app/components/elements/AppText'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ConfirmRemoveAgentModal } from '../_TeamDocumentationTabModels/ConfirmRemoveAgentModal'
-import { useRouter } from 'next-nprogress-bar'
 import TeamDocumentationTabModals from '../_TeamDocumentationTabModels/TeamDocumentationTabModals'
-import { getorigin } from '@/app/(dashboards)/agent/agent-website/[tabs]/_tabComponents/services'
+// import { getorigin } from '@/app/(dashboards)/agent/agent-website/[tabs]/_tabComponents/services'
+import DropDownButton from '../../../../../login/adminlogin/DropDownButton'
+import PageHeader from '../../../../onboarding-agents/[id]/documents/PageHeader'
+import { GET_ADMIN_TEAM_MEMBERS_LIST,ADMIN_AGENT_TEAM_LIST,
+  POST_REASSIGN_TEAM_MEMBER,GET_ADMIN_TEAM_MEMBERS_LIST_META, } from '../../../../../api-utils'
+import ListingTable from '../../../../Auth/AgentComponents/table/ListingTable'
+import useGetTableList from '../../../../../utils/hooks/useGetTableList'
+import useHandlePagination from '../../../../../utils/hooks/useHandlePagination'
+import { ADMIN_TEAM_MEMBERS_INDIVIDUAL_PAGE, MAKE_TEAM_ROSTER_LIST_PAGE, } from '../../../../Auth/AgentComponents/navigation/urls'
+import makePostRequest from '../../../../../api/makePostRequest'
+import AdminSerachComponent from '../../../../../login/adminlogin/AdminSerachComponent'
+import AdminFilterRenderer from '../../../../Auth/AgentComponents/admincompenets/AdminFilterRenderer'
+import { useDebounce } from '../../../../../utils/hooks/useDebounce'
+import { commissionPlanOptions,debouncerTimeAdmin } from '../../../../../utils/functions/commonFunctions'
+import CkAppModal from '../../../../Auth/AgentComponents/admincompenets/AppModal'
+import ModalRejectComponent from '../../../../onboarding-agents/[id]/components/modal-reject-component'
+import useGetMetaFromApi from '../../../../../utils/hooks/useGetMetaFromApi'
+import { AdminListFilterContext } from '../../../../Auth/AgentComponents/admincompenets/AdminListFilterProvider'
+import AppText from '../../../../../AppComponents/AppText-agent'
+import { getorigin } from './services'
 
 const TeamInformationTab = ({
   params,
@@ -67,7 +57,7 @@ const TeamInformationTab = ({
   // @ts-ignore
   const { AppliedTeamsRosterFilterForm } = useContext(AdminListFilterContext)
 
-  const searchParams = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const agent_status: any = searchParams.get('agent_status')
   const cap: any = searchParams.get('cap')
@@ -89,7 +79,7 @@ const TeamInformationTab = ({
   }, [watch('agent_status'), watch('cap'), watch('role'), watch('split')])
 
   const { isOpen, onClose } = useDisclosure()
-  const router = useRouter()
+  const router = useNavigate()
   const searchValue = watch('search')
   const debouncedValue = useDebounce(searchValue, debouncerTimeAdmin)
   const {
@@ -256,7 +246,7 @@ const TeamInformationTab = ({
           label: 'Edit Team member Details',
           onClick: () =>
             //@ts-ignore
-            router.push(
+            router(
               ADMIN_TEAM_MEMBERS_INDIVIDUAL_PAGE(params?.id, obj?.id)
             ),
         },
@@ -341,7 +331,7 @@ const TeamInformationTab = ({
   //   sendLinkMutate(bdy)
   // }
   const handleTabClick = (obj: any) => {
-    router.push(ADMIN_TEAM_MEMBERS_INDIVIDUAL_PAGE(params?.id, obj?.id))
+    router(ADMIN_TEAM_MEMBERS_INDIVIDUAL_PAGE(params?.id, obj?.id))
   }
 
   const inputFields = useMemo(

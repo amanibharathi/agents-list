@@ -1,19 +1,18 @@
-import CkAppModal from '@/app/components/modal/AppModal'
-import React from 'react'
+
 import { AgentProfileHeader } from '../[memberId]/components/AgentProfileHeader'
-import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
+// import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
 import { Flex } from '@chakra-ui/react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import makeDeleteRequest from '@/app/utils/api/makeDeleteRequest'
+// import makeDeleteRequest from '@/app/utils/api/makeDeleteRequest'
 import {
   ADMIN_AGENT_DETAIL_GET,
   ADMIN_AGENT_TEAM_DETAIL,
   ADMIN_TEAM_MEMBER_DELETE,
   ADMIN_TEAM_MEMBER_DELETE_META,
   GET_ADMIN_TEAM_MEMBERS_LIST,
-} from '@/app/api-utils'
+} from '../../../../../api-utils'
 import toast from 'react-hot-toast'
-import makeGetRequest from '@/app/utils/api/makeGetRequest'
+// import makeGetRequest from '@/app/utils/api/makeGetRequest'
 import AppText from '@/app/components/elements/AppText'
 import AppLink from '@/app/components/elements/AppLink'
 import {
@@ -21,6 +20,10 @@ import {
   MAKE_ADMIN_TEAM_DETAIL_TAB,
 } from '@/app/utils/navigation'
 import { useRouter } from 'next-nprogress-bar'
+import CkAppModal from '../../../../Auth/AgentComponents/admincompenets/AppModal'
+import ButtonPair from '../../../../Auth/AgentComponents/admincompenets/ButtonPair'
+import makeDeleteRequest from '../../../../../api/makeDeleteRequest'
+import makeGetRequest from '../../../../../api/makeGetRequest'
 
 export const ConfirmRemoveAgentModal = ({
   isOpen,

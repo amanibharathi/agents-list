@@ -1,25 +1,26 @@
-import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
-import MultiFileUpload from '@/app/admin/_AdminComponent/fileupload/MultiFileUpload'
+
 import {
   ADMIN_TEAM_DOCUMENT_LIST,
   ADMIN_TEAM_DOCUMENT_UPLOAD,
   ADMIN_TEAM_DOCUMENT_UPLOAD_CREATE,
   ADMIN_TEAM_MEMBER_DETAIL,
   GET_ADMIN_TEAM_MEMBERS_LIST,
-} from '@/app/api-utils'
-import AppLoader from '@/app/components/elements/AppLoader'
-import AppText from '@/app/components/elements/AppText'
-import { ExportUp } from '@/app/components/elements/ExportUp'
-import CkAppModal from '@/app/components/modal/AppModal'
-import { useGetAgentList } from '@/app/hooks/useGetAgentList'
-import makePostRequest from '@/app/utils/api/makePostRequest'
-import { getFirstErrorMessage } from '@/app/utils/functions/otherFunctions'
+} from '../../../../../api-utils'
 import { Box, Radio, RadioGroup, Flex, Text, Avatar } from '@chakra-ui/react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { GoChevronDown } from 'react-icons/go'
 import { useMutation, useQueryClient } from 'react-query'
 import Select, { components } from 'react-select'
+import ButtonPair from '../../../../Auth/AgentComponents/admincompenets/ButtonPair'
+import MultiFileUpload from '../../../../Auth/AgentComponents/admincompenets/MultiFileUpload'
+import AppLoader from '../../../../Auth/AgentComponents/admincompenets/AppLoader'
+import AppText from '../../../../../AppComponents/AppText-agent'
+import { ExportUp } from './ExportUp'
+import CkAppModal from '../../../../Auth/AgentComponents/admincompenets/AppModal'
+import { useGetAgentList } from '../../../../../utils/hooks/useGetAgentList'
+import makePostRequest from '../../../../../api/makePostRequest'
+import { getFirstErrorMessage } from '../../../../../utils/functions/commonFunctions'
 
 type DocumentUploaderProps = {
   documentTypes: string[]

@@ -1,5 +1,5 @@
-import CkAppModal from '@/app/components/modal/AppModal'
-import React, { useEffect, useMemo, useState } from 'react'
+// import CkAppModal from '@/app/components/modal/AppModal'
+import { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   ADMIN_AGENT_TEAM_DETAIL,
@@ -7,25 +7,24 @@ import {
   ADMIN_TEAM_MEMBER_UPDATE_META,
   GET_ADMIN_TEAM_MEMBERS_LIST,
   GET_TEAM_AGENT_LIST,
-} from '@/app/api-utils'
+} from '../../../../../api-utils'
 import { Flex } from '@chakra-ui/react'
-import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
-// import AppButton from '@/app/components/elements/AppButton'
-// import { VscSaveAs } from 'react-icons/vsc'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import makeGetRequest from '@/app/utils/api/makeGetRequest'
-import makePostRequest from '@/app/utils/api/makePostRequest'
+import makeGetRequest from '../../../../../api/makeGetRequest'
+import makePostRequest from '../../../../../api/makePostRequest'
 import {
   commissionPlanOptions,
   debouncerTimeAdmin,
   getFirstErrorMessage,
   transformSelectData,
-} from '@/app/utils/functions/otherFunctions'
+} from '../../../../../utils/functions/commonFunctions'
 import toast from 'react-hot-toast'
 import AddATeamMemberModalStep1 from './AddATeamMemberModalStep2'
 import AddATeamMemberModalStep2 from './AddATeamMemberModalStep1'
-import { useDebounce } from '@/app/hooks/useDebounce'
-import useGetTableList from '@/app/hooks/useGetTableList'
+import CkAppModal from '../../../../Auth/AgentComponents/admincompenets/AppModal'
+import ButtonPair from '../../../../Auth/AgentComponents/admincompenets/ButtonPair'
+import { useDebounce } from '../../../../../utils/hooks/useDebounce'
+import useGetTableList from '../../../../../utils/hooks/useGetTableList'
 
 const AddATeamMemberModal = ({
   isOpen,

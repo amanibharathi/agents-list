@@ -1,12 +1,12 @@
-import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
+// import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
 import { Box, Divider, Flex } from '@chakra-ui/react'
-import React from 'react'
 import { AgentProfileHeader } from '../[memberId]/components/AgentProfileHeader'
-import MultiFileUpload from '@/app/admin/_AdminComponent/fileupload/MultiFileUpload'
-import AppLoader from '@/app/components/elements/AppLoader'
-import { ExportUp } from '@/app/components/elements/ExportUp'
-import AppText from '@/app/components/elements/AppText'
-import { ADMIN_TEAM_DOCUMENT_UPLOAD } from '@/app/api-utils'
+import AdminInputRenderer from '../../../../../login/adminlogin/AdminInputRenderer'
+import MultiFileUpload from '../../../../Auth/AgentComponents/admincompenets/MultiFileUpload'
+import AppLoader from '../../../../Auth/AgentComponents/admincompenets/AppLoader'
+import { ExportUp } from './ExportUp'
+import AppText from '../../../../../AppComponents/AppText-agent'
+import { ADMIN_TEAM_DOCUMENT_UPLOAD } from '../../../../../api-utils'
 
 const AddATeamMemberModalStep2 = ({
   formUtil,

@@ -1,28 +1,26 @@
-import CkAppModal from '@/app/components/modal/AppModal'
-import React, { useMemo, useState } from 'react'
+// import CkAppModal from '@/app/components/modal/AppModal'
+import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-  ADMIN_AGENT_STATE_LIST,
+import { Flex } from '@chakra-ui/react'
+// import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import toast from 'react-hot-toast'
+import { PiPaperPlaneTilt } from 'react-icons/pi'
+import AddATeamMemberModalStep2 from './AddATeamMemberModalStep1'
+// import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
+import CkAppModal from '../../../../Auth/AgentComponents/admincompenets/AppModal'
+import { ADMIN_AGENT_STATE_LIST,
   ADMIN_AGENT_TEAM_DETAIL,
   ADMIN_TEAM_MEMBER_CREATE,
   ADMIN_TEAM_MEMBER_UPDATE_META,
-  GET_ADMIN_TEAM_MEMBERS_LIST,
-} from '@/app/api-utils'
-import { Flex } from '@chakra-ui/react'
-import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import makeGetRequest from '@/app/utils/api/makeGetRequest'
-import makePostRequest from '@/app/utils/api/makePostRequest'
-import toast from 'react-hot-toast'
-import {
-  commissionPlanOptions,
-  getFirstErrorMessage,
+  GET_ADMIN_TEAM_MEMBERS_LIST, } from '../../../../../api-utils'
+import ButtonPair from '../../../../Auth/AgentComponents/admincompenets/ButtonPair'
+import makeGetRequest from '../../../../../api/makeGetRequest'
+import makePostRequest from '../../../../../api/makePostRequest'
+import { commissionPlanOptions,getFirstErrorMessage,
   removeSpecialChars,
-  validateName,
-} from '@/app/utils/functions/otherFunctions'
-import { PiPaperPlaneTilt } from 'react-icons/pi'
-import AddATeamMemberModalStep2 from './AddATeamMemberModalStep1'
-import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
+  validateName, } from '../../../../../utils/functions/commonFunctions'
+import useGetMetaFromApi from '../../../../../utils/hooks/useGetMetaFromApi'
 
 const AddANewMemberModal = ({
   isOpen,

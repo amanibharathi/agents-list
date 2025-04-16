@@ -1,12 +1,12 @@
-'use client'
-import PageHeader from '@/app/admin/_AdminComponent/PageHeader'
+
+import PageHeader from '../../../../onboarding-agents/[id]/documents/PageHeader'
 import {
   ADMIN_TEAM_REQUEST_LIST,
   ADMIN_TEAM_REQUEST_LIST_META,
-} from '@/app/api-utils'
-import ListingTable from '@/app/components/table/ListingTable'
-import useGetTableList from '@/app/hooks/useGetTableList'
-import useHandlePagination from '@/app/hooks/useHandlePagination'
+} from '../../../../../api-utils'
+import ListingTable from '../../../../Auth/AgentComponents/table/ListingTable'
+import useGetTableList from '../../../../../utils/hooks/useGetTableList'
+import useHandlePagination from '../../../../../utils/hooks/useHandlePagination'
 import {
   Box,
   Flex,
@@ -15,21 +15,21 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
-import React, { useCallback, useContext, useEffect } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { HiOutlineDotsHorizontal } from 'react-icons/hi'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'react-router-dom'
 import {
   ADMIN_TEAM_REQUEST_INDIVIDUAL_PAGE,
   ADMIN_TEAM_REQUEST_LISTING,
-} from '@/app/utils/navigation'
-import AdminSerachComponent from '@/app/admin/_AdminComponent/AdminSerachComponent'
-import AdminFilterRenderer from '@/app/(dashboards)/components/AdminFilterRenderer'
-import { useDebounce } from '@/app/hooks/useDebounce'
-import { debouncerTimeAdmin } from '@/app/utils/functions/otherFunctions'
-import { AdminListFilterContext } from '@/app/provider/AdminListFilterProvider'
-import AppText from '@/app/components/elements/AppText'
-import { useRouter } from 'next-nprogress-bar'
+} from '../../../../Auth/AgentComponents/navigation/urls'
+import AdminSerachComponent from '../../../../../login/adminlogin/AdminSerachComponent'
+import AdminFilterRenderer from '../../../../Auth/AgentComponents/admincompenets/AdminFilterRenderer'
+import { useDebounce } from '../../../../../utils/hooks/useDebounce'
+import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
+import { debouncerTimeAdmin } from '../../../../../utils/functions/commonFunctions'
+import { AdminListFilterContext } from '../../../../Auth/AgentComponents/admincompenets/AdminListFilterProvider'
+import AppText from '../../../../../AppComponents/AppText-agent'
 
 const TeamRequestTab = ({
   params,
@@ -41,8 +41,8 @@ const TeamRequestTab = ({
     AdminListFilterContext
   )
 
-  const searchParams = useSearchParams()
-  const router = useRouter()
+  const [searchParams] = useSearchParams()
+  const router = useNavigate()
 
   const status: any = searchParams.get('status')
   const requestType = searchParams.get('request_type')
@@ -51,7 +51,7 @@ const TeamRequestTab = ({
   const { register, control, watch, setValue } = AppliedTeamsRosterFilterForm
 
   useEffect(() => {
-    router.push(
+    router(
       ADMIN_TEAM_REQUEST_LISTING(
         params?.id,
         watch('request_type')?.value,
@@ -116,7 +116,7 @@ const TeamRequestTab = ({
           label: 'View Request',
           onClick: () =>
             //@ts-ignore
-            router.push(
+            router(
               ADMIN_TEAM_REQUEST_INDIVIDUAL_PAGE(params?.id, obj?.id)
             ),
         },
@@ -181,7 +181,7 @@ const TeamRequestTab = ({
 
   const handleTabClick = (obj: any) => {
     obj?.status != 'cancelled' &&
-      router.push(ADMIN_TEAM_REQUEST_INDIVIDUAL_PAGE(params?.id, obj?.id))
+      router(ADMIN_TEAM_REQUEST_INDIVIDUAL_PAGE(params?.id, obj?.id))
   }
 
   return (

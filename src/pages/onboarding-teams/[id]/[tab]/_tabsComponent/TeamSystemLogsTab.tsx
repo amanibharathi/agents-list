@@ -1,11 +1,5 @@
-import AdminFormWrapper from '@/app/admin/_AdminComponent/AdminFormWrapper'
-import AdminHeaderWithButtons from '@/app/admin/_AdminComponent/AdminHeaderWithButtons'
-import { GET_TEAM_ACTIVITY_LOG_LIST } from '@/app/api-utils'
-import DateRangePicker from '@/app/components/DateRangePicker'
-import AppButton from '@/app/components/elements/AppButton'
-import AppText from '@/app/components/elements/AppText'
-import LoaderLayout from '@/app/components/layouts/loaderLayout/LoaderLayout'
-import makeGetRequest from '@/app/utils/api/makeGetRequest'
+
+import { GET_TEAM_ACTIVITY_LOG_LIST } from '../../../../../api-utils'
 import {
   Step,
   StepIndicator,
@@ -15,8 +9,15 @@ import {
   useSteps,
 } from '@chakra-ui/react'
 import moment from 'moment'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
+import AdminFormWrapper from '../../../../../login/adminlogin/AdminFormWrapper'
+import AdminHeaderWithButtons from '../../../../../login/adminlogin/AdminHeaderWithButtons'
+import DateRangePicker from '../../../../Auth/AgentComponents/admincompenets/DateRangePicker'
+import AppButton from '../../../../../AppComponents/AppButton-agent'
+import AppText from '../../../../../AppComponents/AppText-agent'
+import LoaderLayout from '../../../../Auth/AgentComponents/table/LoaderLayout'
+import makeGetRequest from '../../../../../api/makeGetRequest'
 
 const TeamSystemLogsTab = ({
   params,

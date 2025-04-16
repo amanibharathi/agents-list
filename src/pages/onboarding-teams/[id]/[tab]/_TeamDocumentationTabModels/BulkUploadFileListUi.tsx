@@ -1,8 +1,8 @@
-import AppText from '@/app/components/elements/AppText'
-import { getFileName } from '@/app/utils/functions/otherFunctions'
+
 import { Box, CloseButton, Flex } from '@chakra-ui/react'
 import { FileIcon } from '@radix-ui/react-icons'
-import React from 'react'
+import AppText from '../../../../../AppComponents/AppText-agent'
+import { getFileName } from '../../../../../utils/functions/commonFunctions'
 
 const BulkUploadFileListUi = ({
   fileUrl,

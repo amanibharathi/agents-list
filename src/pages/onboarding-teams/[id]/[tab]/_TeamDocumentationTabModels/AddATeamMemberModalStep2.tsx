@@ -1,8 +1,9 @@
-import AppText from '@/app/components/elements/AppText'
+// import AppText from '@/app/components/elements/AppText'
 import { Box } from '@chakra-ui/react'
-import React from 'react'
 import SearchResults from './SearchResultsComp'
-import AdminSerachComponent from '@/app/admin/_AdminComponent/AdminSerachComponent'
+// import AdminSerachComponent from '@/app/admin/_AdminComponent/AdminSerachComponent'
+import AppText from '../../../../../AppComponents/AppText-agent'
+import AdminSerachComponent from '../../../../../login/adminlogin/AdminSerachComponent'
 
 const AddATeamMemberModalStep1 = ({
   setSelectedAgentFrom1,

@@ -1,17 +1,4 @@
-import AdminSerachComponent from '@/app/admin/_AdminComponent/AdminSerachComponent'
-import PageHeader from '@/app/admin/_AdminComponent/PageHeader'
-import {
-  // ADMIN_AGENT_TEAM_UPDATE,
-  ADMIN_TEAM_DOCUMENT_LIST,
-  ADMIN_TEAM_DOCUMENT_LIST_META,
-  // AGENT_TEAM_DOCUMENT_POST,
-} from '@/app/api-utils'
-import AppButton from '@/app/components/elements/AppButton'
-import ListingTable from '@/app/components/table/ListingTable'
-import { useDebounce } from '@/app/hooks/useDebounce'
-import useGetTableList from '@/app/hooks/useGetTableList'
-import useHandlePagination from '@/app/hooks/useHandlePagination'
-import { debouncerTimeAdmin } from '@/app/utils/functions/otherFunctions'
+
 import {
   Box,
   Flex,
@@ -22,16 +9,26 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { UploadIcon } from '@radix-ui/react-icons'
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import CommonDocumentUploadModal from '../_TeamDocumentationTabModels/CommonDocumentUploadModal'
 import DocumentRemoveModal from '../_TeamDocumentationTabModels/DocumentsRemoveModal'
 import { HiOutlineDotsHorizontal } from 'react-icons/hi'
-import AdminFilterRenderer from '@/app/(dashboards)/components/AdminFilterRenderer'
-import { AdminListFilterContext } from '@/app/provider/AdminListFilterProvider'
-import { useRouter } from 'next-nprogress-bar'
-import { ADMIN_TEAM_DOCUMENT_LISTING } from '@/app/utils/navigation'
-import { useSearchParams } from 'next/navigation'
+// import { ADMIN_TEAM_DOCUMENT_LISTING } from '@/app/utils/navigation'
+import { useSearchParams } from 'react-router-dom'
 import moment from 'moment'
+import AdminSerachComponent from '../../../../../login/adminlogin/AdminSerachComponent'
+import { ADMIN_TEAM_DOCUMENT_LIST,ADMIN_TEAM_DOCUMENT_LIST_META, } from '../../../../../api-utils'
+import AppButton from '../../../../../AppComponents/AppButton-agent'
+import PageHeader from '../../../../onboarding-agents/[id]/documents/PageHeader'
+import ListingTable from '../../../../Auth/AgentComponents/table/ListingTable'
+import { useDebounce } from '../../../../../utils/hooks/useDebounce'
+import useGetTableList from '../../../../../utils/hooks/useGetTableList'
+import useHandlePagination from '../../../../../utils/hooks/useHandlePagination'
+import { debouncerTimeAdmin } from '../../../../../utils/functions/commonFunctions'
+import AdminFilterRenderer from '../../../../Auth/AgentComponents/admincompenets/AdminFilterRenderer'
+import { AdminListFilterContext } from '../../../../Auth/AgentComponents/admincompenets/AdminListFilterProvider'
+import { useNavigate } from 'react-router-dom'
+import { ADMIN_TEAM_DOCUMENT_LISTING } from '../../../../Auth/AgentComponents/navigation/urls'
 // import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
 
 const TeamDocumentstab = ({
@@ -44,14 +41,14 @@ const TeamDocumentstab = ({
     AdminListFilterContext
   )
   const { register, control, watch, setValue } = AppliedTeamsRosterFilterForm
-  const router = useRouter()
+  const router = useNavigate()
 
   const { page, handleMaxPage, max, handlePaginationClick, setPage } =
     useHandlePagination()
 
   const searchValue = watch('search')
   const debouncedValue = useDebounce(searchValue, debouncerTimeAdmin)
-  const searchParams = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const uploaded_by: any = searchParams.get('uploaded_by')
   const document_type: any = searchParams.get('document_type')
@@ -109,7 +106,7 @@ const TeamDocumentstab = ({
   }
 
   useEffect(() => {
-    router.push(
+    router(
       ADMIN_TEAM_DOCUMENT_LISTING(
         'onboarding-teams',
         params?.id,
