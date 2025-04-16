@@ -6,14 +6,14 @@ import makeGetRequest from '../../api/makeGetRequest'
 
 
 export function useGetMemberMlsList() {
-  const [searchVal, setSearchVal] = useState('')
-  const [selectedBoarded, setSelectedBoarded] = useState('')
-  const debouncedValue = useDebounce(searchVal, 300) || ''
+  const [searchVal, setSearchVal] = useState("");
+  const [selectedBoarded, setSelectedBoarded] = useState("");
+  const debouncedValue = useDebounce(searchVal, 300) || "";
   const apiEndPoint =
-    '/meta/mls/list/' +
-    '?search=' +
+    "/meta/mls/list/" +
+    "?search=" +
     debouncedValue +
-    (selectedBoarded !== '' ? '&state=' + selectedBoarded : '')
+    (selectedBoarded !== "" ? "&state=" + selectedBoarded : "");
   // const {
   //   isLoading: metaIsLoading,
   //   data: metaData,
@@ -44,29 +44,29 @@ export function useGetMemberMlsList() {
       }),
     initialPageParam: 0,
     onError: (err) => {
-      toast.error('Error occured while getting search meta')
+      toast.error("Error occured while getting search meta");
       //@ts-ignore
-      console.error(err)
+      console.error(err);
     },
     //@ts-ignore
     getPreviousPageParam: (firstPage) => firstPage?.data?.previous ?? undefined,
     //@ts-ignore
     getNextPageParam: (lastPage) => {
       if (lastPage?.data?.next) {
-        const urlObj = new URL(lastPage?.data?.next)
-        const page = urlObj.searchParams.get('page')
-        return page ?? undefined
+        const urlObj = new URL(lastPage?.data?.next);
+        const page = urlObj.searchParams.get("page");
+        return page ?? undefined;
       } else {
-        return undefined
+        return undefined;
       }
     },
     enabled: !!debouncedValue,
-  })
+  });
   const loadMoreOptions = () => {
     if (hasNextPage && !isFetchingNextPage) {
-      fetchNextPage()
+      fetchNextPage();
     }
-  }
+  };
 
   // const modifyOptionsForSearch = useCallback(
   //   (opt: any) => {
@@ -82,19 +82,19 @@ export function useGetMemberMlsList() {
 
   const modifyOptionsForSearch2 = useCallback(
     (opt: any) => {
-      const spread = opt?.map((each: any) => each?.data?.results)
-      const options = spread?.flat()
+      const spread = opt?.map((each: any) => each?.data?.results);
+      const options = spread?.flat();
       return options?.map((m: any) => ({
-        label: m?.identity + (m?.code ? ` (${m?.code})` : ''),
+        label: m?.identity + (m?.code ? ` (${m?.code})` : ""),
         value: m?.id,
-        identity: m?.identity + (m?.code ? ` (${m?.code})` : ''),
+        identity: m?.identity + (m?.code ? ` (${m?.code})` : ""),
         id: m?.id,
-      }))
+      }));
     },
     [data?.pages]
-  )
+  );
 
-  const groupedOptions = modifyOptionsForSearch2(data?.pages)
+  const groupedOptions = modifyOptionsForSearch2(data?.pages);
 
   // const groupedOptions = modifyOptionsForSearch(metaData?.data?.results)
   return {
@@ -108,5 +108,5 @@ export function useGetMemberMlsList() {
     loadMoreOptions,
     isFetchingNextPage,
     isLoading,
-  }
+  };
 }

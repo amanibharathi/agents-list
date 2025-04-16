@@ -12,11 +12,11 @@ import LoginBottomLink from '../LoginForms/LoginBottomLink'
 import { ADMIN_LOGIN, MAKE_ABSOLUTE_URL } from '../../pages/Auth/AgentComponents/navigation/urls'
 
 const AdminSetPasswordBox = () => {
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [searchParams] = useSearchParams()
-  const resetPassId = searchParams.get('id')
-  const resetPassToken = searchParams.get('token')
-  const navigate = useNavigate()
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [searchParams] = useSearchParams();
+  const resetPassId = searchParams.get("id");
+  const resetPassToken = searchParams.get("token");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -24,54 +24,54 @@ const AdminSetPasswordBox = () => {
     watch,
     formState: { errors },
     handleSubmit,
-  } = useForm()
+  } = useForm();
 
   const { isLoading, mutate, error } = useMutation({
     mutationFn: (body: any) =>
       makePostRequest(POST_RESET_PASSWORD(resetPassId, resetPassToken), body),
     onSuccess: () => {
-      setIsSuccess(true)
+      setIsSuccess(true);
     },
     onError: () => {
-      setIsSuccess(false)
+      setIsSuccess(false);
     },
-  })
+  });
 
   const inputList = [
     {
-      label: 'Enter Password',
-      name: 'password',
-      placeholder: '******',
+      label: "Enter Password",
+      name: "password",
+      placeholder: "******",
       isPassword: true,
       otherRegProps: {
         minLength: {
           value: 8,
-          message: 'Password must be at least 8 characters long',
+          message: "Password must be at least 8 characters long",
         },
       },
     },
     {
-      label: 'Re-enter Password',
-      name: 'confirm_password',
-      placeholder: '******',
+      label: "Re-enter Password",
+      name: "confirm_password",
+      placeholder: "******",
       isPassword: true,
       otherRegProps: {
         validate: (value: any) =>
-          value === watch('password') || 'Passwords do not match',
+          value === watch("password") || "Passwords do not match",
       },
     },
-  ]
+  ];
 
   const handleFormSubmit = (val: unknown) => {
     const dataToSubmit = {
       // @ts-ignore
       ...val,
-    }
-    mutate(dataToSubmit)
-  }
+    };
+    mutate(dataToSubmit);
+  };
 
-  const onSuccess = (val: unknown) => handleFormSubmit(val)
-  const onError = (err: unknown) => console.error('Error occured', err)
+  const onSuccess = (val: unknown) => handleFormSubmit(val);
+  const onError = (err: unknown) => console.error("Error occured", err);
 
   return (
     <div>
@@ -81,7 +81,7 @@ const AdminSetPasswordBox = () => {
             className="text-center font-[500] text-[18px] mb-[29px]"
             text="Reset Your Password"
           />
-          <Flex gap={'14px'} flexFlow={'column'}>
+          <Flex gap={"14px"} flexFlow={"column"}>
             {inputList?.map((i) => (
               <InputRenderer
                 className="w-full max-w-[510px]"
@@ -119,7 +119,7 @@ const AdminSetPasswordBox = () => {
           />
           <AppText
             text={
-              'Your password has been successfully reset. Click the link below to login with your new password:'
+              "Your password has been successfully reset. Click the link below to login with your new password:"
             }
             className="text-[10px] md:text-[14px] text-center text-[#1D273B] mb-[6px] md:mb-[8px]"
           />
@@ -133,7 +133,7 @@ const AdminSetPasswordBox = () => {
         </Box>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default AdminSetPasswordBox
+export default AdminSetPasswordBox;

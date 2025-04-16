@@ -1,11 +1,11 @@
 import { useMutation } from 'react-query'
 
-import toast from 'react-hot-toast'
+import toast from "react-hot-toast";
 
-import makePostRequest from '../../api/makePostRequest'
-import { POST_FILE } from '../../api-utils'
-import { getFileUploadErrorMsg } from '../functions/commonFunctions'
-import makePatchRequest from '../../api/makePatchRequest'
+import makePostRequest from "../../api/makePostRequest";
+import { POST_FILE } from "../../api-utils";
+import { getFileUploadErrorMsg } from "../functions/commonFunctions";
+import makePatchRequest from "../../api/makePatchRequest";
 
 const useUploadFiles = ({
   key,
@@ -15,15 +15,15 @@ const useUploadFiles = ({
   customEndPoint,
   isForm = false,
 }: {
-  key?: string
-  fileTypeKey?: string
-  onSuccess?: (res: any) => void
-  onError?: (err: any) => void
-  customEndPoint?: string
-  isForm?: boolean
+  key?: string;
+  fileTypeKey?: string;
+  onSuccess?: (res: any) => void;
+  onError?: (err: any) => void;
+  customEndPoint?: string;
+  isForm?: boolean;
 }) => {
   //@ts-ignore
-  const API = customEndPoint ? customEndPoint : POST_FILE(key, fileTypeKey)
+  const API = customEndPoint ? customEndPoint : POST_FILE(key, fileTypeKey);
   const {
     isLoading: fileIsLoading,
     // isError,
@@ -50,7 +50,7 @@ const useUploadFiles = ({
     }
   )
 
-  return { fileMutate, fileIsLoading }
-}
+  return { fileMutate, fileIsLoading };
+};
 
-export default useUploadFiles
+export default useUploadFiles;

@@ -1,25 +1,25 @@
-import makePostRequest from '../../api/makePostRequest'
-import { Flex } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
-import { POST_LOGIN_API } from '../../api-utils'
-import AppButton from '../../AppComponents/AppButton-agent'
-import AppText from '../../AppComponents/AppText-agent'
-import useManageCookies from '../../utils/hooks/useSetCookiesOnSuccess'
-import { getErrorMsg } from '../../utils/functions/commonFunctions'
-import { ADMIN_DASHBOARD, MAKE_ABSOLUTE_URL } from '../../pages/Auth/AgentComponents/navigation/urls'
-import InputRenderer from './InputRenderer'
+import makePostRequest from "../../api/makePostRequest";
+import { Flex } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { POST_LOGIN_API } from "../../api-utils";
+import AppButton from "../../AppComponents/AppButton-agent";
+import AppText from "../../AppComponents/AppText-agent";
+import useManageCookies from "../../utils/hooks/useSetCookiesOnSuccess";
+import { getErrorMsg } from "../../utils/functions/commonFunctions";
+import { ADMIN_DASHBOARD } from "../../pages/Auth/AgentComponents/navigation/urls";
+import InputRenderer from "./InputRenderer";
+import { useMutation } from "react-query";
 
 const AdminLoginComp = ({
   // comp,
   setComp,
 }: {
   // comp: unknown
-  setComp: unknown
+  setComp: unknown;
 }) => {
-  const { handleSetCookiesOnSuccess } = useManageCookies()
-  const navigate = useNavigate()
+  const { handleSetCookiesOnSuccess } = useManageCookies();
+  const navigate = useNavigate();
   const {
     register,
     control,
@@ -27,49 +27,51 @@ const AdminLoginComp = ({
     handleSubmit,
   } = useForm({
     defaultValues: {
-      phone: '',
+      phone: "",
     },
-  })
+  });
 
-  const { isLoading, mutate, error } = useMutation({
-    mutationFn: (body: any) => makePostRequest(POST_LOGIN_API, body),
-    onSuccess: (res) => {
-      handleSetCookiesOnSuccess(res)
-      navigate(ADMIN_DASHBOARD)
-    },
-  })
+  const { isLoading, mutate, error } = useMutation(
+    (body: any) => makePostRequest(POST_LOGIN_API, body),
+    {
+      onSuccess: (res) => {
+        handleSetCookiesOnSuccess(res);
+        navigate(ADMIN_DASHBOARD);
+      },
+    }
+  );
 
   const inputList = [
     {
-      label: 'Email address',
-      name: 'email',
-      placeholder: 'your@email.com',
+      label: "Email address",
+      name: "email",
+      placeholder: "your@email.com",
       otherRegProps: {
         pattern: {
           pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,20})+$/,
-          message: 'Invalid email address',
+          message: "Invalid email address",
         },
       },
     },
     {
-      label: 'Password',
-      name: 'password',
-      placeholder: 'your password',
+      label: "Password",
+      name: "password",
+      placeholder: "your password",
       isPassword: true,
     },
-  ]
+  ];
 
   const handleFormSubmit = (val: unknown) => {
     const dataToSubmit = {
       //@ts-ignore
       ...val,
-      type: 'admin',
-    }
-    mutate(dataToSubmit)
-  }
+      type: "admin",
+    };
+    mutate(dataToSubmit);
+  };
 
-  const onSuccess = (val: unknown) => handleFormSubmit(val)
-  const onError = (err: unknown) => console.error('Error occured', err)
+  const onSuccess = (val: unknown) => handleFormSubmit(val);
+  const onError = (err: unknown) => console.error("Error occured", err);
 
   return (
     <div>
@@ -78,7 +80,7 @@ const AdminLoginComp = ({
           className="text-center font-[500] text-[18px] mb-[29px]"
           text="Login to your account"
         />
-        <Flex gap={'14px'} flexFlow={'column'}>
+        <Flex gap={"14px"} flexFlow={"column"}>
           {inputList?.map((i) => (
             <InputRenderer
               className="w-full max-w-[510px]"
@@ -94,7 +96,7 @@ const AdminLoginComp = ({
         </Flex>
         <AppText
           //@ts-ignore
-          onClick={() => setComp('forgot-password')}
+          onClick={() => setComp("forgot-password")}
           className="!text-[#206BC4] cursor-pointer text-center text-[14px] mt-[10px]"
           text="Forgot Password?"
         />
@@ -115,7 +117,7 @@ const AdminLoginComp = ({
         />
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default AdminLoginComp
+export default AdminLoginComp;

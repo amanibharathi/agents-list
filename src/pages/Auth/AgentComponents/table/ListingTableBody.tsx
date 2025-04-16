@@ -1,4 +1,3 @@
-
 import {
   Box,
   Checkbox,
@@ -9,10 +8,10 @@ import {
   MenuList,
   SimpleGrid,
   Text,
-} from '@chakra-ui/react'
-import { DownloadIcon } from '@radix-ui/react-icons'
-import { HiOutlineDotsHorizontal } from 'react-icons/hi'
-import { appColors } from '../admincompenets/appColors'
+} from "@chakra-ui/react";
+import { DownloadIcon } from "@radix-ui/react-icons";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { appColors } from "../admincompenets/appColors";
 //import { appColors } from '@/app/theme/foundations/appColors'
 function ListingTableBody({
   tableData,
@@ -38,22 +37,22 @@ function ListingTableBody({
   customButtonFunction,
 }) {
   return (
-    <Flex bg={'white'} flexFlow={'column'}>
+    <Flex bg={"white"} flexFlow={"column"}>
       {tableData?.data?.results?.map((data, ind) => (
         <SimpleGrid
           _hover={{
-            bg: '#2b5cab12',
+            bg: "#2b5cab12",
           }}
-          borderTop={'1px solid #61687629'}
-          borderBottom={'1px solid #61687629'}
+          borderTop={"1px solid #61687629"}
+          borderBottom={"1px solid #61687629"}
           key={data?.uuid} // py="15px"
           // columns={selectable ? 2 : 1}
           gridTemplateColumns={getColumnSize}
-          alignItems={'center'}
+          alignItems={"center"}
           px="20px"
         >
           {selectable && (
-            <Text textAlign={'center'} className="w-[50px]">
+            <Text textAlign={"center"} className="w-[50px]">
               <Checkbox
                 py="15px"
                 onChange={(e) => handleSeletced(e?.target?.checked, data)}
@@ -62,69 +61,71 @@ function ListingTableBody({
             </Text>
           )}
           <SimpleGrid
-            alignItems={'center'}
+            alignItems={"center"}
             py="15px"
             role="button"
             gap="40px"
             onClick={() => {
               if (handleRowClick) {
-                handleRowClick(data?.id, data)
+                handleRowClick(data?.id, data);
               } else {
-                undefined
+                undefined;
               }
               if (handleTabClick) {
-                handleTabClick(data)
+                handleTabClick(data);
               }
             }}
-            gridTemplateColumns={getRowTemplateColumn()}
+            gridTemplateColumns={
+              getRowTemplateColumn() ? getRowTemplateColumn() : undefined
+            }
             columns={getRowColumn()}
           >
             {includeIndex && (
-              <Text color={'#000000'} fontSize={'15px'} textAlign={'center'}>
+              <Text color={"#000000"} fontSize={"15px"} textAlign={"center"}>
                 {ind + 1}
               </Text>
             )}
             {keysToMap?.map((key) => (
               <Text
-                color={'#000000'}
-                fontSize={'15px'}
+                color={"#000000"}
+                fontSize={"15px"}
                 key={key}
-                textAlign={'left'}
+                textAlign={"left"}
                 // className="truncate"
               >
                 {/* {JSON.stringify(data[key])} */}
                 {customizeDataView(
-                  data?.[`${key}`]?.toString() || '-',
+                  data?.[`${key}`]?.toString() || "-",
                   key,
                   data
-                ) || '-'}
+                ) || "-"}
               </Text>
             ))}
             {editPermissions && (
               <Text
                 role="button"
                 onClick={() => handleEditClick(data?.uuid)}
-                textAlign={'center'}
+                textAlign={"center"}
               >
                 {/* {JSON.stringify(data[head])} */}
-                {'Edit'}
+                {"Edit"}
               </Text>
             )}
           </SimpleGrid>
           {customActions
             ? customActions?.map((_) => (
                 <Box
-                  cursor={'pointer'}
+                  cursor={"pointer"}
                   color={appColors.appPrimary[600]}
-                  textDecoration={'underline'}
+                  textDecoration={"underline"}
                   onClick={() => _?.handler(data, ind)}
                   key={_?.text}
-                  textTransform={'uppercase'}
+                  textTransform={"uppercase"}
                   fontWeight={600}
-                  fontSize={'12px'}
-                  textAlign={'center'}
-                  display={'flex'}
-                  justifyContent={'center'}
+                  fontSize={"12px"}
+                  textAlign={"center"}
+                  display={"flex"}
+                  justifyContent={"center"}
                 >
                   {_?.text}
                 </Box>
@@ -133,8 +134,8 @@ function ListingTableBody({
           {downloadable ? (
             <Flex
               onClick={() => handleDownload(data, ind)}
-              justifyContent={'center'}
-              alignItems={'center'}
+              justifyContent={"center"}
+              alignItems={"center"}
             >
               <DownloadIcon color={appColors.appPrimary[600]} role="button" />
             </Flex>
@@ -143,9 +144,9 @@ function ListingTableBody({
             <Menu>
               <MenuButton
                 w="fit-content"
-                display={'flex'}
-                justifyContent={'center'}
-                margin={'auto'}
+                display={"flex"}
+                justifyContent={"center"}
+                margin={"auto"}
               >
                 <HiOutlineDotsHorizontal />
               </MenuButton>
@@ -163,9 +164,9 @@ function ListingTableBody({
           ) : null}
           {toggleButton ? (
             <Box
-              cursor={'pointer'}
+              cursor={"pointer"}
               color={appColors.appPrimary[600]}
-              textDecoration={'underline'}
+              textDecoration={"underline"}
               onClick={() =>
                 toggleButton?.handler(
                   data?.[toggleButton?.key1] === data?.[toggleButton?.key2] ??
@@ -175,15 +176,14 @@ function ListingTableBody({
                 )
               }
               key={_?.text}
-              textTransform={'uppercase'}
+              textTransform={"uppercase"}
               fontWeight={600}
-              fontSize={'12px'}
-              textAlign={'center'}
-              display={'flex'}
-              justifyContent={'center'}
+              fontSize={"12px"}
+              textAlign={"center"}
+              display={"flex"}
+              justifyContent={"center"}
             >
-              {(data?.[toggleButton?.key1] === data?.[toggleButton?.key2] ??
-              true)
+              {data?.[toggleButton?.key1] === data?.[toggleButton?.key2] ?? true
                 ? toggleButton?.text_while_in_false
                 : toggleButton?.text_while_in_true}
             </Box>
@@ -193,7 +193,7 @@ function ListingTableBody({
         </SimpleGrid>
       ))}
     </Flex>
-  )
+  );
 }
 
-export default ListingTableBody
+export default ListingTableBody;
