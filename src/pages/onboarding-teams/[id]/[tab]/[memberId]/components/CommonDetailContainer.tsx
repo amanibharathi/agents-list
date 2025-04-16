@@ -1,25 +1,31 @@
-import AppText from "@/app/components/elements/AppText";
-import { Box, Divider, Flex, useDisclosure } from "@chakra-ui/react";
-import React, { useState } from "react";
-import AdminInputRenderer from "@/app/admin/_AdminComponent/AdminInputRenderer";
-import { UseFormReturn } from "react-hook-form";
-import AppButton from "@/app/components/elements/AppButton";
-import { FaFileArrowUp } from "react-icons/fa6";
-import { AgentProfileHeader } from "./AgentProfileHeader";
-import CommonDocumentUploadModal from "../../_TeamDocumentationTabModels/CommonDocumentUploadModal";
-import { DocumentFile } from "@/app/icons/DocumentFile";
-import { DownloadGreen } from "@/app/icons/DownloadGreen";
-import { DeleteRed } from "@/app/icons/DeleteRed";
-import { useMutation } from "react-query";
-import makePostRequest from "@/app/utils/api/makePostRequest";
-import { ADMIN_TEAM_DOCUMENT_UPLOAD_DELETE } from "@/app/api-utils";
-import toast from "react-hot-toast";
+import AppText from '../../../../../../AppComponents/AppText-agent'
+import { Box, Divider, Flex, useDisclosure } from '@chakra-ui/react'
+import { useState } from 'react'
+// import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
+import { UseFormReturn } from 'react-hook-form'
+// import AppButton from '@/app/components/elements/AppButton'
+import { FaFileArrowUp } from 'react-icons/fa6'
+import { AgentProfileHeader } from './AgentProfileHeader'
+import CommonDocumentUploadModal from '../../_TeamDocumentationTabModels/CommonDocumentUploadModal'
+// import { DocumentFile } from '@/app/icons/DocumentFile'
+// import { DownloadGreen } from '@/app/icons/DownloadGreen'
+// import { DeleteRed } from '@/app/icons/DeleteRed'
+import { useMutation } from 'react-query'
+import makePostRequest from '../../../../../../api/makePostRequest'
+import { ADMIN_TEAM_DOCUMENT_UPLOAD_DELETE } from '../../../../../../api-utils'
+import toast from 'react-hot-toast'
 import {
   downloadFile,
   formatDate,
   getFirstErrorMessage,
-} from "@/app/utils/functions/otherFunctions";
-import AppLoader from "@/app/components/layouts/AppLoader";
+} from '../../../../../../utils/functions/commonFunctions'
+// import AppLoader from '@/app/components/layouts/AppLoader'
+import AdminInputRenderer from '../../../../../../login/adminlogin/AdminInputRenderer'
+import AppButton from '../../../../../../AppComponents/AppButton-agent'
+import { DocumentFile } from '../../../../../Auth/AgentComponents/admincompenets/DocumentFile'
+import { DownloadGreen } from '../../../../../Auth/AgentComponents/admincompenets/DownloadGreen'
+import { DeleteRed } from '../../../../../Auth/AgentComponents/admincompenets/DeleteRed'
+import AppLoader from '../../../../../Auth/AgentComponents/admincompenets/AppLoader'
 
 export const CommonDetailContainer = ({
   data,

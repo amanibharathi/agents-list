@@ -1,34 +1,34 @@
-"use client";
-import AdminFormWrapper from "@/app/admin/_AdminComponent/AdminFormWrapper";
-import { Box, Flex, useDisclosure } from "@chakra-ui/react";
-import React, { createContext, useEffect, useMemo, useState } from "react";
-
-import ButtonPair from "@/app/admin/_AdminComponent/ButtonPair/ButtonPair";
-import { useRouter } from "next/navigation";
+import AdminFormWrapper from '../../../../login/adminlogin/AdminFormWrapper'
+import { Box, Flex, useDisclosure } from '@chakra-ui/react'
+import { createContext, useEffect, useMemo, useState } from 'react'
+import ButtonPair from '../../../Auth/AgentComponents/admincompenets/ButtonPair'
+import { useNavigate } from 'react-router-dom'
 import {
   ADMIN_AGENTS_LISTING,
   MAKE_ADMIN_TEAM_DETAIL_TAB,
-} from "@/app/utils/navigation";
-import { useMutation } from "react-query";
+} from '../../../Auth/AgentComponents/navigation/urls'
+import { useMutation } from 'react-query'
 import {
   ADMIN_AGENT_BOARD_LIST,
   ADMIN_AGENT_TEAM_CREATE,
-} from "@/app/api-utils";
-import makePostRequest from "@/app/utils/api/makePostRequest";
-import toast from "react-hot-toast";
-import AddTeamMembersModal from "./AddTeamMembersModal";
-import AddTeamMembersTable from "./AddTeamMembersTable";
+} from '../../../../api-utils'
+import makePostRequest from '../../../../api/makePostRequest'
+import toast from 'react-hot-toast'
+import AddTeamMembersModal from './AddTeamMembersModal'
+import AddTeamMembersTable from './AddTeamMembersTable'
 import {
   ADMIN_AGENT_MLS_LIST,
   ADMIN_AGENT_STATE_LIST,
   ADMIN_AGENT_TEAM_MEMBERS_LIST,
-} from "@/app/api-utils";
-import useGetMetaFromApi from "@/app/hooks/admin/useGetMetaFromApi";
-import AdminInputRenderer from "@/app/admin/_AdminComponent/AdminInputRenderer";
+} from '../../../../api-utils'
+// import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
+// import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
 import {
   getFirstErrorMessage,
   removeSpecialChars,
-} from "@/app/utils/functions/otherFunctions";
+} from '../../../../utils/functions/commonFunctions'
+import useGetMetaFromApi from '../../../../utils/hooks/useGetMetaFromApi'
+import AdminInputRenderer from '../../../../login/adminlogin/AdminInputRenderer'
 
 export const CreateTeamProvider = createContext({});
 
@@ -37,14 +37,14 @@ const CreateTeamFormContainerAndProvider = ({
 }: {
   newTeamForm: any;
 }) => {
-  const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [tableData, setTableData] = useState([]);
-  const [selectedData, setSelectedData] = useState([]);
-  const watchData = newTeamForm.watch("data");
-  const adminData = watchData?.team_admin;
-  const leaderData = watchData?.team_leader;
-  const membersData = watchData?.team_members;
+  const router = useNavigate()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [tableData, setTableData] = useState([])
+  const [selectedData, setSelectedData] = useState([])
+  const watchData = newTeamForm.watch('data')
+  const adminData = watchData?.team_admin
+  const leaderData = watchData?.team_leader
+  const membersData = watchData?.team_members
 
   useEffect(() => {
     // Combine adminData, leaderData, and tableData into a new array
@@ -64,9 +64,9 @@ const CreateTeamFormContainerAndProvider = ({
     (body) => makePostRequest(ADMIN_AGENT_TEAM_CREATE, body),
     {
       onSuccess: (res) => {
-        const id = res?.data?.id;
-        router.push(MAKE_ADMIN_TEAM_DETAIL_TAB(id));
-        toast.success("Team Created Successfully");
+        const id = res?.data?.id
+        router(MAKE_ADMIN_TEAM_DETAIL_TAB(id))
+        toast.success('Team Created Successfully')
       },
       onError: (err) => {
         //@ts-expect-error ignore
@@ -248,8 +248,8 @@ const CreateTeamFormContainerAndProvider = ({
   }, [metaData, agentsMemberOptions]);
 
   const goToPrvPage = () => {
-    router.push(ADMIN_AGENTS_LISTING);
-  };
+    router(ADMIN_AGENTS_LISTING)
+  }
 
   return (
     <div>

@@ -1,10 +1,10 @@
-"use client";
-import { Box } from "@chakra-ui/react";
-import React, { useMemo } from "react";
-import TeamInformationTab from "./_tabsComponent/TeamInformationTab";
-import TeamDocumentstab from "./_tabsComponent/TeamDocumentstab";
-import TeamSystemLogsTab from "./_tabsComponent/TeamSystemLogsTab";
-import TeamRequestTab from "./_tabsComponent/TeamRequestTab";
+
+import { Box } from '@chakra-ui/react'
+import  { useMemo } from 'react'
+import TeamInformationTab from './_tabsComponent/TeamInformationTab'
+import TeamDocumentstab from './_tabsComponent/TeamDocumentstab'
+import TeamSystemLogsTab from './_tabsComponent/TeamSystemLogsTab'
+import TeamRequestTab from './_tabsComponent/TeamRequestTab'
 
 const Page = ({ params }: { params: { tab: string; id: string } }) => {
   const comp = useMemo(() => {

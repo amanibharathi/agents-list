@@ -1,7 +1,9 @@
-import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
-import AppText from '@/app/components/elements/AppText'
-import React, { useEffect } from 'react'
+// import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
+// import AppText from '@/app/components/elements/AppText'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import AppText from '../../../../../../AppComponents/AppText-agent'
+import AdminInputRenderer from '../../../../../Auth/AgentComponents/admincompenets/AdminInputRenderer'
 
 export const EditFieldDetails = ({
   data,

@@ -1,14 +1,16 @@
-import AppText from '@/app/components/elements/AppText'
-import { DocumentFile } from '@/app/icons/DocumentFile'
-import { DownloadGreen } from '@/app/icons/DownloadGreen'
+// import AppText from '@/app/components/elements/AppText'
+// import { DocumentFile } from '@/app/icons/DocumentFile'
+// import { DownloadGreen } from '@/app/icons/DownloadGreen'
 import {
   downloadFile,
   formatDate,
   truncateString,
-} from '@/app/utils/functions/otherFunctions'
+} from '../../../../../../utils/functions/commonFunctions'
 import { Box, Flex } from '@chakra-ui/react'
-import React from 'react'
 import { ColorTags } from '../../../../components/ColorTags'
+import AppText from '../../../../../../AppComponents/AppText-agent'
+import { DocumentFile } from '../../../../../Auth/AgentComponents/admincompenets/DocumentFile'
+import { DownloadGreen } from '../../../../../Auth/AgentComponents/admincompenets/DownloadGreen'
 
 export const NewAndRemovedDocumentsList = ({
   documents,

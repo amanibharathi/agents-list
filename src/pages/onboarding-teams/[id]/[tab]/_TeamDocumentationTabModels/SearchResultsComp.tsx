@@ -1,14 +1,12 @@
-import AppText from '@/app/components/elements/AppText'
-import EmailatIcon from '@/app/icons/emailatIcon'
-import PhoneIcon from '@/app/icons/phoneIcon'
-import {
-  formatToUSPhone,
-  truncateString,
-} from '@/app/utils/functions/otherFunctions'
+
 import { Avatar } from '@chakra-ui/react'
 import React from 'react'
 import { FaCircleCheck } from 'react-icons/fa6'
 import { Skeleton, SkeletonCircle } from '@chakra-ui/react'
+import AppText from '../../../../../AppComponents/AppText-agent'
+import EmailatIcon from '../../../../Auth/AgentComponents/admincompenets/emailatIcon'
+import PhoneIcon from '../../../../Auth/AgentComponents/admincompenets/phoneIcon'
+import { truncateString,formatToUSPhone, } from '../../../../../utils/functions/commonFunctions'
 
 type SearchResult = {
   label: string

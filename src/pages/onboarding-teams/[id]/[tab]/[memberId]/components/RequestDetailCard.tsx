@@ -1,9 +1,8 @@
-import AppText from "@/app/components/elements/AppText";
-import { Flex } from "@chakra-ui/react";
-import React from "react";
-import { ColorTags } from "../../../../components/ColorTags";
-import { LeaderCard } from "./LeaderCard";
-import { formatDateWithMonth } from "@/app/utils/functions/otherFunctions";
+import AppText from '../../../../../../AppComponents/AppText-agent'
+import { Flex } from '@chakra-ui/react'
+import { ColorTags } from '../../../../components/ColorTags'
+import { LeaderCard } from './LeaderCard'
+import { formatDateWithMonth } from '../../../../../../utils/functions/commonFunctions'
 
 export const RequestDetailCard = ({ data }: { data: any }) => {
   const detail = [

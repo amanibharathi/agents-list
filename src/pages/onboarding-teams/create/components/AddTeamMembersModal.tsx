@@ -1,24 +1,26 @@
-import CkAppModal from "@/app/components/modal/AppModal";
-import React, { useMemo } from "react";
-import AddATeamMemberModalStep1 from "../../[id]/[tab]/_TeamDocumentationTabModels/AddATeamMemberModalStep1";
-import { useForm } from "react-hook-form";
+// import CkAppModal from '@/app/components/modal/AppModal'
+import { useMemo } from 'react'
+import AddATeamMemberModalStep1 from '../../[id]/[tab]/_TeamDocumentationTabModels/AddATeamMemberModalStep1'
+import { useForm } from 'react-hook-form'
 import {
   ADMIN_CREATE_TEAM_MEMBER_AGENT,
   GET_ADMINS_AGENT_CREATION_META,
   GET_ADMINS_ONBOARD_TYPE_META,
-} from "@/app/api-utils";
-import useGetCreateMeta from "@/app/hooks/useGetCreateMeta";
-import { Flex } from "@chakra-ui/react";
-import { useMutation, useQuery } from "react-query";
-import makeGetRequest from "@/app/utils/api/makeGetRequest";
-import makePostRequest from "@/app/utils/api/makePostRequest";
+} from '../../../../api-utils'
+// import useGetCreateMeta from '@/app/hooks/useGetCreateMeta'
+import { Flex } from '@chakra-ui/react'
+import { useMutation, useQuery } from 'react-query'
+import makeGetRequest from '../../../../api/makeGetRequest'
+import makePostRequest from '../../../../api/makePostRequest'
 import {
   getFirstErrorMessage,
   removeSpecialChars,
   validateName,
-} from "@/app/utils/functions/otherFunctions";
-import toast from "react-hot-toast";
-import ButtonPair from "@/app/admin/_AdminComponent/ButtonPair/ButtonPair";
+} from '../../../../utils/functions/commonFunctions'
+import toast from 'react-hot-toast'
+import ButtonPair from '../../../Auth/AgentComponents/admincompenets/ButtonPair'
+import CkAppModal from '../../../Auth/AgentComponents/admincompenets/AppModal'
+import useGetCreateMeta from '../../../../utils/hooks/useGetCreateMeta'
 const AddTeamMembersModal = ({
   isOpen,
   onClose,

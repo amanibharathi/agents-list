@@ -537,3 +537,22 @@ export function transformSelectData(item) {
     value: id,
   };
 }
+export function formatDate(isoString) {
+  const date = new Date(isoString)
+  const month = String(date.getMonth() + 1).padStart(2, '0') // Months are zero-based
+  const day = String(date.getDate()).padStart(2, '0')
+  const year = date.getFullYear()
+
+  return `${month}/${day}/${year}`
+}
+export function formatDateWithMonth(isoString) {
+  const date = new Date(isoString)
+  const options = { year: 'numeric', month: 'short', day: '2-digit' }
+  return date.toLocaleDateString('en-US', options)
+}
+export const closedValueOptions = [
+  { label: '< $1 Million', value: '< $1 Million' },
+  { label: '$1 Million - $2 Million', value: '$1 Million - $2 Million' },
+  { label: '$2 Million - $5 Million', value: '$2 Million - $5 Million' },
+  { label: '$5 Million', value: '$5 Million' },
+]

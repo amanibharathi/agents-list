@@ -1,20 +1,15 @@
-import ButtonPair from "@/app/admin/_AdminComponent/ButtonPair/ButtonPair";
-import {
-  ADMIN_TEAM_DOCUMENT_LIST,
-  ADMIN_TEAM_DOCUMENT_UPLOAD_DELETE,
-} from "@/app/api-utils";
-import AppText from "@/app/components/elements/AppText";
-import CkAppModal from "@/app/components/modal/AppModal";
-import { DeleteRed } from "@/app/icons/DeleteRed";
-import { DocumentFile } from "@/app/icons/DocumentFile";
-import makePostRequest from "@/app/utils/api/makePostRequest";
-import {
-  formatDate,
-  getFirstErrorMessage,
-} from "@/app/utils/functions/otherFunctions";
-import { Box, Flex } from "@chakra-ui/react";
-import toast from "react-hot-toast";
-import { useMutation, useQueryClient } from "react-query";
+
+import { Box, Flex } from '@chakra-ui/react'
+import toast from 'react-hot-toast'
+import { useMutation, useQueryClient } from 'react-query'
+import ButtonPair from '../../../../Auth/AgentComponents/admincompenets/ButtonPair'
+import { ADMIN_TEAM_DOCUMENT_LIST,ADMIN_TEAM_DOCUMENT_UPLOAD_DELETE, } from '../../../../../api-utils'
+import AppText from '../../../../../AppComponents/AppText-agent'
+import CkAppModal from '../../../../Auth/AgentComponents/admincompenets/AppModal'
+import { DeleteRed } from '../../../../Auth/AgentComponents/admincompenets/DeleteRed'
+import { DocumentFile } from '../../../../Auth/AgentComponents/admincompenets/DocumentFile'
+import makePostRequest from '../../../../../api/makePostRequest'
+import { formatDate,getFirstErrorMessage, } from '../../../../../utils/functions/commonFunctions'
 
 type DocumentUploaderProps = {
   isOpen: boolean;

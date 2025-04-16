@@ -1,15 +1,16 @@
-'use client'
-import React, { useState } from 'react'
+
+import { useState } from 'react'
 import { CommonTeamMemberDetail } from './components/CommonTeamMemberDetail'
 import { useQuery } from 'react-query'
 import {
   ADMIN_TEAM_MEMBER_DETAIL,
   ADMIN_TEAM_MEMBER_UPDATE_META,
   ADMIN_TEAM_REQUEST_DETAIL,
-} from '@/app/api-utils'
-import makeGetRequest from '@/app/utils/api/makeGetRequest'
-import AdminContainer from '@/app/admin/_AdminComponent/AdminContainer'
+} from '../../../../../api-utils'
+import makeGetRequest from '../../../../../api/makeGetRequest'
+// import AdminContainer from '@/app/admin/_AdminComponent/AdminContainer'
 import { RequestDetailPage } from './components/RequestDetailPage'
+import AdminContainer from '../../../../../login/adminlogin/AdminContainer'
 
 const Page = ({
   params,

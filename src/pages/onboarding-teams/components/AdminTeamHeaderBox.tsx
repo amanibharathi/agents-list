@@ -1,17 +1,17 @@
-"use client";
-import { Flex } from "@chakra-ui/react";
-import React from "react";
+
+import { Flex } from '@chakra-ui/react'
 import AdminTeamHeaderPrimaryBox, {
   IAdminTeamHeaderPrimaryBox,
-} from "./AdminTeamHeaderPrimaryBox";
-import CustomBoxButton from "../../onboarding-agents/[id]/components/custom-box-button";
-import AdminTeamHeaderFinalBox from "./AdminTeamHeaderFinalBox";
-import { ColorTags } from "./ColorTags";
-import AppText from "@/app/components/elements/AppText";
-import AppButton from "@/app/components/elements/AppButton";
-import { GoCopy } from "react-icons/go";
-import { copyUrl } from "@/app/(dashboards)/agent/agent-website/[tabs]/_tabComponents/services";
-import { sponsorLink } from "@/app/website/components/sectionComponents/joinRoaComp";
+} from './AdminTeamHeaderPrimaryBox'
+import CustomBoxButton from '../../onboarding-agents/[id]/components/custom-box-button'
+import AdminTeamHeaderFinalBox from './AdminTeamHeaderFinalBox'
+import { ColorTags } from './ColorTags'
+import AppText from '../../../AppComponents/AppText-agent'
+import AppButton from '../../../AppComponents/AppButton-agent'
+import { GoCopy } from 'react-icons/go'
+import { copyUrl } from '../[id]/[tab]/_tabsComponent/services'
+import { sponsorLink } from './joinRoaComp'
+
 
 interface IAdminTeamHeaderBox extends IAdminTeamHeaderPrimaryBox {
   onAssignBrokerageClick: () => void;

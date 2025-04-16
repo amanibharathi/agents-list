@@ -1,6 +1,5 @@
-'use client'
+
 import { Flex } from '@chakra-ui/react'
-import React from 'react'
 import AdminTeamHeaderPrimaryBox, {
   IAdminTeamHeaderPrimaryBox,
 } from './AdminTeamHeaderPrimaryBox'

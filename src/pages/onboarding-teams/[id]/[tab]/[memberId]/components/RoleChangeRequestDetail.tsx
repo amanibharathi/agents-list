@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { AgentProfileHeader } from './AgentProfileHeader'
 import { Divider } from '@chakra-ui/react'
 import { EditFieldDetails } from './EditFieldDetails'

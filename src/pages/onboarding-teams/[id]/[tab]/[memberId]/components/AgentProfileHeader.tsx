@@ -1,15 +1,16 @@
-import AppText from '@/app/components/elements/AppText'
+// import AppText from '@/app/components/elements/AppText'
 import { Avatar, Box } from '@chakra-ui/react'
-import React from 'react'
 import { ColorTags } from '../../../../components/ColorTags'
-import PhoneIcon from '@/app/icons/phoneIcon'
-import EmailatIcon from '@/app/icons/emailatIcon'
+// import EmailatIcon from '../../../../Auth/AgentComponents/admincompenets/emailatIcon'
+import PhoneIcon from '../../../../../Auth/AgentComponents/admincompenets/phoneIcon'
 import {
   formatToUSPhone,
   truncateString,
-} from '@/app/utils/functions/otherFunctions'
-import { useRouter } from 'next-nprogress-bar'
-import { ADMIN_MAKE_AGENT_INDIVIDUAL_PAGE } from '@/app/utils/navigation'
+} from '../../../../../../utils/functions/commonFunctions'
+import { ADMIN_MAKE_AGENT_INDIVIDUAL_PAGE } from '../../../../../Auth/AgentComponents/navigation/urls'
+import AppText from '../../../../../../AppComponents/AppText-agent'
+import EmailatIcon from '../../../../../Auth/AgentComponents/admincompenets/emailatIcon'
+import { useNavigate } from 'react-router-dom'
 
 export const AgentProfileHeader = ({
   data,
@@ -20,7 +21,7 @@ export const AgentProfileHeader = ({
   className?: string
   notModal?: boolean
 }) => {
-  const router = useRouter()
+  const router = useNavigate()
   const fullName =
     data?.full_name ??
     data?.label ??
@@ -58,7 +59,7 @@ export const AgentProfileHeader = ({
             <Box
               className="cursor-pointer"
               onClick={() => {
-                router.push(ADMIN_MAKE_AGENT_INDIVIDUAL_PAGE(data?.id))
+                router(ADMIN_MAKE_AGENT_INDIVIDUAL_PAGE(data?.id))
               }}
             >
               <ColorTags

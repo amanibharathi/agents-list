@@ -1,36 +1,36 @@
-"use client";
-import AdminBreadcrumbs from "@/app/admin/_AdminComponent/AdminBreadcrumbs/AdminBreadcrumbs";
-import AdminContainer from "@/app/admin/_AdminComponent/AdminContainer";
-import AppButton from "@/app/components/elements/AppButton";
-import { Box, Flex, useDisclosure } from "@chakra-ui/react";
-import React, { ReactNode, useMemo } from "react";
-import { FaRegEdit } from "react-icons/fa";
-import AdminTeamHeaderBox from "../components/AdminTeamHeaderBox";
-import SecondaryNav from "@/app/components/layouts/secondaryNav";
-import { usePathname } from "next/navigation";
+import AdminContainer from '../../Auth/AgentComponents/admincompenets/AdminContainer'
+import AdminBreadcrumbs from '../../Auth/AgentComponents/admincompenets/AdminBreadcrumbs'
+// import AppButton from '@/app/components/elements/AppButton'
+import { Box, Flex, useDisclosure } from '@chakra-ui/react'
+import { ReactNode, useMemo } from 'react'
+import { FaRegEdit } from 'react-icons/fa'
+import AdminTeamHeaderBox from '../components/AdminTeamHeaderBox'
 import {
   ADMIN_TEAM_EDIT_PAGE,
   MAKE_ADMIN_TEAM_DETAIL_TAB,
   MAKE_AGENT_RELATED_LIST_PAGE,
-} from "@/app/utils/navigation";
-import { useMutation, useQuery } from "react-query";
-import makeGetRequest from "@/app/utils/api/makeGetRequest";
+} from '../../Auth/AgentComponents/navigation/urls'
+import { useMutation, useQuery } from 'react-query'
+import makeGetRequest from'../../../api/makeGetRequest'
 import {
   ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST,
   ADMIN_AGENT_TEAM_DETAIL,
   AGENT_DASHBOARD_OFFICE_OR_BROKERAGE_LIST,
   REMOVE_OFFICE_AGENT,
-} from "@/app/api-utils";
-import CkAppModal from "@/app/components/modal/AppModal";
-import ModalRejectComponent from "../../onboarding-agents/[id]/components/modal-reject-component";
-import makePostRequest from "@/app/utils/api/makePostRequest";
-import toast from "react-hot-toast";
+} from '../../../api-utils'
+// import CkAppModal from '@/app/components/modal/AppModal'
+import ModalRejectComponent from '../../onboarding-agents/[id]/components/modal-reject-component'
+import makePostRequest from '../../../api/makePostRequest'
+import toast from 'react-hot-toast'
 import {
   extractIdentities,
   getFirstErrorMessage,
-} from "@/app/utils/functions/otherFunctions";
-import { useRouter } from "next-nprogress-bar";
-import { v4 as uuidv4 } from "uuid";
+} from '../../../utils/functions/commonFunctions'
+import { v4 as uuidv4 } from 'uuid'
+import AppButton from '../../../AppComponents/AppButton-agent'
+import SecondaryNav from '../../onboarding-agents/[id]/on-oboarding-application/components/secondaryNav'
+import { useLocation, useNavigate } from 'react-router-dom'
+import CkAppModal from '../../Auth/AgentComponents/admincompenets/AppModal'
 
 const Layout = ({
   children,
@@ -39,10 +39,11 @@ const Layout = ({
   children: ReactNode;
   params: { id: string; tab: string };
 }) => {
-  const id = params?.id;
-  const pathname = usePathname();
-  const editPage = pathname.split("/")?.includes("edit");
-  const router = useRouter();
+  const id = params?.id
+  const location = useLocation();
+  const pathname = location.pathname;
+  const editPage = pathname.split('/')?.includes('edit')
+  const router = useNavigate()
   const {
     data: detailData,
     refetch,
@@ -263,7 +264,7 @@ const Layout = ({
           <Flex justifyContent={"space-between"} alignItems={"end"}>
             <AdminBreadcrumbs route={breadcrumbs} />
             <AppButton
-              onClick={() => router.push(ADMIN_TEAM_EDIT_PAGE(params?.id))}
+              onClick={() => router(ADMIN_TEAM_EDIT_PAGE(params?.id))}
               icon={<FaRegEdit />}
             >
               Edit Details
