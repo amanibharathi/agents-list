@@ -20,7 +20,6 @@ import {
 } from '../../../utils/functions/commonFunctions'
 import AdminTeamHeaderBox from './components/AdminTeamHeaderBox'
 // import makePatchRequest from '@/app/utils/api/makePatchRequest'
-import { useRouter } from 'next-nprogress-bar'
 // import ConfirmDeleteTeamModal from '../../components/ListingComponents/ConfirmDeleteTeam'
 import { v4 as uuidv4 } from 'uuid'
 import AdminContainer from '../../../login/adminlogin/AdminContainer'

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDebounce } from "../../utils/hooks/useDebounce";
 import {
@@ -56,6 +56,7 @@ import BulkUploadAgentsModal from "../../Components/BulkUploadAgentsModal";
 import DashboardCardStatsList from "../../Components/DashboardCardStatsList";
 import CreateCommonModal from "../../Components/createIndividualAgent";
 import { DashIconTotalAgents } from "../../assets";
+import { AdminListFilterContext } from "../Auth/AgentComponents/admincompenets/AdminListFilterProvider";
 
 const AppliedAgents = () => {
   const [dateRange, setDateRange] = useState<any>({});
@@ -239,7 +240,7 @@ const AppliedAgents = () => {
       type: "select",
       filterLabel: "Stage",
       name: "stage",
-      options: filterOptions?.stage,
+      options: filterOptions?.status,
     },
     {
       type: "select",
@@ -356,8 +357,7 @@ const AppliedAgents = () => {
 
   const { adminRoles } = useAppStore();
 
-  const isDeletable =
-    adminRoles["Agent Management Policy"]?.permissions?.is_deletable;
+  const isDeletable = adminRoles && adminRoles["Agent Management Policy"]?.permissions?.is_deletable;
 
   const customFunction = useCallback(
     (obj: any) => {

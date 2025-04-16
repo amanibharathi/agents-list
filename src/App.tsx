@@ -17,7 +17,8 @@ import AppLayout from "./layout/AppLayout";
 import AppliedAgents from "./pages/agent/AppliedAgents";
 import AdminDetailLayout from "./pages/onboarding-agents/[id]/AdminDetailLayout";
 import OnboardingApplication from "./pages/onboarding-agents/[id]/on-oboarding-application/page";
-
+import AppliedTeams from "./pages/components/ListingComponents/AppliedTeams";
+import TeamsList from "./pages/components/ListingComponents/TeamsList";
 function App() {
   // Create a new QueryClient instance
   const queryClient = new QueryClient();
@@ -68,6 +69,14 @@ function App() {
             {
               path: "applied-agents-list",
               element: <AppliedAgents />,
+            },
+            {
+              path:"applied-teams-list",
+              element:<AppliedTeams/>
+            },
+            {
+              path:"teams-list",
+              element:<TeamsList/>
             },
             {
               path: ":id",

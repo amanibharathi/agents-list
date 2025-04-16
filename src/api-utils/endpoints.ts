@@ -246,7 +246,7 @@ export const GET_BECOME_AN_AGENT_META_IN_ADMIN = `/admin/join-as-agent/list/tabl
 export const GET_AGENT_INDIVIDUAL_DATA = (id: string | number) =>
   `/admin/agent/dashboard/${id}/`;
 export const GET_ASSIGN_TEAM_IN_ADMIN = (is_applied = false) =>
-  `/team/list/${is_applied ? "?is_applied=true" : ""}`;
+  `/api/team/list/${is_applied ? "?is_applied=true" : ""}`;
 export const GET_ASSIGN_TEAM_META = (is_applied = false) =>
   `/team/list/table-meta/${is_applied ? "?is_applied=true" : ""}`;
 
