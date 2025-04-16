@@ -20,36 +20,41 @@ import ButtonPair from '../../../../../Auth/AgentComponents/admincompenets/Butto
 import { useNavigate } from 'react-router-dom'
 
 interface ITeamMemberDetail {
-  isDetail?: boolean
+  isDetail?: boolean;
   data: {
-    agent_fullName: string
-    license: string
-    email: string
-    phone: string
-    profile: string
-    role?: { id: string; identity: string; label: string; value: string } | null
-    cap?: { id: string; identity: string; label: string; value: string } | null
+    agent_fullName: string;
+    license: string;
+    email: string;
+    phone: string;
+    profile: string;
+    role?: {
+      id: string;
+      identity: string;
+      label: string;
+      value: string;
+    } | null;
+    cap?: { id: string; identity: string; label: string; value: string } | null;
     commision_plan: {
-      id: string
-      identity: string
-      label: string
-      value: string
-    } | null
+      id: string;
+      identity: string;
+      label: string;
+      value: string;
+    } | null;
     commision_split: {
-      id: string
-      identity: string
-      label: string
-      value: string
-    } | null
-    team?: any
-    memberId?: any
-  }
-  isEdit?: boolean
-  setIsEdit?: any
-  meta?: any
-  params?: { tab: string; id: string; memberId: string }
-  documents?: any
-  refetch: any
+      id: string;
+      identity: string;
+      label: string;
+      value: string;
+    } | null;
+    team?: any;
+    memberId?: any;
+  };
+  isEdit?: boolean;
+  setIsEdit?: any;
+  meta?: any;
+  params?: { tab: string; id: string; memberId: string };
+  documents?: any;
+  refetch: any;
 }
 
 export const CommonTeamMemberDetail = ({
@@ -68,67 +73,67 @@ export const CommonTeamMemberDetail = ({
     isOpen: teamMemberRemoveIsOpen,
     onOpen: teamMemberRemoveOnOpen,
     onClose: teamMemberRemoveOnClose,
-  } = useDisclosure()
+  } = useDisclosure();
 
   const teamMemberObj = useMemo(
     () => [
       {
-        label: 'Role*',
-        name: 'role',
-        type: 'select',
+        label: "Role*",
+        name: "role",
+        type: "select",
         options: meta?.role,
         // onInpuChange: (val: any) => handleStateDataChange(val),
-        className: 'w-full max-w-[495px] !z-[14]',
+        className: "w-full max-w-[495px] !z-[14]",
         readOnly: !isEdit,
         otherRegProps: {
           required: isEdit,
         },
       },
       {
-        label: 'Cap Structure*',
-        type: 'select',
-        name: 'cap',
+        label: "Cap Structure*",
+        type: "select",
+        name: "cap",
         options: meta?.cap_structure,
         // onInpuChange: (val: any) => handleBoardDataChange(val),
-        className: 'w-full max-w-[495px] !z-[13]',
+        className: "w-full max-w-[495px] !z-[13]",
         readOnly: !isEdit,
         otherRegProps: {
           required: isEdit,
         },
       },
       {
-        label: 'Brokerage Commision Plan*',
-        name: 'commission_plan',
+        label: "Brokerage Commision Plan*",
+        name: "commission_plan",
         options: commissionPlanOptions,
-        type: 'select',
-        className: 'w-full max-w-[495px] !z-[12]',
+        type: "select",
+        className: "w-full max-w-[495px] !z-[12]",
         readOnly: !isEdit,
         otherRegProps: {
           required: isEdit,
         },
       },
       {
-        label: 'Minimum Team Commision Split',
-        name: 'commission_split',
-        className: 'w-full max-w-[495px] !z-[11]',
-        type: 'number',
+        label: "Minimum Team Commision Split",
+        name: "commission_split",
+        className: "w-full max-w-[495px] !z-[11]",
+        type: "number",
         readOnly: !isEdit,
-        placeholder: 'Enter a value between 15 to 100',
+        placeholder: "Enter a value between 15 to 100",
         otherRegProps: {
           required: false,
           min: {
             value: 15,
-            message: 'Value should be more than 15',
+            message: "Value should be more than 15",
           },
           max: {
             value: 100,
-            message: 'Value should be less than 100',
+            message: "Value should be less than 100",
           },
         },
       },
     ],
     [meta, commissionPlanOptions, isEdit]
-  )
+  );
 
   const { mutate, isLoading } = useMutation(
     (body) =>
@@ -142,13 +147,13 @@ export const CommonTeamMemberDetail = ({
         toast.success('Team Member Details Updated Successfully')
       },
       onError: (err) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const handleSubmitForm = (data: any) => {
     const obj = {
@@ -156,22 +161,22 @@ export const CommonTeamMemberDetail = ({
         cap_status: data?.data?.cap?.value ?? null,
         commission_plan: data?.data?.commission_plan?.value ?? null,
         team_commission_plan:
-          data?.data?.commission_split != ''
+          data?.data?.commission_split != ""
             ? data?.data?.commission_split
             : null,
       },
       role: data?.data?.role?.value ?? null,
-    }
-    //@ts-ignore
-    mutate(obj)
-  }
+    };
+    //@ts-expect-error ignore
+    mutate(obj);
+  };
 
   useEffect(() => {
-    editForm.setValue('data.commission_plan', data.commision_plan)
-    editForm.setValue('data.commission_split', data.commision_split)
-    editForm.setValue('data.role', data.role)
-    editForm.setValue('data.cap', data.cap)
-  }, [data])
+    editForm.setValue("data.commission_plan", data.commision_plan);
+    editForm.setValue("data.commission_split", data.commision_split);
+    editForm.setValue("data.role", data.role);
+    editForm.setValue("data.cap", data.cap);
+  }, [data]);
   return (
     <Box className="pb-[40px]">
       {isDetail ? (
@@ -184,7 +189,9 @@ export const CommonTeamMemberDetail = ({
             />
             <AppText
               className="!text-[#10295A] text-[24px] font-bold whitespace-nowrap"
-              text={`${data?.agent_fullName ? data?.agent_fullName : '-'} - ${isEdit ? 'Edit' : ''} Details`}
+              text={`${data?.agent_fullName ? data?.agent_fullName : "-"} - ${
+                isEdit ? "Edit" : ""
+              } Details`}
             />
           </div>
           <div className="flex gap-[20px] w-[100%] justify-end">
@@ -196,7 +203,7 @@ export const CommonTeamMemberDetail = ({
               Remove Team Member
             </AppButton>
             {!isEdit && (
-              <Flex justifyContent={'space-between'} alignItems={'center'}>
+              <Flex justifyContent={"space-between"} alignItems={"center"}>
                 <AppButton onClick={() => setIsEdit(true)} icon={<FaRegEdit />}>
                   Edit Details
                 </AppButton>
@@ -215,15 +222,15 @@ export const CommonTeamMemberDetail = ({
           refetch={refetch}
         />
         {isEdit ? (
-          <Flex justify={'end'} mt={'40px'}>
+          <Flex justify={"end"} mt={"40px"}>
             <ButtonPair
-              primaryBtnText={'Update'}
-              secondaryBtnText={'Cancel'}
+              primaryBtnText={"Update"}
+              secondaryBtnText={"Cancel"}
               onPrimaryClick={undefined}
-              primaryBtnType={'submit'}
+              primaryBtnType={"submit"}
               onSecondaryClick={() => {
-                setIsEdit(false)
-                editForm.reset()
+                setIsEdit(false);
+                editForm.reset();
               }}
               primaryBtnIsLoading={isLoading}
             />
@@ -237,5 +244,5 @@ export const CommonTeamMemberDetail = ({
         isDetail
       />
     </Box>
-  )
-}
+  );
+};

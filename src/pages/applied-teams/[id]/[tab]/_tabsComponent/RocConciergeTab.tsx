@@ -20,9 +20,9 @@ import useFormUtils from '../../../../../utils/hooks/useFormUtils'
 const RocConciergeTab = ({
   params,
 }: {
-  params: { tab: string; id: string }
+  params: { tab: string; id: string };
 }) => {
-  const id = params?.id
+  const id = params?.id;
   const {
     register,
     control,
@@ -36,144 +36,144 @@ const RocConciergeTab = ({
     // reset,
     // getdefaultValues,
     // isSubmitting,
-    //@ts-ignore
-  } = useFormUtils({})
+    //@ts-expect-error ignore
+  } = useFormUtils({});
   const { data, isLoading } = useQuery([ADMIN_AGENT_TEAM_DETAIL(id)], () =>
     makeGetRequest(ADMIN_AGENT_TEAM_DETAIL(id))
-  )
-  const isApproved = data?.data?.status == 'approved'
+  );
+  const isApproved = data?.data?.status == "approved";
 
   const { mutate } = useMutation(
     (body) => makePatchRequest(ADMIN_AGENT_TEAM_UPDATE(id), body),
     {
       onSuccess: (res) => {
-        console.log(res)
+        console.log(res);
         // const id = res?.data?.id
       },
       onError: (err) => {
-        console.log(err)
+        console.log(err);
       },
     }
-  )
+  );
   const handleApprove = () => {
-    //@ts-ignore
-    mutate({ status: 'approved' })
-    toast.success('Team Approved Successfully')
-  }
+    //@ts-expect-error ignore
+    mutate({ status: "approved" });
+    toast.success("Team Approved Successfully");
+  };
 
   const handleReject = () => {
-    //@ts-ignore
-    mutate({ status: 'rejected' })
-    toast.success('Team Removed Successfully')
-  }
+    //@ts-expect-error ignore
+    mutate({ status: "rejected" });
+    toast.success("Team Removed Successfully");
+  };
 
   const inputs = [
     {
       key: uuid(),
-      thisWrapperClassName: '',
+      thisWrapperClassName: "",
       render: [
         {
-          label: 'Name*',
-          name: 'name',
+          label: "Name*",
+          name: "name",
           readOnly: true,
           otherRegProps: {
-            value: data?.data?.admin_details?.name ?? '',
+            value: data?.data?.admin_details?.name ?? "",
           },
         },
       ],
     },
     {
       key: uuid(),
-      thisWrapperClassName: 'grid grid-cols-2 gap-x-[30px]',
+      thisWrapperClassName: "grid grid-cols-2 gap-x-[30px]",
       render: [
         {
-          label: 'Email*',
-          name: 'email',
+          label: "Email*",
+          name: "email",
           readOnly: true,
           otherRegProps: {
-            value: data?.data?.admin_details?.email ?? '',
+            value: data?.data?.admin_details?.email ?? "",
           },
         },
         {
-          label: 'Phone*',
-          name: 'phone_number',
-          type: 'tel',
+          label: "Phone*",
+          name: "phone_number",
+          type: "tel",
           readOnly: true,
           otherRegProps: {
-            value: data?.data?.admin_details?.phone_number?.substr(2, 12) ?? '',
+            value: data?.data?.admin_details?.phone_number?.substr(2, 12) ?? "",
           },
         },
       ],
     },
     {
       key: uuid(),
-      thisWrapperClassName: 'grid grid-cols-2 gap-x-[30px]',
+      thisWrapperClassName: "grid grid-cols-2 gap-x-[30px]",
       render: [
         {
-          label: 'Team Name*',
-          name: 'identity',
+          label: "Team Name*",
+          name: "identity",
           readOnly: true,
           otherRegProps: {
             value: `${data?.data?.identity}'s Team`,
           },
         },
         {
-          label: 'Team Size*',
-          name: 'no_of_members',
-          type: 'number',
+          label: "Team Size*",
+          name: "no_of_members",
+          type: "number",
           readOnly: true,
           otherRegProps: {
-            value: data?.data?.no_of_members ?? '',
+            value: data?.data?.no_of_members ?? "",
           },
         },
       ],
     },
     {
       key: uuid(),
-      thisWrapperClassName: 'grid grid-cols-2 gap-x-[30px]',
+      thisWrapperClassName: "grid grid-cols-2 gap-x-[30px]",
       render: [
         {
-          label: 'Total Closed Volume (last 12 months)*',
-          name: 'no_of_closed_volume',
-          type: 'number',
+          label: "Total Closed Volume (last 12 months)*",
+          name: "no_of_closed_volume",
+          type: "number",
           readOnly: true,
           otherRegProps: {
-            value: data?.data?.no_of_closed_volume ?? '',
+            value: data?.data?.no_of_closed_volume ?? "",
           },
         },
         {
-          label: 'Number of Transactions (last 12 months)*',
-          name: 'no_of_transactions',
-          type: 'number',
+          label: "Number of Transactions (last 12 months)*",
+          name: "no_of_transactions",
+          type: "number",
           readOnly: true,
           otherRegProps: {
-            value: data?.data?.no_of_transactions ?? '',
+            value: data?.data?.no_of_transactions ?? "",
           },
         },
       ],
     },
     {
       key: uuid(),
-      thisWrapperClassName: 'grid grid-cols-1',
+      thisWrapperClassName: "grid grid-cols-1",
       render: [
         {
-          label: 'Attachments*',
-          name: 'docs',
-          type: 'readOnlyDocs',
+          label: "Attachments*",
+          name: "docs",
+          type: "readOnlyDocs",
           readOnly: true,
-          inputWrapperClassName: 'w-[100%]',
-          value: data?.data?.document?.[0]?.file ?? '',
+          inputWrapperClassName: "w-[100%]",
+          value: data?.data?.document?.[0]?.file ?? "",
         },
       ],
     },
-  ]
+  ];
 
   return (
-    <Box pb={'40px'}>
+    <Box pb={"40px"}>
       {!isLoading ? (
         <AdminFormWrapper
           titleClassName="mb-[39px] mt-[-4px]"
-          title={'Team Information'}
+          title={"Team Information"}
         >
           <form onSubmit={() => handleApprove()}>
             <Box className="">
@@ -186,12 +186,12 @@ const RocConciergeTab = ({
                 inputWrapperClassName="w-full max-w-[410px]"
               />
               {!isApproved && (
-                <Flex justifyContent={'end'} mt={'10px'}>
+                <Flex justifyContent={"end"} mt={"10px"}>
                   <ButtonPair
-                    primaryBtnText={'Approve Team'}
-                    secondaryBtnText={'Reject'}
+                    primaryBtnText={"Approve Team"}
+                    secondaryBtnText={"Reject"}
                     onPrimaryClick={undefined}
-                    primaryBtnType={'submit'}
+                    primaryBtnType={"submit"}
                     onSecondaryClick={() => handleReject()}
                     primaryBtnIsLoading={false}
                   />
@@ -204,7 +204,7 @@ const RocConciergeTab = ({
         <div></div>
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default RocConciergeTab
+export default RocConciergeTab;

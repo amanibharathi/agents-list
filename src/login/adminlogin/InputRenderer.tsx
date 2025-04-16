@@ -2,69 +2,69 @@
 //import CkSelect from '@/app/components/chakraOverwrites/CkSelect'
 //import AppText from '@/app/components/elements/AppText'
 //import { splitByDotGetMany } from '@/app/utils/functions/otherFunctions'
-import CkInput from '../../pages/Auth/AgentComponents/admincompenets/CkInput'
-import CkSelect from '../../pages/Auth/AgentComponents/admincompenets/CkSelect'
-import AppText from '../../AppComponents/AppText-agent'
-import { splitByDotGetMany } from '../../utils/functions/commonFunctions'
+import CkInput from "../../pages/Auth/AgentComponents/admincompenets/CkInput";
+import CkSelect from "../../pages/Auth/AgentComponents/admincompenets/CkSelect";
+import AppText from "../../AppComponents/AppText-agent";
+import { splitByDotGetMany } from "../../utils/functions/commonFunctions";
 
 interface InputRendererProps {
   inputObj: {
-    name: string
-    type?: string
-    placeholder?: string
-    label?: string
-    otherRegProps?: unknown
-    isMulti?: boolean
-    options?: unknown
-    required?: boolean
-  }
-  control: unknown
-  register: unknown
-  wrapperClassName?: string
-  labelClassName?: string
-  className?: string
-  formControlClassName?: string
-  errors?: unknown
-  classNamePrefix?: string
+    name: string;
+    type?: string;
+    placeholder?: string;
+    label?: string;
+    otherRegProps?: unknown;
+    isMulti?: boolean;
+    options?: unknown;
+    required?: boolean;
+  };
+  control: unknown;
+  register: unknown;
+  wrapperClassName?: string;
+  labelClassName?: string;
+  className?: string;
+  formControlClassName?: string;
+  errors?: unknown;
+  classNamePrefix?: string;
 }
 
-//@ts-ignore
+//@ts-expect-error ignore
 const InputRenderer = ({
   inputObj,
   control,
   register,
-  wrapperClassName = '',
-  formControlClassName = '',
-  labelClassName = '',
-  className = '',
+  wrapperClassName = "",
+  formControlClassName = "",
+  labelClassName = "",
+  className = "",
   errors = {},
-  classNamePrefix = '',
+  classNamePrefix = "",
 }: InputRendererProps) => {
-  const { type, name, required, otherRegProps, ...rest } = inputObj
-  //@ts-ignore
+  const { type, name, required, otherRegProps, ...rest } = inputObj;
+  //@ts-expect-error ignore
   const customizeReg = register(name, {
     required: required ?? true,
-    //@ts-ignore
+    //@ts-expect-error ignore
     ...otherRegProps,
-  })
+  });
   const getInputField = () => {
-    if (type == 'select')
+    if (type == "select")
       return (
         <CkSelect
           name={name}
           control={control}
           {...customizeReg}
-          //@ts-ignore
+          //@ts-expect-error ignore
           options={inputObj?.options}
           {...rest}
           className={`${className}`}
-          // @ts-ignore
+          //@ts-expect-error ignore
           isError={errors?.[name]}
           classNamePrefix={classNamePrefix}
         />
-      )
+      );
 
-    if (type == 'number')
+    if (type == "number")
       return (
         <CkInput
           formControlClassName={`w-full max-w-[510px] ${formControlClassName}`}
@@ -74,11 +74,11 @@ const InputRenderer = ({
           {...rest}
           className={`${className}`}
           // isError={errors?.[name]}
-          // @ts-ignore
+          //@ts-expect-error ignore
           isError={errors?.[name]}
         />
-      )
-    if (type == 'tel')
+      );
+    if (type == "tel")
       return (
         <CkInput
           prefix="+1"
@@ -92,40 +92,40 @@ const InputRenderer = ({
           // isError={errors?.[name]}
           isError={splitByDotGetMany(name, errors)}
         />
-      )
-    if (name == 'call_duration')
+      );
+    if (name == "call_duration")
       return (
         <CkInput
           isError={splitByDotGetMany(name, errors)}
           formControlClassName={`w-full max-w-[510px] ${formControlClassName}`}
           // placeholder={inputObj?.placeholder}
-          type={type || 'text'}
+          type={type || "text"}
           {...customizeReg}
           {...rest}
           className={`${className}`}
           onChange={(e: any) => {
-            const regex = /^-?\d*(\.\d{0,1})?$/
+            const regex = /^-?\d*(\.\d{0,1})?$/;
             if (regex.test(e.target.value)) {
-              e.target.value = e.target.value
+              e.target.value = e.target.value;
             } else {
-              e.target.value = e.target.value.slice(0, -1)
+              e.target.value = e.target.value.slice(0, -1);
             }
           }}
         />
-      )
+      );
 
     return (
       <CkInput
         isError={splitByDotGetMany(name, errors)}
         formControlClassName={`w-full max-w-[510px] ${formControlClassName}`}
         // placeholder={inputObj?.placeholder}
-        type={type || 'text'}
+        type={type || "text"}
         {...customizeReg}
         {...rest}
         className={`${className}`}
       />
-    )
-  }
+    );
+  };
 
   return (
     <div className={`${wrapperClassName}`}>
@@ -141,7 +141,7 @@ const InputRenderer = ({
       ) : null}
       {getInputField()}
     </div>
-  )
-}
+  );
+};
 
-export default InputRenderer
+export default InputRenderer;

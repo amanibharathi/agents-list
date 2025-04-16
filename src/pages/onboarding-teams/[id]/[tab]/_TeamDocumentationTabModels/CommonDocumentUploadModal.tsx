@@ -1,37 +1,36 @@
-
 import {
   ADMIN_TEAM_DOCUMENT_LIST,
   ADMIN_TEAM_DOCUMENT_UPLOAD,
   ADMIN_TEAM_DOCUMENT_UPLOAD_CREATE,
   ADMIN_TEAM_MEMBER_DETAIL,
   GET_ADMIN_TEAM_MEMBERS_LIST,
-} from '../../../../../api-utils'
-import { Box, Radio, RadioGroup, Flex, Text, Avatar } from '@chakra-ui/react'
-import { useState } from 'react'
-import toast from 'react-hot-toast'
-import { GoChevronDown } from 'react-icons/go'
-import { useMutation, useQueryClient } from 'react-query'
-import Select, { components } from 'react-select'
-import ButtonPair from '../../../../Auth/AgentComponents/admincompenets/ButtonPair'
-import MultiFileUpload from '../../../../Auth/AgentComponents/admincompenets/MultiFileUpload'
-import AppLoader from '../../../../Auth/AgentComponents/admincompenets/AppLoader'
-import AppText from '../../../../../AppComponents/AppText-agent'
-import { ExportUp } from './ExportUp'
-import CkAppModal from '../../../../Auth/AgentComponents/admincompenets/AppModal'
-import { useGetAgentList } from '../../../../../utils/hooks/useGetAgentList'
-import makePostRequest from '../../../../../api/makePostRequest'
-import { getFirstErrorMessage } from '../../../../../utils/functions/commonFunctions'
+} from "../../../../../api-utils";
+import { Box, Radio, RadioGroup, Flex, Text, Avatar } from "@chakra-ui/react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { GoChevronDown } from "react-icons/go";
+import { useMutation, useQueryClient } from "react-query";
+import Select, { components } from "react-select";
+import ButtonPair from "../../../../Auth/AgentComponents/admincompenets/ButtonPair";
+import MultiFileUpload from "../../../../Auth/AgentComponents/admincompenets/MultiFileUpload";
+import AppLoader from "../../../../Auth/AgentComponents/admincompenets/AppLoader";
+import AppText from "../../../../../AppComponents/AppText-agent";
+import { ExportUp } from "./ExportUp";
+import CkAppModal from "../../../../Auth/AgentComponents/admincompenets/AppModal";
+import { useGetAgentList } from "../../../../../utils/hooks/useGetAgentList";
+import makePostRequest from "../../../../../api/makePostRequest";
+import { getFirstErrorMessage } from "../../../../../utils/functions/commonFunctions";
 
 type DocumentUploaderProps = {
-  documentTypes: string[]
-  selectedAgent?: { name: string; license: string; avatarUrl: string }
-  isOpen: boolean
-  onClose: () => void
-  inputObj: any
-  isAgentDetail?: boolean
-  params?: any
-  id?: any
-}
+  documentTypes: string[];
+  selectedAgent?: { name: string; license: string; avatarUrl: string };
+  isOpen: boolean;
+  onClose: () => void;
+  inputObj: any;
+  isAgentDetail?: boolean;
+  params?: any;
+  id?: any;
+};
 
 const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
   documentTypes,
@@ -45,13 +44,13 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
 }) => {
   const [selectedType, setSelectedType] = useState<string | undefined>(
     documentTypes[0] || undefined
-  )
-  const [selectedId, setSelectedId] = useState<string | undefined>()
+  );
+  const [selectedId, setSelectedId] = useState<string | undefined>();
 
-  const [showUploadError, setShowUploadError] = useState(false)
+  const [showUploadError, setShowUploadError] = useState(false);
 
   const customUiBodyComp = (isLoading: boolean) => (
-    <Flex flexFlow={'column'}>
+    <Flex flexFlow={"column"}>
       <AppText className="text-[18px] !text-[#444444] font-semibold mb-2">
         Upload File
       </AppText>
@@ -60,15 +59,21 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
       ) : (
         <>
           <div
-            className={`border border-dashed rounded-[5px] ${showUploadError ? 'border-[#FC8181]' : 'border-[#C0C0C0]'}  flex flex-col gap-[10px] w-full h-[150px] items-center justify-center`}
+            className={`border border-dashed rounded-[5px] ${
+              showUploadError ? "border-[#FC8181]" : "border-[#C0C0C0]"
+            }  flex flex-col gap-[10px] w-full h-[150px] items-center justify-center`}
           >
-            <ExportUp fill={showUploadError ? '#E33326' : '#10295A'} />
+            <ExportUp fill={showUploadError ? "#E33326" : "#10295A"} />
             <AppText
-              className={` ${showUploadError ? '!text-[#E33326]' : 'text-[#000000]'}`}
+              className={` ${
+                showUploadError ? "!text-[#E33326]" : "text-[#000000]"
+              }`}
             >
-              Drag your files here or{' '}
+              Drag your files here or{" "}
               <span
-                className={`underline ${showUploadError ? '!text-[#E33326]' : 'text-[#10295A]'}`}
+                className={`underline ${
+                  showUploadError ? "!text-[#E33326]" : "text-[#10295A]"
+                }`}
               >
                 Browse
               </span>
@@ -82,62 +87,62 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
         </>
       )}
     </Flex>
-  )
-  const queryClient = useQueryClient()
+  );
+  const queryClient = useQueryClient();
 
   const { mutate, isLoading } = useMutation(
     (body) =>
       makePostRequest(ADMIN_TEAM_DOCUMENT_UPLOAD_CREATE(params?.id), body),
     {
       onSuccess: () => {
-        toast.success('Documents submitted Successfully')
-        onClose()
+        toast.success("Documents submitted Successfully");
+        onClose();
         queryClient.invalidateQueries([
           isAgentDetail
             ? ADMIN_TEAM_MEMBER_DETAIL(params?.id, params?.memberId)
             : ADMIN_TEAM_DOCUMENT_LIST(params?.id),
-        ])
+        ]);
         // router.push(
         //   isAgentDetail
         //     ? ADMIN_TEAM_MEMBERS_INDIVIDUAL_PAGE(params?.id, params?.memberId)
         //     : MAKE_ADMIN_TEAM_DETAIL_TAB(params?.id, 'documents')
         // )
-        setSelectedType(documentTypes[0])
-        inputObj?.setImageState([])
+        setSelectedType(documentTypes[0]);
+        inputObj?.setImageState([]);
       },
       onError: (err) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const handleSubmit = () => {
     if (!inputObj?.imageState?.length) {
-      setShowUploadError(true) // Show error if no files uploaded
-      return
+      setShowUploadError(true); // Show error if no files uploaded
+      return;
     }
 
-    setShowUploadError(false)
+    setShowUploadError(false);
     const obj = {
       document_type: isAgentDetail
-        ? 'agent_document'
-        : selectedType == 'Agent Document'
-          ? 'agent_document'
-          : 'team_document',
+        ? "agent_document"
+        : selectedType == "Agent Document"
+        ? "agent_document"
+        : "team_document",
       agent: isAgentDetail
         ? parseInt(id)
-        : selectedType == 'Agent Document'
-          ? //@ts-ignore
-            parseInt(selectedId)
-          : null,
+        : selectedType == "Agent Document"
+        ? //@ts-expect-error ignore
+          parseInt(selectedId)
+        : null,
       documents: inputObj?.imageState?.flat()?.map((m: any) => m?.id),
-    }
-    //@ts-ignore
-    mutate(obj)
-  }
+    };
+    //@ts-expect-error ignore
+    mutate(obj);
+  };
 
   const {
     // metaIsLoading,
@@ -145,11 +150,11 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
     // isFetching,
     // isSuccess,
     setSearchVal,
-  } = useGetAgentList(GET_ADMIN_TEAM_MEMBERS_LIST(params?.id), true)
+  } = useGetAgentList(GET_ADMIN_TEAM_MEMBERS_LIST(params?.id), true);
 
   const customOptionComp = ({ ...props }) => {
     return (
-      //@ts-ignore
+      //@ts-expect-error ignore
       <components.Option {...props} className="!cursor-pointer">
         <div className="flex gap-[10px] md:gap-[15px] items-center h-full">
           <Avatar
@@ -162,27 +167,27 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
             {props?.data?.label}
           </AppText>
           <AppText className="text-[14px] !text-[#717171] font-[400]">
-            License: {props?.data?.license ?? '-'}
+            License: {props?.data?.license ?? "-"}
           </AppText>
         </div>
       </components.Option>
-    )
-  }
+    );
+  };
 
-  //@ts-ignore
+  //@ts-expect-error ignore
   const Menu = ({ children, ...props }) => {
     // if (groupedOptions?.length == 0) return null
     return (
-      //@ts-ignore
+      //@ts-expect-error ignore
       <components.Menu {...props} className="!cursor-pointer">
         {children}
       </components.Menu>
-    )
-  }
+    );
+  };
 
   const singleValueComp = ({ ...props }) => {
     return (
-      //@ts-ignore
+      //@ts-expect-error ignore
       <components.SingleValue {...props} className="!cursor-pointer">
         <div className="flex gap-[10px] md:gap-[15px] items-center h-full">
           <Avatar
@@ -195,27 +200,27 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
             {props?.data?.label}
           </AppText>
           <AppText className="text-[14px] !text-[#717171] font-[400]">
-            License: {props?.data?.license ?? '-'}
+            License: {props?.data?.license ?? "-"}
           </AppText>
         </div>
       </components.SingleValue>
-    )
-  }
+    );
+  };
 
   const handleInputChange = (e: string) => {
-    setSearchVal(e)
-  }
+    setSearchVal(e);
+  };
 
   const handleClick = (e: any) => {
-    setSelectedId(e?.userId)
-  }
+    setSelectedId(e?.userId);
+  };
 
   const handleSecondaryBtnCLick = () => {
-    onClose()
-    setShowUploadError(false)
-    inputObj.setImageState([])
-    setSelectedType(documentTypes[0])
-  }
+    onClose();
+    setShowUploadError(false);
+    inputObj.setImageState([]);
+    setSelectedType(documentTypes[0]);
+  };
 
   return (
     <CkAppModal
@@ -246,7 +251,7 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
           </RadioGroup>
         ) : null}
 
-        {selectedType == 'Agent Document' ? (
+        {selectedType == "Agent Document" ? (
           <div className="flex flex-col gap-[10px] my-[40px]">
             <AppText className={`!text-[#444444] text-[16px] font-[600]`}>
               Select Agent Name
@@ -266,7 +271,7 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
                   Option: customOptionComp,
                   DropdownIndicator: (props) => (
                     <components.DropdownIndicator {...props}>
-                      <GoChevronDown color="#2D2D2D80" fontSize={'20px'} />
+                      <GoChevronDown color="#2D2D2D80" fontSize={"20px"} />
                     </components.DropdownIndicator>
                   ),
                   Menu: Menu,
@@ -284,7 +289,7 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
         ) : null}
 
         {selectedAgent && (
-          <Flex flexDirection={'column'} gap={'16px'}>
+          <Flex flexDirection={"column"} gap={"16px"}>
             <AppText className="!text-[#444444] font-semibold">
               Agent Name
             </AppText>
@@ -293,7 +298,7 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
                 <Avatar
                   src={
                     selectedAgent?.avatarUrl ??
-                    '/assets/profile-placeholder-male.png'
+                    "/assets/profile-placeholder-male.png"
                   }
                   size="md"
                 />
@@ -301,7 +306,7 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
                   {selectedAgent?.name}
                 </Text>
                 <Text className="text-[#717171] text-sm">
-                  License: {selectedAgent?.license ?? '-'}
+                  License: {selectedAgent?.license ?? "-"}
                 </Text>
               </Flex>
             </Box>
@@ -316,17 +321,17 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
             fileTypeKey={inputObj?.fileTypeKey}
             fileTypes={inputObj?.fileTypes}
             name={inputObj?.name}
-            //@ts-ignore
+            //@ts-expect-error ignore
             customUiBody={customUiBodyComp}
             customEndPoint={ADMIN_TEAM_DOCUMENT_UPLOAD}
             setUploadError={setShowUploadError}
           />
         </Flex>
 
-        <Flex mb={'28px'} justifyContent={'end'} mt={'40px'}>
+        <Flex mb={"28px"} justifyContent={"end"} mt={"40px"}>
           <ButtonPair
-            primaryBtnText={'Upload'}
-            secondaryBtnText={'Cancel'}
+            primaryBtnText={"Upload"}
+            secondaryBtnText={"Cancel"}
             onPrimaryClick={() => handleSubmit()}
             onSecondaryClick={handleSecondaryBtnCLick}
             primaryBtnIsLoading={isLoading}
@@ -334,7 +339,7 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
         </Flex>
       </Box>
     </CkAppModal>
-  )
-}
+  );
+};
 
-export default CommonDocumentUploadModal
+export default CommonDocumentUploadModal;

@@ -33,10 +33,10 @@ const TeamDetailsEditModal = ({
   params,
   data,
 }: {
-  isOpen: boolean
-  onClose: () => void
-  params: string
-  data: any
+  isOpen: boolean;
+  onClose: () => void;
+  params: string;
+  data: any;
 }) => {
   const formUtil = useForm({
     defaultValues: {
@@ -44,7 +44,7 @@ const TeamDetailsEditModal = ({
         ...data?.data,
       },
     },
-  })
+  });
 
   useEffect(() => {
     if (data) {
@@ -56,10 +56,10 @@ const TeamDetailsEditModal = ({
           board: getResponse(data?.data?.board),
           phone_number: data?.data?.phone_number?.substr(2, 13),
         },
-      }
-      formUtil.reset(a)
+      };
+      formUtil.reset(a);
     }
-  }, [data])
+  }, [data]);
 
   const router = useNavigate()
   const queryClient = useQueryClient()
@@ -68,7 +68,7 @@ const TeamDetailsEditModal = ({
     (body) => makePatchRequest(ADMIN_AGENT_TEAM_UPDATE(params), body),
     {
       onSuccess: (res) => {
-        console.log(res)
+        console.log(res);
         // const id = res?.data?.id
         queryClient.invalidateQueries({
           queryKey: [ADMIN_AGENT_TEAM_DETAIL(params)],
@@ -79,71 +79,71 @@ const TeamDetailsEditModal = ({
         formUtil.reset()
       },
       onError: (err) => {
-        console.log(err)
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        console.log(err);
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const { metaData: agentsMlsData, handleOnInputChange: handleMlsDataChange } =
     useGetMetaFromApi({
       endPoint: ADMIN_AGENT_MLS_LIST,
-    })
+    });
   const {
     metaData: agentsStateData,
     handleOnInputChange: handleStateDataChange,
   } = useGetMetaFromApi({
     endPoint: ADMIN_AGENT_STATE_LIST,
-  })
+  });
   const {
     metaData: agentsBoardData,
     handleOnInputChange: handleBoardDataChange,
   } = useGetMetaFromApi({
     endPoint: ADMIN_AGENT_BOARD_LIST,
-  })
+  });
 
-  const agentMlsOptions = agentsMlsData?.data?.results
-  const agentStateOptions = agentsStateData?.data?.results
-  const agentBoardOptions = agentsBoardData?.data?.results
+  const agentMlsOptions = agentsMlsData?.data?.results;
+  const agentStateOptions = agentsStateData?.data?.results;
+  const agentBoardOptions = agentsBoardData?.data?.results;
 
   const inputFields = useMemo(
     () => [
       {
-        label: 'Team Name *',
-        name: 'identity',
-        placeholder: 'Enter Team Name',
-        className: '!rounded-l-[0] !rounded-l-[0] !z-[2]',
-        formControlClassName: '!z-[2]',
+        label: "Team Name *",
+        name: "identity",
+        placeholder: "Enter Team Name",
+        className: "!rounded-l-[0] !rounded-l-[0] !z-[2]",
+        formControlClassName: "!z-[2]",
         otherRegProps: {
           // required: true,
         },
       },
       {
-        label: 'State *',
-        name: 'state',
-        type: 'multi-select',
+        label: "State *",
+        name: "state",
+        type: "multi-select",
         options: agentStateOptions,
-        className: '!z-[12]',
+        className: "!z-[12]",
         onInpuChange: (val: any) => handleStateDataChange(val),
         otherRegProps: {
-          //@ts-ignore
+          //@ts-expect-error ignore
           // value: stateObject?.label,
           // required: true,
         },
       },
       {
-        label: 'Phone Number *',
-        name: 'phone_number',
-        type: 'tel',
+        label: "Phone Number *",
+        name: "phone_number",
+        type: "tel",
       },
       {
-        label: 'Board',
-        name: 'board',
-        type: 'multi-select',
-        className: '!z-[11]',
+        label: "Board",
+        name: "board",
+        type: "multi-select",
+        className: "!z-[11]",
         onInpuChange: (val: any) => handleBoardDataChange(val),
         options: agentBoardOptions,
         otherRegProps: {
@@ -151,29 +151,29 @@ const TeamDetailsEditModal = ({
         },
       },
       {
-        label: 'Website',
-        name: 'website',
+        label: "Website",
+        name: "website",
         otherRegProps: {
           required: false,
         },
       },
       {
-        label: 'MLS *',
-        name: 'mls',
-        type: 'multi-select',
+        label: "MLS *",
+        name: "mls",
+        type: "multi-select",
         options: agentMlsOptions,
         onInpuChange: (val: any) => handleMlsDataChange(val),
         otherRegProps: {
           // required: true,
-          value: '',
+          value: "",
         },
       },
     ],
     [agentMlsOptions, agentStateOptions, data]
-  )
+  );
 
   const handlePrimaryBtnClick = () => {
-    const watchData = formUtil.watch('data')
+    const watchData = formUtil.watch("data");
     const obj = {
       identity: watchData?.identity,
       state: watchData?.state?.map((each: any) => each?.value),
@@ -183,10 +183,10 @@ const TeamDetailsEditModal = ({
         ? `+1${removeSpecialChars(watchData?.phone_number)}`
         : null,
       board: watchData?.board?.map((each: any) => each?.value),
-    }
-    //@ts-ignore
-    mutate(obj)
-  }
+    };
+    //@ts-expect-error ignore
+    mutate(obj);
+  };
 
   const stepsComponent = [
     {
@@ -197,12 +197,12 @@ const TeamDetailsEditModal = ({
         />
       ),
     },
-  ]
+  ];
 
   const handleSecondaryBtnClick = () => {
-    onClose()
-    formUtil.reset()
-  }
+    onClose();
+    formUtil.reset();
+  };
 
   return (
     <CkAppModal
@@ -216,19 +216,19 @@ const TeamDetailsEditModal = ({
     >
       <form onSubmit={formUtil.handleSubmit(handlePrimaryBtnClick)}>
         {stepsComponent?.[0]?.comp}
-        <Flex mb={'28px'} justifyContent={'end'} mt={'40px'}>
+        <Flex mb={"28px"} justifyContent={"end"} mt={"40px"}>
           <ButtonPair
-            primaryBtnText={'Update'}
-            secondaryBtnText={'Cancel'}
+            primaryBtnText={"Update"}
+            secondaryBtnText={"Cancel"}
             onPrimaryClick={undefined}
-            primaryBtnType={'submit'}
+            primaryBtnType={"submit"}
             onSecondaryClick={handleSecondaryBtnClick}
             primaryBtnIsLoading={false}
           />
         </Flex>
       </form>
     </CkAppModal>
-  )
-}
+  );
+};
 
-export default TeamDetailsEditModal
+export default TeamDetailsEditModal;

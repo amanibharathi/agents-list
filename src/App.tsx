@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
-  Outlet,
 } from "react-router-dom";
 import AuthUILayout from "./pages/Auth/components/AuthUILayout";
 import { theme } from "./lib/chakra-ui/chakra-themes";
@@ -16,6 +15,8 @@ import AgentsList from "./pages/agent/AgentsList";
 import { AdminListFilterProvider } from "./pages/Auth/AgentComponents/admincompenets/AdminListFilterProvider";
 import AppLayout from "./layout/AppLayout";
 import AppliedAgents from "./pages/agent/AppliedAgents";
+import AdminDetailLayout from "./pages/onboarding-agents/[id]/AdminDetailLayout";
+import OnboardingApplication from "./pages/onboarding-agents/[id]/on-oboarding-application/page";
 
 function App() {
   // Create a new QueryClient instance
@@ -28,7 +29,11 @@ function App() {
 
   // Protected route wrapper component
   const ProtectedRoute = () => {
-    return isAuthenticated() ? <AppLayout /> : <Navigate to="/login" replace />;
+    return isAuthenticated() ? (
+      <AppLayout />
+    ) : (
+      <Navigate to="/admin/login" replace />
+    );
   };
 
   const router = createBrowserRouter([
@@ -63,6 +68,16 @@ function App() {
             {
               path: "applied-agents-list",
               element: <AppliedAgents />,
+            },
+            {
+              path: ":id",
+              element: <AdminDetailLayout />,
+              children: [
+                {
+                  path: "on-oboarding-application",
+                  element: <OnboardingApplication />,
+                },
+              ],
             },
           ],
 

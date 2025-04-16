@@ -1,4 +1,4 @@
-import { useEffect, DependencyList } from 'react'
+import { useEffect, DependencyList } from "react";
 
 export function useDebounceEffectForImageCrop(
   fn: () => void,
@@ -9,14 +9,14 @@ export function useDebounceEffectForImageCrop(
     const t = setTimeout(
       () =>
         // eslint-disable-next-line prefer-spread
-        //@ts-ignore
+        //@ts-expect-error ignore
         // eslint-disable-next-line prefer-spread
         fn.apply(undefined, deps),
       waitTime
-    )
+    );
 
     return () => {
-      clearTimeout(t)
-    }
-  }, deps)
+      clearTimeout(t);
+    };
+  }, deps);
 }

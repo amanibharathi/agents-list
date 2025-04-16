@@ -1,13 +1,12 @@
-
-import makePostRequest from '../../api/makePostRequest'
-import { Box, Flex } from '@chakra-ui/react'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
-import InputRenderer from './InputRenderer'
-import { GET_FORGOT_PASSWORD_LINK } from '../../api-utils'
-import AppButton from '../../AppComponents/AppButton-agent'
-import AppText from '../../AppComponents/AppText-agent'
+import makePostRequest from "../../api/makePostRequest";
+import { Box, Flex } from "@chakra-ui/react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import InputRenderer from "./InputRenderer";
+import { GET_FORGOT_PASSWORD_LINK } from "../../api-utils";
+import AppButton from "../../AppComponents/AppButton-agent";
+import AppText from "../../AppComponents/AppText-agent";
 
 const AdminForgotPasswordStep = () => {
   const [isLinkSent, setIsLinkSent] = useState(false);
@@ -46,7 +45,7 @@ const AdminForgotPasswordStep = () => {
 
   const handleFormSubmit = (val: unknown) => {
     const dataToSubmit = {
-      // @ts-ignore
+      //@ts-expect-error ignore
       ...val,
     };
     mutate(dataToSubmit);
@@ -56,7 +55,7 @@ const AdminForgotPasswordStep = () => {
   const onError = (err: unknown) => console.error("Error occured", err);
 
   const errMsg =
-    //@ts-ignore
+    //@ts-expect-error ignore
     error?.response?.data?.data?.email ?? error?.response?.data?.data;
 
   return (
@@ -85,7 +84,7 @@ const AdminForgotPasswordStep = () => {
             <AppButton
               isLoading={isLoading}
               className="w-full mt-[30px]"
-              // @ts-ignore
+              //@ts-expect-error ignore
               type="submit"
             >
               Reset Password
@@ -93,7 +92,7 @@ const AdminForgotPasswordStep = () => {
           </Flex>
           <AppText
             className="err-text mt-[20px]"
-            // @ts-ignore
+            //@ts-expect-error ignore
             text={errMsg}
           />
         </form>

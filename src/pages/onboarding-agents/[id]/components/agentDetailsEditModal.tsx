@@ -1,23 +1,23 @@
-import AdminInputRenderer from '../../../../login/adminlogin/AdminInputRenderer'
-import ButtonPair from '../../../Auth/AgentComponents/admincompenets/ButtonPair'
+import AdminInputRenderer from "../../../../login/adminlogin/AdminInputRenderer";
+import ButtonPair from "../../../Auth/AgentComponents/admincompenets/ButtonPair";
 import {
   POST_USER_PROFILE_PICTURE,
   PUT_ADMINS_AGENT_UPDATE,
-} from '../../../../api-utils'
-import CkAppModal from '../../../Auth/AgentComponents/admincompenets/AppModal'
-import makePatchRequest from '../../../../api/makePatchRequest'
+} from "../../../../api-utils";
+import CkAppModal from "../../../Auth/AgentComponents/admincompenets/AppModal";
+import makePatchRequest from "../../../../api/makePatchRequest";
 import {
   addSpecialCharsForPhoneNumber,
   commissionPlanOptions,
   getFirstErrorMessage,
   removeSpecialChars,
   validateName,
-} from '../../../../utils/functions/commonFunctions'
-import { Box, Flex } from '@chakra-ui/react'
-import { useEffect, useMemo } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { useMutation } from 'react-query'
+} from "../../../../utils/functions/commonFunctions";
+import { Box, Flex } from "@chakra-ui/react";
+import { useEffect, useMemo } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useMutation } from "react-query";
 
 const AgentDetailsEditModal = ({
   isOpen,
@@ -27,14 +27,14 @@ const AgentDetailsEditModal = ({
   metaData,
   metaIsLoading = false,
 }: {
-  isOpen: boolean
-  onClose: () => void
-  data: any
-  refetch: any
-  metaData: any
-  metaIsLoading?: boolean
+  isOpen: boolean;
+  onClose: () => void;
+  data: any;
+  refetch: any;
+  metaData: any;
+  metaIsLoading?: boolean;
 }) => {
-  const isActiveAgent = data?.agent_detail?.agent_status === 'active'
+  const isActiveAgent = data?.agent_detail?.agent_status === "active";
   // const formUtil = useForm({
   //   defaultValues: {
   //     data: {
@@ -46,20 +46,20 @@ const AgentDetailsEditModal = ({
   //     },
   //   },
   // })
-  const formUtil = useForm()
-  const { watch, setValue, reset } = formUtil
+  const formUtil = useForm();
+  const { watch, setValue, reset } = formUtil;
 
   useEffect(() => {
     if (data && metaData) {
       let capStatusValue = metaData?.data?.meta?.cap_status?.filter(
         (m: any) => m?.id === metaData?.data?.initial?.cap_status
-      )?.[0]
+      )?.[0];
 
       if (capStatusValue?.id) {
         capStatusValue = {
           label: capStatusValue?.identity,
           value: capStatusValue?.id,
-        }
+        };
       }
 
       const commPlanValue =
@@ -67,7 +67,7 @@ const AgentDetailsEditModal = ({
           (f) =>
             f?.value == data?.agent_detail?.commission_plan ||
             f?.label == data?.agent_detail?.commission_plan
-        )?.[0] || ''
+        )?.[0] || "";
 
       reset({
         data: {
@@ -80,74 +80,74 @@ const AgentDetailsEditModal = ({
           team_commission_plan: data?.agent_detail?.team_commission_plan,
           cap_status: capStatusValue,
         },
-      })
+      });
     }
-  }, [data, metaIsLoading, metaData])
+  }, [data, metaIsLoading, metaData]);
 
   const agentInputFields = [
     {
-      label: 'First Name*',
-      name: 'first_name',
+      label: "First Name*",
+      name: "first_name",
       otherRegProps: {
-        //@ts-ignore
+        //@ts-expect-error ignore
         // value: stateObject?.label,
         required: true,
         validate: validateName,
       },
     },
     {
-      label: 'Last Name*',
-      name: 'last_name',
+      label: "Last Name*",
+      name: "last_name",
       otherRegProps: {
-        //@ts-ignore
+        //@ts-expect-error ignore
         // value: stateObject?.label,
         required: true,
         validate: validateName,
       },
     },
     {
-      label: 'ROA Email*',
-      name: 'roa_email',
-      type: 'email',
+      label: "ROA Email*",
+      name: "roa_email",
+      type: "email",
       otherRegProps: {
         isDisabled: !isActiveAgent,
-        //@ts-ignore
+        //@ts-expect-error ignore
         // value: stateObject?.label,
         required: true,
       },
     },
     {
-      label: 'Phone Number* ',
-      name: 'phone_number',
-      type: 'tel',
+      label: "Phone Number* ",
+      name: "phone_number",
+      type: "tel",
       otherRegProps: {
         required: true,
       },
     },
     {
-      name: 'address',
-      label: 'Address',
-      type: 'textarea',
+      name: "address",
+      label: "Address",
+      type: "textarea",
       otherRegProps: {
         required: false,
       },
     },
     {
-      label: 'City',
-      name: 'city',
-      type: 'text',
+      label: "City",
+      name: "city",
+      type: "text",
       otherRegProps: {
-        //@ts-ignore
+        //@ts-expect-error ignore
         // value: stateObject?.label,
         required: false,
       },
     },
     {
-      label: 'Zip code',
-      name: 'zipcode',
-      type: 'number',
+      label: "Zip code",
+      name: "zipcode",
+      type: "number",
       otherRegProps: {
-        //@ts-ignore
+        //@ts-expect-error ignore
         // value: stateObject?.label,
         required: false,
         minLength: 5,
@@ -156,85 +156,86 @@ const AgentDetailsEditModal = ({
       },
     },
     {
-      label: 'Commission Plan *',
-      name: 'commission_plan',
-      type: 'select',
+      label: "Commission Plan *",
+      name: "commission_plan",
+      type: "select",
       options: commissionPlanOptions,
-      className: '!z-[12]',
+      className: "!z-[12]",
     },
     {
-      label: 'Team Commission Plan',
-      name: 'team_commission_plan',
-      hide: data?.agent_detail?.onboard_type !== 'team',
-      type: 'number',
-      placeholder: 'Enter a value between 15 to 100',
+      label: "Team Commission Plan",
+      name: "team_commission_plan",
+      hide: data?.agent_detail?.onboard_type !== "team",
+      type: "number",
+      placeholder: "Enter a value between 15 to 100",
       otherRegProps: {
         required: false,
-        min: { value: 15, message: 'Minimum split is 15' },
-        max: { value: 100, message: 'Maximum split is 100' },
+        min: { value: 15, message: "Minimum split is 15" },
+        max: { value: 100, message: "Maximum split is 100" },
       },
     },
     {
-      label: 'Capping *',
-      name: 'cap_status',
-      type: 'select',
+      label: "Capping *",
+      name: "cap_status",
+      type: "select",
       options: metaData?.data?.meta?.cap_status,
     },
     {
-      label: 'Profile Picture',
-      name: 'image',
-      type: 'file',
-      imageState: watch('data.image'),
-      setImageState: (val: any) => setValue('data.image', [...val]),
-      uploadKey: 'resource',
-      fileTypes: ['PNG', 'JPEG', 'JPG', 'SVG', 'GIF', 'WEBP'],
-      placeholder: 'Upload thumbnail',
-      fileTypeKey: 'image',
+      label: "Profile Picture",
+      name: "image",
+      type: "file",
+      imageState: watch("data.image"),
+      setImageState: (val: any) => setValue("data.image", [...val]),
+      uploadKey: "resource",
+      fileTypes: ["PNG", "JPEG", "JPG", "SVG", "GIF", "WEBP"],
+      placeholder: "Upload thumbnail",
+      fileTypeKey: "image",
       customEndPoint: POST_USER_PROFILE_PICTURE,
       required: false,
     },
-  ]?.filter((f) => f?.hide !== true)
+  ]?.filter((f) => f?.hide !== true);
 
   if (!isActiveAgent) {
-    agentInputFields?.splice(2, 1)
+    agentInputFields?.splice(2, 1);
   }
 
   const inputFields = useMemo(
     () => agentInputFields,
     [
-      watch('data.first_name'),
-      watch('data.last_name'),
-      watch('data.phone_number]'),
-      watch('data.city'),
-      watch('data.zipcode'),
-      watch('data.profile_picture'),
-      watch('data.image'),
-      watch('data.roa_email'),
+      watch("data.first_name"),
+      watch("data.last_name"),
+      watch("data.phone_number]"),
+      watch("data.city"),
+      watch("data.zipcode"),
+      watch("data.profile_picture"),
+      watch("data.image"),
+      watch("data.roa_email"),
       isActiveAgent,
     ]
-  )
+  );
 
   const { mutate: profileEditMutate, isLoading } = useMutation(
     (body) =>
       makePatchRequest(PUT_ADMINS_AGENT_UPDATE(data?.agent_detail?.id), body),
-    
-      {onSuccess: () => {
-        toast.success('Agent Details Updated Sucessfully')
-        refetch()
-        onClose()
+
+    {
+      onSuccess: () => {
+        toast.success("Agent Details Updated Sucessfully");
+        refetch();
+        onClose();
       },
       onError: (err) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const handlePrimaryBtnClick = () => {
-    const agentData = watch('data')
-    // @ts-ignore
+    const agentData = watch("data");
+    //@ts-expect-error ignore
     const {
       first_name,
       last_name,
@@ -244,7 +245,7 @@ const AgentDetailsEditModal = ({
       zipcode,
       image,
       roa_email,
-    } = agentData
+    } = agentData;
     const finalData = {
       user: {
         first_name: first_name,
@@ -258,8 +259,8 @@ const AgentDetailsEditModal = ({
         profile_picture: image
           ? image[0]?.id
           : data?.profile_picture
-            ? data?.profile_picture?.id
-            : null,
+          ? data?.profile_picture?.id
+          : null,
       },
       roa_email: roa_email,
       commission_plan: agentData?.commission_plan?.value,
@@ -267,16 +268,16 @@ const AgentDetailsEditModal = ({
         ? agentData?.team_commission_plan
         : null,
       cap_status: agentData?.cap_status?.value,
-    }
+    };
     if (!isActiveAgent) {
-      delete finalData?.roa_email
+      delete finalData?.roa_email;
     }
-    // @ts-ignore
-    profileEditMutate(finalData)
-  }
+    //@ts-expect-error ignore
+    profileEditMutate(finalData);
+  };
 
   const handleSecondaryBtnClick = () => {
-    onClose()
+    onClose();
     reset({
       data: {
         ...data,
@@ -286,8 +287,8 @@ const AgentDetailsEditModal = ({
         roa_email: data?.agent_detail?.roa_email,
         team_commission_plan: data?.agent_detail?.team_commission_plan,
       },
-    })
-  }
+    });
+  };
 
   return (
     <CkAppModal
@@ -314,19 +315,19 @@ const AgentDetailsEditModal = ({
             />
           ))}
         </Box>
-        <Flex mb={'28px'} justifyContent={'end'} mt={'40px'}>
+        <Flex mb={"28px"} justifyContent={"end"} mt={"40px"}>
           <ButtonPair
-            primaryBtnText={'Update'}
-            secondaryBtnText={'Cancel'}
+            primaryBtnText={"Update"}
+            secondaryBtnText={"Cancel"}
             onPrimaryClick={undefined}
-            primaryBtnType={'submit'}
+            primaryBtnType={"submit"}
             onSecondaryClick={handleSecondaryBtnClick}
             primaryBtnIsLoading={isLoading}
           />
         </Flex>
       </form>
     </CkAppModal>
-  )
-}
+  );
+};
 
-export default AgentDetailsEditModal
+export default AgentDetailsEditModal;

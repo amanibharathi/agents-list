@@ -1,89 +1,90 @@
-
-import { Box, Flex, Image } from '@chakra-ui/react'
-import { useParams } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { useMutation, useQuery } from 'react-query'
-import NotesHeader from '../components/notesHeader'
-import NotesBody from '../components/notesBody'
-import AdminInputRenderer from '../../../../login/adminlogin/AdminInputRenderer'
-import { AGENT_NOTES_CREATE, AGENT_NOTES_LIST } from '../../../../api-utils'
-import AppButton from '../../../../AppComponents/AppButton-agent'
-import makeGetRequest from '../../../../api/makeGetRequest'
-import makePostRequest from '../../../../api/makePostRequest'
+import { Box, Flex, Image } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useMutation, useQuery } from "react-query";
+import NotesHeader from "../components/notesHeader";
+import NotesBody from "../components/notesBody";
+import AdminInputRenderer from "../../../../login/adminlogin/AdminInputRenderer";
+import { AGENT_NOTES_CREATE, AGENT_NOTES_LIST } from "../../../../api-utils";
+import AppButton from "../../../../AppComponents/AppButton-agent";
+import makeGetRequest from "../../../../api/makeGetRequest";
+import makePostRequest from "../../../../api/makePostRequest";
 
 const inputFields = [
   {
-    name: 'identity',
-    placeholder: 'Add Note Title...',
+    name: "identity",
+    placeholder: "Add Note Title...",
     otherRegProps: {
       required: true,
     },
   },
   {
-    name: 'notes',
-    placeholder: 'Description...',
+    name: "notes",
+    placeholder: "Description...",
     otherRegProps: {
       required: true,
     },
-    type: 'textarea',
+    type: "textarea",
   },
-]
+];
 
 export default function Page() {
-  const { id } = useParams()
-  const notesForm = useForm()
+  const { id } = useParams();
+  const notesForm = useForm();
   const { data, refetch } = useQuery(
     [AGENT_NOTES_LIST() + `?review_type=internal_notes&user=${id}`],
     () =>
       makeGetRequest(
         AGENT_NOTES_LIST() + `?review_type=internal_notes&user=${id}`
       )
-  )
+  );
   const { mutate, isLoading } = useMutation(
     (body) => makePostRequest(AGENT_NOTES_CREATE, body),
     {
       onSuccess: () => {
-        refetch()
-        notesForm.reset()
-        toast.success('Note Created Successfully')
+        refetch();
+        notesForm.reset();
+        toast.success("Note Created Successfully");
       },
       onError: (err: any) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
-  const notesList = data?.data?.results ?? []
+  );
+  const notesList = data?.data?.results ?? [];
   const handleNoteSubmit = (body: any) => {
     const bdyObj = {
       user: id,
       identity: body?.data?.identity,
       form_group: null,
       form_subgroup: [],
-      review_type: 'internal_notes',
+      review_type: "internal_notes",
       notes: body?.data?.notes,
-    }
-    //@ts-ignore
-    mutate(bdyObj)
-  }
+    };
+    //@ts-expect-error ignore
+    mutate(bdyObj);
+  };
 
   return (
     <Flex
-      flexDirection={'column'}
-      alignItems={'center'}
-      justifyContent={'space-between'}
+      flexDirection={"column"}
+      alignItems={"center"}
+      justifyContent={"space-between"}
     >
       <div className="w-[100%]">
         <form onSubmit={notesForm.handleSubmit(handleNoteSubmit)}>
-          <Box w={'100%'} className="mt-[40px]">
+          <Box w={"100%"} className="mt-[40px]">
             <div className="flex flex-col gap-[18px] basis-[92%]">
               {inputFields?.map((i: any) => (
                 <AdminInputRenderer
                   className="w-full max-w-[100%]"
-                  wrapperClassName={`flex gap-[20px] text-[14px] ${i?.wrapperName ?? ''}`}
+                  wrapperClassName={`flex gap-[20px] text-[14px] ${
+                    i?.wrapperName ?? ""
+                  }`}
                   labelClassName=""
                   inputObj={i}
                   key={i?.name}
@@ -95,12 +96,12 @@ export default function Page() {
               ))}
             </div>
             <Flex
-              justifyContent={'end'}
-              px={'20px'}
-              py={'5px'}
-              bg={'rgba(14, 93, 176, 0.1)'}
-              borderBottomEndRadius={'4px'}
-              borderBottomStartRadius={'4px'}
+              justifyContent={"end"}
+              px={"20px"}
+              py={"5px"}
+              bg={"rgba(14, 93, 176, 0.1)"}
+              borderBottomEndRadius={"4px"}
+              borderBottomStartRadius={"4px"}
             >
               <AppButton
                 isLoading={isLoading}
@@ -120,7 +121,7 @@ export default function Page() {
           <div key={index} className="min-h-[90px] flex gap-[20px] mt-[20px]">
             <Image
               alt=""
-              src={'/assets/notes-icon.png'}
+              src={"/assets/notes-icon.png"}
               className="object-cover w-[36px] h-[36px]"
             />
             <div className="flex flex-col gap-[20px] pb-[20px] border-b-[1px] border-[#CDCDCD] w-[95%]">
@@ -143,5 +144,5 @@ export default function Page() {
         />
       </> */}
     </Flex>
-  )
+  );
 }

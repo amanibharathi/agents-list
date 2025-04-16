@@ -1,12 +1,12 @@
-
-import { Box, Flex } from '@chakra-ui/react'
-import { Dispatch, SetStateAction, useMemo, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { IoIosRemoveCircleOutline } from 'react-icons/io'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import CkInput from './CkInput'
-import {   ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST,
+import { Box, Flex } from "@chakra-ui/react";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import CkInput from "./CkInput";
+import {
+  ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST,
   ADMIN_AGENT_TEAM_LIST,
   ADMIN_TEAM_MEMBER_CREATE,
   ADMIN_TEAM_MEMBER_UPDATE_META,
@@ -67,7 +67,7 @@ const AssignAgentToTeamModal = ({
   const isAssign = modalType == "team";
   const listToShowInModal = useMemo(() => {
     let list = selected;
-    //@ts-ignore
+    //@ts-expect-error ignore
     if (!isAssign) list = selected?.filter((f) => f?.agent?.id);
     return list;
   }, [selected]);
@@ -110,26 +110,27 @@ const AssignAgentToTeamModal = ({
           : ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST,
         body
       ),
-    
-      {onSuccess: () => {
+
+    {
+      onSuccess: () => {
         toast.success(
-          isAssign ? 'Agent assigned Successfully' : 'Removed Successfully'
-        )
-        onClose()
-        setSelected([])
-        refetch()
+          isAssign ? "Agent assigned Successfully" : "Removed Successfully"
+        );
+        onClose();
+        setSelected([]);
+        refetch();
         queryClient.invalidateQueries({
           queryKey: [GET_LEADS_LIST_IN_ADMIN],
-        })
+        });
       },
       onError: (err) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const { metaData, handleOnInputChange, metaDataIsLoading } =
     useGetMetaFromApi({
@@ -152,7 +153,7 @@ const AssignAgentToTeamModal = ({
     const dataToSubmit = isAssign
       ? {
           team: watch("agent")?.value,
-          //@ts-ignore
+          //@ts-expect-error ignore
           user: selectedData?.data?.results?.[0]?.id,
           role: watch("role")?.value,
           agent_cap_detail: {
@@ -164,17 +165,17 @@ const AssignAgentToTeamModal = ({
         }
       : {
           brokerage: watch("agent")?.value,
-          //@ts-ignore
+          //@ts-expect-error ignore
           members: selectedData?.data?.results?.map((m: any) => m?.id),
           // role: 'member',
           team: [],
         };
-    //@ts-ignore
+    //@ts-expect-error ignore
     mutate(dataToSubmit);
   };
 
   const removeFromList = (val: unknown) => {
-    //@ts-ignore
+    //@ts-expect-error ignore
     const newArr = selectedData?.data?.results?.filter(
       (f) => f?.id !== val?.id
     );
@@ -193,12 +194,12 @@ const AssignAgentToTeamModal = ({
   };
 
   const { data: meta } = useQuery(
-    //@ts-ignore
+    //@ts-expect-error ignore
     [ADMIN_TEAM_MEMBER_UPDATE_META(watch("agent")?.value)],
-    //@ts-ignore
+    //@ts-expect-error ignore
     () => makeGetRequest(ADMIN_TEAM_MEMBER_UPDATE_META(watch("agent")?.value)),
     {
-      //@ts-ignore
+      //@ts-expect-error ignore
       enabled: !!watch("agent")?.value,
     }
   );
@@ -224,7 +225,7 @@ const AssignAgentToTeamModal = ({
           tableMeta={!isBrokerage ? tableMeta : tableMeta2}
           tableData={selectedData}
           includeIndex
-          //@ts-ignore
+          //@ts-expect-error ignore
           relativeTime={["created"]}
         />
       </Box>
@@ -238,7 +239,7 @@ const AssignAgentToTeamModal = ({
           isLoading={metaDataIsLoading}
           control={control}
           {...register("agent")}
-          //@ts-ignore
+          //@ts-expect-error ignore
           options={metaData?.data?.results?.map((m) => ({
             id: m?.id,
             identity: m?.identity,
@@ -258,7 +259,7 @@ const AssignAgentToTeamModal = ({
         <CkSelect
           control={control}
           {...register("role")}
-          //@ts-ignore
+          //@ts-expect-error ignore
           options={meta?.data?.meta?.role}
           className={``}
           //   isError={errors?.[name]}
@@ -271,7 +272,7 @@ const AssignAgentToTeamModal = ({
         />
         <CkInput
           {...register("team_commission_plan")}
-          //@ts-ignore
+          //@ts-expect-error ignore
           placeholder="Enter a value between 15 to 100"
           type="number"
         />
@@ -285,7 +286,7 @@ const AssignAgentToTeamModal = ({
         <CkSelect
           control={control}
           {...register("commission_plan")}
-          //@ts-ignore
+          //@ts-expect-error ignore
           options={commissionPlanOptions}
           className={``}
           //   isError={errors?.[name]}
@@ -301,7 +302,7 @@ const AssignAgentToTeamModal = ({
           isLoading={metaDataIsLoading}
           control={control}
           {...register("cap_status")}
-          //@ts-ignore
+          //@ts-expect-error ignore
           options={agentMetaData?.data?.meta?.cap_status}
           className={``}
         />

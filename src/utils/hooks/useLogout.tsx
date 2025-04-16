@@ -11,7 +11,7 @@ const useLogout = () => {
     onSuccess: () => {
       clearTokenAndUserData();
       toast.success("Logged out");
-      window.location.href = "/login";
+      window.location.href = "/admin/login";
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {

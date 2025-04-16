@@ -1,93 +1,92 @@
-
-import { useForm } from 'react-hook-form'
+import { useForm } from "react-hook-form";
 //import SendIcon from '@/app/icons/sendIcon'
-import { AGENT_NOTES_LIST, AGENT_NOTES_CREATE } from '../../../../api-utils'
-import makeGetRequest from '../../../../api/makeGetRequest'
-import { useMutation, useQuery } from 'react-query'
-import makePostRequest from '../../../../api/makePostRequest'
+import { AGENT_NOTES_LIST, AGENT_NOTES_CREATE } from "../../../../api-utils";
+import makeGetRequest from "../../../../api/makeGetRequest";
+import { useMutation, useQuery } from "react-query";
+import makePostRequest from "../../../../api/makePostRequest";
 // import { getFirstErrorMessage } from '@/app/utils/functions/otherFunctions'
-import toast from 'react-hot-toast'
-import moment from 'moment'
-import AdminInputRenderer from '../../../../login/adminlogin/AdminInputRenderer'
-import AppButton from '../../../../AppComponents/AppButton-agent'
-import AppText from '../../../../AppComponents/AppText-agent'
-import SendIcon from './sendIcon'
-import { getFirstErrorMessage } from '../../../../utils/functions/commonFunctions'
+import toast from "react-hot-toast";
+import moment from "moment";
+import AdminInputRenderer from "../../../../login/adminlogin/AdminInputRenderer";
+import AppButton from "../../../../AppComponents/AppButton-agent";
+import AppText from "../../../../AppComponents/AppText-agent";
+import SendIcon from "./sendIcon";
+import { getFirstErrorMessage } from "../../../../utils/functions/commonFunctions";
 
 const inputFields = [
   {
-    name: 'identity',
-    placeholder: 'Add Note Title...',
+    name: "identity",
+    placeholder: "Add Note Title...",
     otherRegProps: {
       required: true,
     },
   },
   {
-    name: 'notes',
-    placeholder: 'Description...',
+    name: "notes",
+    placeholder: "Description...",
     otherRegProps: {
       required: true,
     },
-    type: 'textarea',
+    type: "textarea",
   },
-]
+];
 
 const getDate = (date: string) => {
-  const inputDate = moment(date)
+  const inputDate = moment(date);
 
   // Current date and time
-  const now = moment()
+  const now = moment();
 
   // Check if the input date is today
-  const formattedDate = inputDate.isSame(now, 'day')
-    ? `Today, ${inputDate.format('HH:mm:ss')}`
-    : inputDate.format('MMMM D, YYYY, HH:mm:ss')
+  const formattedDate = inputDate.isSame(now, "day")
+    ? `Today, ${inputDate.format("HH:mm:ss")}`
+    : inputDate.format("MMMM D, YYYY, HH:mm:ss");
 
-  return formattedDate
-}
+  return formattedDate;
+};
 
-export default function ModalNotesComponent({ id, review_type = '' }: any) {
-  const notesForm = useForm()
+export default function ModalNotesComponent({ id, review_type = "" }: any) {
+  const notesForm = useForm();
   const { data, refetch } = useQuery(
     [
       AGENT_NOTES_LIST() +
-        `?review_type=${review_type ? review_type : 'notes'}&user=${id}`,
+        `?review_type=${review_type ? review_type : "notes"}&user=${id}`,
     ],
     () =>
       makeGetRequest(
         AGENT_NOTES_LIST() +
-          `?review_type=${review_type ? review_type : 'notes'}&user=${id}`
+          `?review_type=${review_type ? review_type : "notes"}&user=${id}`
       )
-  )
+  );
   const { mutate, isLoading } = useMutation(
     (body) => makePostRequest(AGENT_NOTES_CREATE, body),
     {
       onSuccess: () => {
-        refetch()
-        notesForm.reset()
-        toast.success('Assigned Successfully')
+        refetch();
+        notesForm.reset();
+        toast.success("Assigned Successfully");
       },
       onError: (err: any) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
-  const notesList = data?.data?.results ?? []
+  );
+  const notesList = data?.data?.results ?? [];
   const handleNoteSubmit = (body: any) => {
     const bdyObj = {
       user: id,
       identity: body?.data?.identity,
       form_group: null,
       form_subgroup: [],
-      review_type: review_type ? review_type : 'notes',
+      review_type: review_type ? review_type : "notes",
       notes: body?.data?.notes,
-    }
-    //@ts-ignore
-    mutate(bdyObj)
-  }
+    };
+    //@ts-expect-error ignore
+    mutate(bdyObj);
+  };
 
   return (
     <div className="flex flex-col">
@@ -126,7 +125,9 @@ export default function ModalNotesComponent({ id, review_type = '' }: any) {
               {inputFields?.map((i: any) => (
                 <AdminInputRenderer
                   className="w-full max-w-[100%]"
-                  wrapperClassName={`flex gap-[20px] text-[14px] ${i?.wrapperName ?? ''}`}
+                  wrapperClassName={`flex gap-[20px] text-[14px] ${
+                    i?.wrapperName ?? ""
+                  }`}
                   labelClassName=""
                   inputObj={i}
                   key={i?.name}
@@ -150,5 +151,5 @@ export default function ModalNotesComponent({ id, review_type = '' }: any) {
         </form>
       </div>
     </div>
-  )
+  );
 }

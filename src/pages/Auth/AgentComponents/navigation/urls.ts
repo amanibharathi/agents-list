@@ -290,7 +290,7 @@ export const ADMIN_TEAM_CREATION_PAGE = `/admin/agents/onboarding-teams/create`;
 export const MAKE_ADMIN_TEAM_DETAIL_PAGE = (id) =>
   `/admin/agents/applied-teams/${id}`;
 export const MAKE_AGENT_DETAIL_TAB_PAGE = (id, path) =>
-  `/admin/agents/onboarding-agents/${id}/${path}`;
+  `/admin/agents/${id}/${path}`;
 export const MAKE_ADMIN_TEAM_DETAIL_TAB = (id, path) =>
   `/admin/agents/onboarding-teams/${id}/${path ? path : ""}`;
 export const MAKE_ADMIN_BROKERAGE_DETAILS_TAB = (id, path) =>

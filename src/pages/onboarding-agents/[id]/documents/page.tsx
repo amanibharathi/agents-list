@@ -1,36 +1,38 @@
-
-import { Box, Flex } from '@chakra-ui/react'
-import { UploadIcon } from '@radix-ui/react-icons'
-import { useParams } from 'react-router-dom'
-import { useQueryClient } from 'react-query'
-import AdminFileUpload from '../../../Auth/AgentComponents/fileupload/AdminFileUpload'
-import PageHeader from './PageHeader'
-import { ADMIN_AGENT_DOCUMENTS_LIST,ADMIN_AGENT_DOCUMENTS_LIST_META,
-  AGENT_DOCUMENT_UPLOAD, } from '../../../../api-utils'
-import AppButton from '../../../../AppComponents/AppButton-agent'
-import AppLoader from '../../../Auth/AgentComponents/admincompenets/AppLoader'
-import ListingTable from '../../../Auth/AgentComponents/table/ListingTable'
-import useGetTableList from '../../../../utils/hooks/useGetTableList'
-import useHandlePagination from '../../../../utils/hooks/useHandlePagination'
+import { Box, Flex } from "@chakra-ui/react";
+import { UploadIcon } from "@radix-ui/react-icons";
+import { useParams } from "react-router-dom";
+import { useQueryClient } from "react-query";
+import AdminFileUpload from "../../../Auth/AgentComponents/fileupload/AdminFileUpload";
+import PageHeader from "./PageHeader";
+import {
+  ADMIN_AGENT_DOCUMENTS_LIST,
+  ADMIN_AGENT_DOCUMENTS_LIST_META,
+  AGENT_DOCUMENT_UPLOAD,
+} from "../../../../api-utils";
+import AppButton from "../../../../AppComponents/AppButton-agent";
+import AppLoader from "../../../Auth/AgentComponents/admincompenets/AppLoader";
+import ListingTable from "../../../Auth/AgentComponents/table/ListingTable";
+import useGetTableList from "../../../../utils/hooks/useGetTableList";
+import useHandlePagination from "../../../../utils/hooks/useHandlePagination";
 
 const Page = ({ params }: { params: { tab: string; id: string } }) => {
   const { page, handleMaxPage, max, handlePaginationClick, setPage } =
-    useHandlePagination()
+    useHandlePagination();
 
   const inputObj = {
-    label: '',
-    name: '',
-    type: '',
+    label: "",
+    name: "",
+    type: "",
     imageState: undefined,
     setImageState: function (res: any): void {
       //   setImage(res?.[0])
-      console.log('document', res)
+      console.log("document", res);
     },
-    uploadKey: '',
-    fileTypes: ['pdf'],
-    placeholder: '',
-    fileTypeKey: '',
-  }
+    uploadKey: "",
+    fileTypes: ["pdf"],
+    placeholder: "",
+    fileTypeKey: "",
+  };
 
   const { listData, listMeta, isLoading, selectable, refetch } =
     useGetTableList({
@@ -39,30 +41,30 @@ const Page = ({ params }: { params: { tab: string; id: string } }) => {
       handleMax: handleMaxPage,
       page,
       setPage,
-    })
+    });
   listData?.data?.results?.forEach(
-    (list: any) => (list.name = list?.name?.split('/').pop())
-  )
+    (list: any) => (list.name = list?.name?.split("/").pop())
+  );
 
-  const queryClient = useQueryClient()
-  const { id } = useParams()
+  const queryClient = useQueryClient();
+  const { id } = useParams();
 
   const handleDownload = (data: any) => {
-    const link = document.createElement('a')
-    link.href = data?.file
-    link.target = '_blank'
-    link.download = `${data?.name?.split('/').pop()}.pdf`
-    document.body.appendChild(link)
-    link.click()
-  }
+    const link = document.createElement("a");
+    link.href = data?.file;
+    link.target = "_blank";
+    link.download = `${data?.name?.split("/").pop()}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+  };
   const onSuccess = () => {
-    refetch()
+    refetch();
     queryClient.invalidateQueries({
       queryKey: [ADMIN_AGENT_DOCUMENTS_LIST(id)],
-    })
-  }
+    });
+  };
   const customUiBodyComp = (isLoading: boolean) => (
-    <Flex maxWidth={'300px'} alignItems={'center'} flexFlow={'column'}>
+    <Flex maxWidth={"300px"} alignItems={"center"} flexFlow={"column"}>
       {isLoading ? (
         <AppLoader />
       ) : (
@@ -71,10 +73,10 @@ const Page = ({ params }: { params: { tab: string; id: string } }) => {
         </>
       )}
     </Flex>
-  )
+  );
   return (
     <Box>
-      <Flex justifyContent={'space-between'}>
+      <Flex justifyContent={"space-between"}>
         <PageHeader title="Documents" />
         <div className="overflow-x-hidden pt-[39px] pb-[39px]">
           <AdminFileUpload
@@ -84,7 +86,7 @@ const Page = ({ params }: { params: { tab: string; id: string } }) => {
             fileTypeKey={inputObj?.fileTypeKey}
             fileTypes={inputObj?.fileTypes}
             name={inputObj?.name}
-            //@ts-ignore
+            //@ts-expect-error ignore
             customUiBody={customUiBodyComp}
             customEndPoint={AGENT_DOCUMENT_UPLOAD}
             customType={{ user: params?.id }}
@@ -94,7 +96,7 @@ const Page = ({ params }: { params: { tab: string; id: string } }) => {
           />
         </div>
       </Flex>
-      <Box mt={'-10px'}>
+      <Box mt={"-10px"}>
         <ListingTable
           //   showTextAsTag={showTextAsTag}
           //   customFunction={customFunction}
@@ -102,10 +104,10 @@ const Page = ({ params }: { params: { tab: string; id: string } }) => {
           max={max}
           tableMeta={listMeta}
           tableData={listData}
-          //@ts-ignore
-          avatar={['full_name']}
-          //@ts-ignore
-          relativeTime={['created']}
+          //@ts-expect-error ignore
+          avatar={["full_name"]}
+          //@ts-expect-error ignore
+          relativeTime={["created"]}
           selectable={selectable}
           isLoading={isLoading}
           forcePage={page - 1}
@@ -114,7 +116,7 @@ const Page = ({ params }: { params: { tab: string; id: string } }) => {
         />
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;

@@ -14,20 +14,20 @@ import { sponsorLink } from './joinRoaComp'
 
 
 interface IAdminTeamHeaderBox extends IAdminTeamHeaderPrimaryBox {
-  onAssignBrokerageClick: () => void
-  brokerAgeContent: string
-  board: string
-  mls: string
-  state: string
-  website?: string
-  teamAdmin: string
-  teamLead: string
-  joinLink?: string
-  image: string
-  agents_count: number
-  request_count: number
-  closedVolumes?: string
-  transactions?: string
+  onAssignBrokerageClick: () => void;
+  brokerAgeContent: string;
+  board: string;
+  mls: string;
+  state: string;
+  website?: string;
+  teamAdmin: string;
+  teamLead: string;
+  joinLink?: string;
+  image: string;
+  agents_count: number;
+  request_count: number;
+  closedVolumes?: string;
+  transactions?: string;
 }
 
 const AdminTeamHeaderBox = ({
@@ -35,7 +35,7 @@ const AdminTeamHeaderBox = ({
   teamId,
   created,
   onAssignBrokerageClick,
-  brokerAgeContent = '-',
+  brokerAgeContent = "-",
   board,
   mls,
   state,
@@ -53,29 +53,29 @@ const AdminTeamHeaderBox = ({
   const tags = [
     {
       text: `Active Agents: ${agents_count}`,
-      bg: '#EBF5FD',
-      color: '#000000',
+      bg: "#EBF5FD",
+      color: "#000000",
     },
     {
       text: `Open Requests: ${request_count}`,
-      bg: '#FFF5E5',
-      color: '#000000',
+      bg: "#FFF5E5",
+      color: "#000000",
     },
-  ]
-  //@ts-ignore
-  const newLink = sponsorLink(joinLink, 'team')
+  ];
+  //@ts-expect-error ignore
+  const newLink = sponsorLink(joinLink, "team");
   return (
     <Flex
-      direction={'column'}
-      gap={'20px'}
-      px={'20px'}
-      py={'20px'}
-      bg={'white'}
-      border={'1px solid #E6E7E9'}
-      style={{ boxShadow: '8px 16px 56px 0px #0000000A' }}
-      borderRadius={'8px'}
+      direction={"column"}
+      gap={"20px"}
+      px={"20px"}
+      py={"20px"}
+      bg={"white"}
+      border={"1px solid #E6E7E9"}
+      style={{ boxShadow: "8px 16px 56px 0px #0000000A" }}
+      borderRadius={"8px"}
     >
-      <Flex justify={'space-between'} alignItems={'center'}>
+      <Flex justify={"space-between"} alignItems={"center"}>
         <AdminTeamHeaderPrimaryBox
           name={name}
           teamId={teamId}
@@ -83,7 +83,7 @@ const AdminTeamHeaderBox = ({
           status={status}
           image={image}
         />
-        <Flex gap={'20px'}>
+        <Flex gap={"20px"}>
           <CustomBoxButton
             wrapperClassName="flex-1"
             onClick={onAssignBrokerageClick}
@@ -103,8 +103,8 @@ const AdminTeamHeaderBox = ({
           />
         </Flex>
       </Flex>
-      <Flex justify={'space-between'} className="items-center">
-        <Flex gap={'20px'}>
+      <Flex justify={"space-between"} className="items-center">
+        <Flex gap={"20px"}>
           {tags?.map((tag: any) => (
             <ColorTags
               key={tag?.text}
@@ -117,28 +117,28 @@ const AdminTeamHeaderBox = ({
           ))}
         </Flex>
         {website ? (
-          <Flex alignItems={'center'} gap={'10px'}>
+          <Flex alignItems={"center"} gap={"10px"}>
             <AppText className="text-[18px] !text-[#10295A]">
-              Team Website:{' '}
+              Team Website:{" "}
             </AppText>
             <div className="max-w-[250px] overflow-x-scroll no-scrollbar">
               <AppText>
                 <span className="!text-[#000000] whitespace-nowrap">
-                  {website || '-'}
+                  {website || "-"}
                 </span>
               </AppText>
             </div>
           </Flex>
         ) : null}
         {joinLink ? (
-          <Flex alignItems={'center'} gap={'10px'}>
+          <Flex alignItems={"center"} gap={"10px"}>
             <AppText className="text-[18px] !text-[#10295A]">
-              Team Join Link:{' '}
+              Team Join Link:{" "}
             </AppText>
             <div className="max-w-[250px] overflow-x-scroll no-scrollbar">
               <AppText>
                 <span className="!text-[#000000] whitespace-nowrap">
-                  {newLink || '-'}
+                  {newLink || "-"}
                 </span>
               </AppText>
             </div>
@@ -152,7 +152,7 @@ const AdminTeamHeaderBox = ({
         ) : null}
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default AdminTeamHeaderBox
+export default AdminTeamHeaderBox;

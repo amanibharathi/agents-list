@@ -1,7 +1,7 @@
-import { Flex } from '@chakra-ui/react'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { useNavigate } from 'react-router-dom'
-import toast from 'react-hot-toast'
+import { Flex } from "@chakra-ui/react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import CkAppModal from "./AppModal";
 import makeDeleteRequest from "../../../../api/makeDeleteRequest";
@@ -39,12 +39,13 @@ export const ConfirmRemoveAgentModal = ({
   const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation(
-    //@ts-ignore
+    //@ts-expect-error ignore
     (body) =>
-      //@ts-ignore
+      //@ts-expect-error ignore
       makeDeleteRequest(ADMIN_TEAM_MEMBER_DELETE(data?.team?.id, body?.id)),
-    
-      {onSuccess: () => {
+
+    {
+      onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: [GET_ADMIN_TEAM_MEMBERS_LIST(data?.team?.id)],
         });
@@ -127,7 +128,7 @@ export const ConfirmRemoveAgentModal = ({
           secondaryBtnText={"Cancel"}
           onPrimaryClick={() =>
             mutate(
-              //@ts-ignore
+              //@ts-expect-error ignore
               { id: isDetail ? data?.memberId : data?.id }
             )
           }

@@ -1,34 +1,37 @@
-
-import moment from 'moment'
-import toast from 'react-hot-toast'
-import { addSpecialCharsForPhoneNumber, getResponse, formatDateTime,
+import moment from "moment";
+import toast from "react-hot-toast";
+import {
+  addSpecialCharsForPhoneNumber,
+  getResponse,
+  formatDateTime,
   removeSpecialChars,
-  upperToLowercaseInString,} from '../../../../../utils/functions/commonFunctions'
+  upperToLowercaseInString,
+} from "../../../../../utils/functions/commonFunctions";
 
-const hostname = typeof window !== 'undefined' ? window.location.hostname : ''
-const subdomain = hostname.split('.')
+const hostname = typeof window !== "undefined" ? window.location.hostname : "";
+const subdomain = hostname.split(".");
 
-const isStaging = subdomain.includes('staging-v2')
-const isUat = subdomain.includes('uat')
-const isLocalHost = subdomain[subdomain.length - 1].includes('localhost')
+const isStaging = subdomain.includes("staging-v2");
+const isUat = subdomain.includes("uat");
+const isLocalHost = subdomain[subdomain.length - 1].includes("localhost");
 
-const protocol = isLocalHost ? 'http:' : 'https:'
-const environment = isStaging ? 'staging-v2.' : isUat ? 'uat.' : ''
+const protocol = isLocalHost ? "http:" : "https:";
+const environment = isStaging ? "staging-v2." : isUat ? "uat." : "";
 const baseHost = isLocalHost
   ? `${subdomain[subdomain.length - 1]}:3000`
-  : subdomain[subdomain.length - 2] + '.' + subdomain[subdomain.length - 1]
+  : subdomain[subdomain.length - 2] + "." + subdomain[subdomain.length - 1];
 
-export const getorigin = (app_subdomain: 'agent' | 'join') =>
-  protocol + '//' + environment + app_subdomain + '.' + baseHost
+export const getorigin = (app_subdomain: "agent" | "join") =>
+  protocol + "//" + environment + app_subdomain + "." + baseHost;
 
 const ensureurl = (input: string) => {
-  if (input === '' || input === null) return null
+  if (input === "" || input === null) return null;
   const updatedUrl =
-    input?.startsWith('http://') || input?.startsWith('https://')
+    input?.startsWith("http://") || input?.startsWith("https://")
       ? input
-      : `https://${input}`
-  return updatedUrl
-}
+      : `https://${input}`;
+  return updatedUrl;
+};
 
 export const websiteUpdate = (
   data: any,
@@ -47,7 +50,7 @@ export const websiteUpdate = (
         ?.slice(0, 20)
         ?.map((each: any) => each?.value),
       agent_since:
-        data.data.realtor_since == '' ? null : data.data.realtor_since,
+        data.data.realtor_since == "" ? null : data.data.realtor_since,
     },
     phone_number: `+1${removeSpecialChars(data.data.phone)}`,
     email: data.data.email,
@@ -89,10 +92,10 @@ export const websiteUpdate = (
     roa_email: data.data.roa_email,
     personal_website: ensureurl(data.data.website),
     contact_form_image: formData?.form_image?.[0]?.file,
-  }
-  //@ts-ignore
-  mutate(obj)
-}
+  };
+  //@ts-expect-error ignore
+  mutate(obj);
+};
 
 export const PrefilledOptionsCMS = (
   agentWebDetailData: any,
@@ -101,7 +104,7 @@ export const PrefilledOptionsCMS = (
   agentDetailData: any,
   formData: any
 ) => {
-  //@ts-ignore
+  //@ts-expect-error ignore
 
   const a = {
     data: {
@@ -109,7 +112,7 @@ export const PrefilledOptionsCMS = (
         agentWebDetailData?.data?.phone_number?.substr(2, 13) ??
           agentWebDetailData?.data?.user?.phone_number?.substr(2, 13)
       ),
-      //@ts-ignore
+      //@ts-expect-error ignore
       profile_picture: agentWebDetailData?.data?.profile_picture ?? undefined,
       facebook: agentWebDetailData?.data?.facebook,
       instagram: agentWebDetailData?.data?.instagram,
@@ -156,29 +159,29 @@ export const PrefilledOptionsCMS = (
       last_updated: moment(agentWebDetailData?.data?.modified).fromNow(),
       created: agentWebDetailData?.data?.is_publish
         ? formatDateTime(agentWebDetailData?.data?.published_at)
-        : '-',
+        : "-",
       license:
         agentDetailData?.data?.agent?.primary_license_no ??
         agentWebDetailData?.data?.primary_license,
       website_link:
-        getorigin('agent') + `/website/${agentWebDetailData?.data?.username}`,
+        getorigin("agent") + `/website/${agentWebDetailData?.data?.username}`,
       form_image: agentWebDetailData?.data?.contact_form_image ?? undefined,
       roa_email: agentWebDetailData?.data?.agent_detail?.roa_email,
     },
-  }
-  formUtils.reset(a)
-}
+  };
+  formUtils.reset(a);
+};
 
 export const copyUrl = (url: string) => {
   navigator.clipboard
     .writeText(url)
     .then(() => {
-      toast.success('Link copied to clipboard!')
+      toast.success("Link copied to clipboard!");
     })
     .catch((err) => {
-      console.error('Error copying link: ', err)
-    })
-}
+      console.error("Error copying link: ", err);
+    });
+};
 
 export const commonFieldsValueFromProfile = (
   mutate: any,
@@ -199,27 +202,27 @@ export const commonFieldsValueFromProfile = (
     [fieldKey3]: field3,
     [fieldKey4]: field4,
     user: {
-      //@ts-ignore
+      //@ts-expect-error ignore
       profile_picture: formData?.profile?.[0]?.id,
     },
-    phone_number: `+1${removeSpecialChars(form.watch('data.phone'))}`,
-    email: form.watch('data.email'),
+    phone_number: `+1${removeSpecialChars(form.watch("data.phone"))}`,
+    email: form.watch("data.email"),
     agent_detail: {
       certificate: form
-        .watch('data.designation')
+        .watch("data.designation")
         ?.slice(0, 20)
         ?.map((each: any) => each?.value),
       agent_since:
-        form.watch('data.realtor_since') === ''
+        form.watch("data.realtor_since") === ""
           ? null
-          : form.watch('data.realtor_since'),
+          : form.watch("data.realtor_since"),
     },
-    facebook: ensureurl(form.watch('data.facebook')),
-    instagram: ensureurl(form.watch('data.instagram')),
-    linkedin: ensureurl(form.watch('data.linkedin')),
-    tik_tok: ensureurl(form.watch('data.tik_tok')),
-    youtube: ensureurl(form.watch('data.youtube')),
+    facebook: ensureurl(form.watch("data.facebook")),
+    instagram: ensureurl(form.watch("data.instagram")),
+    linkedin: ensureurl(form.watch("data.linkedin")),
+    tik_tok: ensureurl(form.watch("data.tik_tok")),
+    youtube: ensureurl(form.watch("data.youtube")),
     theme_image: formData?.banner?.id,
-  }
-  mutate(obj)
-}
+  };
+  mutate(obj);
+};

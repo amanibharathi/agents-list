@@ -1,147 +1,146 @@
+import { Box, Flex } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { ReactNode } from "react";
 
-import { Box, Flex } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
-import { ReactNode} from 'react'
+import { Checkbox, Text } from "@chakra-ui/react";
 
-import { Checkbox, Text } from '@chakra-ui/react'
+import Select from "react-select";
 
-import Select from 'react-select'
-
-import CkInput from './CkInput'
-import CkSelect from './CkSelect'
-import { splitByDotGetMany } from '../../../../utils/functions/commonFunctions'
-import AdminFileUpload from '../fileupload/AdminFileUpload'
-import AdminLabelToolTip from './AdminLabelToolTip'
-import CkTextArea from './CkTextArea'
-import ReadOnlyDocsInputComponent from './ReadOnlyDocsInputComponent'
-import CustomRadio from './CustomRadio'
-import AppButton from '../../../../AppComponents/AppButton-agent'
-import AppText from '../../../../AppComponents/AppText-agent'
-import AppImage from '../../../../AppComponents/AppImage'
-import MultiFileUpload from './MultiFileUpload'
-import SupportDocumentUpload from '../fileupload/SupportDocumentUpload'
-import { CkCheckboxUsingController } from './CkCheckboxUsingController'
-import { useGetMemberMlsList } from '../../../../utils/hooks/useGetMemberList'
+import CkInput from "./CkInput";
+import CkSelect from "./CkSelect";
+import { splitByDotGetMany } from "../../../../utils/functions/commonFunctions";
+import AdminFileUpload from "../fileupload/AdminFileUpload";
+import AdminLabelToolTip from "./AdminLabelToolTip";
+import CkTextArea from "./CkTextArea";
+import ReadOnlyDocsInputComponent from "./ReadOnlyDocsInputComponent";
+import CustomRadio from "./CustomRadio";
+import AppButton from "../../../../AppComponents/AppButton-agent";
+import AppText from "../../../../AppComponents/AppText-agent";
+import AppImage from "../../../../AppComponents/AppImage";
+import MultiFileUpload from "./MultiFileUpload";
+import SupportDocumentUpload from "../fileupload/SupportDocumentUpload";
+import { CkCheckboxUsingController } from "./CkCheckboxUsingController";
+import { useGetMemberMlsList } from "../../../../utils/hooks/useGetMemberList";
 
 interface InputRendererProps {
   inputObj: {
-    name: string
-    type?: string
-    placeholder?: string
-    label?: string
-    otherRegProps?: unknown
-    isMulti?: boolean
-    options?: unknown
-    required?: boolean
-    bottomRightInfo?: ReactNode | string
-    bottomLeftInfo?: ReactNode | string
-    className?: string
-    minH?: string
-    onChange: any
-    value: any
-    imageState?: any
-    setImageState?: any
-    fileTypeKey?: string
-    uploadKey: string
-    fileTypes?: string | string[]
-    suffix?: string
-    suffixClassName?: string
-    onInpuChange?: any
-    isLoading?: boolean
-    maxLength?: string | number
-    customPrefixClassName?: string
-    labelToolTip?: string | ReactNode
-    ref?: any
-    comp?: any
-    customEndPoint?: any
-    isAgentFile?: any
-    addressState?: any
-    casecadeDepend?: any
-    menuMaxHeight?: any
-    sublabel?: string
-    handleUpload?: (val: any) => void
-    customUploadUiList?: (val: any) => void
-    customClassName?: string
-    customUiBody?: any
-    isForm?: boolean
-    isCms?: boolean
+    name: string;
+    type?: string;
+    placeholder?: string;
+    label?: string;
+    otherRegProps?: unknown;
+    isMulti?: boolean;
+    options?: unknown;
+    required?: boolean;
+    bottomRightInfo?: ReactNode | string;
+    bottomLeftInfo?: ReactNode | string;
+    className?: string;
+    minH?: string;
+    onChange: any;
+    value: any;
+    imageState?: any;
+    setImageState?: any;
+    fileTypeKey?: string;
+    uploadKey: string;
+    fileTypes?: string | string[];
+    suffix?: string;
+    suffixClassName?: string;
+    onInpuChange?: any;
+    isLoading?: boolean;
+    maxLength?: string | number;
+    customPrefixClassName?: string;
+    labelToolTip?: string | ReactNode;
+    ref?: any;
+    comp?: any;
+    customEndPoint?: any;
+    isAgentFile?: any;
+    addressState?: any;
+    casecadeDepend?: any;
+    menuMaxHeight?: any;
+    sublabel?: string;
+    handleUpload?: (val: any) => void;
+    customUploadUiList?: (val: any) => void;
+    customClassName?: string;
+    customUiBody?: any;
+    isForm?: boolean;
+    isCms?: boolean;
     // readOnly?: any
-    isCropAble?: boolean
-    dimension?: number
-    forceUiList?: boolean
-    customType?: any
-    forceLabel?: any
-    multiFiles?: boolean
-    tags?: string
-    disabled?: boolean
-    wrapperClass?: string
-  }
-  control: unknown
-  register: unknown
-  wrapperClassName?: string
-  labelClassName?: string
-  className?: string
-  formControlClassName?: string
-  errors?: unknown
-  noRegisterPrefix?: boolean
-  inputControlClassName?: string
-  watch?: unknown
-  setValue?: unknown
-  sublabelClassName?: string
-  selectPrefixClassName?: string
-  labelContainerClassName?: string
+    isCropAble?: boolean;
+    dimension?: number;
+    forceUiList?: boolean;
+    customType?: any;
+    forceLabel?: any;
+    multiFiles?: boolean;
+    tags?: string;
+    disabled?: boolean;
+    wrapperClass?: string;
+  };
+  control: unknown;
+  register: unknown;
+  wrapperClassName?: string;
+  labelClassName?: string;
+  className?: string;
+  formControlClassName?: string;
+  errors?: unknown;
+  noRegisterPrefix?: boolean;
+  inputControlClassName?: string;
+  watch?: unknown;
+  setValue?: unknown;
+  sublabelClassName?: string;
+  selectPrefixClassName?: string;
+  labelContainerClassName?: string;
 }
 
-//@ts-ignore
+//@ts-expect-error ignore
 const AdminInputRenderer = ({
   inputObj,
   control,
   register,
-  wrapperClassName = '',
-  formControlClassName = '',
-  labelClassName = '',
-  className = '',
+  wrapperClassName = "",
+  formControlClassName = "",
+  labelClassName = "",
+  className = "",
   errors = {},
   noRegisterPrefix = false,
-  inputControlClassName = '',
+  inputControlClassName = "",
   watch,
   setValue,
-  sublabelClassName = '',
-  selectPrefixClassName = '',
-  labelContainerClassName = '',
+  sublabelClassName = "",
+  selectPrefixClassName = "",
+  labelContainerClassName = "",
   ...restProps
 }: InputRendererProps) => {
-  const [QuillEditor, setQuillEditor] = useState<any>(null)
+  const [QuillEditor, setQuillEditor] = useState<any>(null);
 
   useEffect(() => {
-    import('./QuillEditorRaw').then((mod) => {
-      setQuillEditor(() => mod.default)
-    })
-  }, [])
-  const { type, name, required, otherRegProps, ...rest } = inputObj
+    import("./QuillEditorRaw").then((mod) => {
+      setQuillEditor(() => mod.default);
+    });
+  }, []);
+  const { type, name, required, otherRegProps, ...rest } = inputObj;
   const {
     groupedOptions: groupedOptionMls,
     setSearchVal: setSearchValMls,
     setSelectedBoarded,
     loadMoreOptions,
     isFetchingNextPage,
-  } = useGetMemberMlsList()
+  } = useGetMemberMlsList();
   const customizeReg =
-    type !== 'address' &&
-      type !== 'mls' &&
-      type !== 'license' &&
-      type !== 'custom-input'
-      ? //@ts-ignore
-      register(`${noRegisterPrefix ? name : `data.${name}`}`, {
-        required: required ?? true,
-        //@ts-ignore
-        ...otherRegProps,
-      })
-      : ''
+    type !== "address" &&
+    type !== "mls" &&
+    type !== "license" &&
+    type !== "custom-input"
+      ? //@ts-expect-error ignore
+        register(`${noRegisterPrefix ? name : `data.${name}`}`, {
+          required: required ?? true,
+          //@ts-expect-error ignore
+          ...otherRegProps,
+        })
+      : "";
   const getInputField = () => {
-    if (type == 'skip') return <div className="hidden md:block"></div>
-    if (type == 'checkbox' && inputObj?.options) {
-      const { value }: any = inputObj?.otherRegProps
+    if (type == "skip") return <div className="hidden md:block"></div>;
+    if (type == "checkbox" && inputObj?.options) {
+      const { value }: any = inputObj?.otherRegProps;
       return (
         <>
           <div className={`flex flex-col gap-[10px] ${inputObj.className}`}>
@@ -149,9 +148,9 @@ const AdminInputRenderer = ({
               name={inputObj?.name}
               inputObj={inputObj}
               control={control}
-              //@ts-ignore
+              //@ts-expect-error ignore
               readOnly={inputObj?.readOnly}
-              //@ts-ignore
+              //@ts-expect-error ignore
               {...register(`data.${name}`)}
               value={value && value}
             />
@@ -165,13 +164,13 @@ const AdminInputRenderer = ({
             {/* <CheckboxGroup
                 control={control}
                 watch={watch}
-                //@ts-ignore
+                //@ts-expect-error ignore
                 {...register(`data.${name}`, {
                   required: true,
-                  //@ts-ignore
+                  //@ts-expect-error ignore
                 })}
               >
-                {//@ts-ignore
+                {//@ts-expect-error ignore
                 inputObj?.options?.map((each: any) => {
                   const watching = watch(`data.${name}`)
                   console.log('daatddd', watching)
@@ -189,9 +188,9 @@ const AdminInputRenderer = ({
               </CheckboxGroup> */}
           </div>
         </>
-      )
+      );
     }
-    if (type == 'checkbox')
+    if (type == "checkbox")
       return (
         <Checkbox
           name={name}
@@ -199,17 +198,17 @@ const AdminInputRenderer = ({
           isChecked={inputObj?.value}
           isRequired={inputObj?.required || false}
         >
-          {inputObj?.placeholder == 'onboard-agent' ? (
-            <Text fontSize={'14px !important'}>{inputObj?.imageState}</Text>
+          {inputObj?.placeholder == "onboard-agent" ? (
+            <Text fontSize={"14px !important"}>{inputObj?.imageState}</Text>
           ) : (
-            <Text fontSize={'14px !important'}>
+            <Text fontSize={"14px !important"}>
               Is Featured {inputObj?.label}
             </Text>
           )}
         </Checkbox>
-      )
+      );
 
-    if (type == 'switch')
+    if (type == "switch")
       return (
         <Checkbox
           name={name}
@@ -217,19 +216,19 @@ const AdminInputRenderer = ({
           isChecked={inputObj?.value}
           isRequired={inputObj?.required || false}
         >
-          {inputObj?.placeholder == 'onboard-agent' ? (
-            <Text fontSize={'14px !important'}>{inputObj?.imageState}</Text>
+          {inputObj?.placeholder == "onboard-agent" ? (
+            <Text fontSize={"14px !important"}>{inputObj?.imageState}</Text>
           ) : (
-            <Text fontSize={'14px !important'}>
+            <Text fontSize={"14px !important"}>
               Is Featured {inputObj?.label}
             </Text>
           )}
         </Checkbox>
-      )
-    if (type == 'textEditor')
+      );
+    if (type == "textEditor")
       return (
         <QuillEditor
-          placeholder={inputObj?.placeholder || 'Enter...'}
+          placeholder={inputObj?.placeholder || "Enter..."}
           control={control}
           className={`${className} ${inputObj?.className}`}
           {...customizeReg}
@@ -237,79 +236,79 @@ const AdminInputRenderer = ({
           minH={inputObj?.minH}
           onChange={inputObj?.onChange}
           value={inputObj?.value}
-          //@ts-ignore
+          //@ts-expect-error ignore
           isError={errors?.[name]}
           ref={inputObj?.ref}
         />
-      )
+      );
 
-    if (type == 'select' || type == 'emergency_contact_relationship') {
+    if (type == "select" || type == "emergency_contact_relationship") {
       return (
         <CkSelect
           name={name}
           control={control}
           {...customizeReg}
-          //@ts-ignore
+          //@ts-expect-error ignore
           options={inputObj?.options}
           {...rest}
           className={`w-[100%] max-w-[100%] ${className} ${inputObj?.className}`}
-          // @ts-ignore
+          //@ts-expect-error ignore
           // isError={errors?.[name]}
           isError={splitByDotGetMany(name, errors)}
-          placeholder={inputObj?.placeholder || 'Select'}
+          placeholder={inputObj?.placeholder || "Select"}
           onInputChange={inputObj?.onInpuChange}
           isLoading={inputObj?.isLoading}
           onChange={inputObj?.onChange}
           menuMaxHeight={inputObj?.menuMaxHeight}
           pre
-          //@ts-ignore
+          //@ts-expect-error ignore
           isClearable={!inputObj?.readOnly}
           selectPrefixClassName={selectPrefixClassName}
         />
-      )
+      );
     }
-    if (type == 'multi-select')
+    if (type == "multi-select")
       return (
         <CkSelect
-          placeholder={inputObj?.placeholder || 'Select'}
+          placeholder={inputObj?.placeholder || "Select"}
           isMulti
           name={name}
           control={control}
           {...customizeReg}
-          //@ts-ignore
+          //@ts-expect-error ignore
           options={inputObj?.options}
           {...rest}
           className={`w-[100%] max-w-[100%] ${inputObj?.className} ${className}`}
-          // @ts-ignore
+          //@ts-expect-error ignore
           isError={errors?.[name]}
           onInputChange={inputObj?.onInpuChange}
           isLoading={inputObj?.isLoading}
           // noOptionsMessage={() => inputObj?.noOptionsMessage}
-          //@ts-ignore
+          //@ts-expect-error ignore
           isClearable={!inputObj?.readOnly}
           selectPrefixClassName={selectPrefixClassName}
         />
-      )
+      );
 
-    if (type == 'number')
+    if (type == "number")
       return (
         <CkInput
           formControlClassName={`w-full ${formControlClassName}`}
-          placeholder={inputObj?.placeholder || 'Enter'}
+          placeholder={inputObj?.placeholder || "Enter"}
           type={type}
           {...customizeReg}
           {...rest}
           className={`w-[100%] max-w-[100%] ${className}`}
           // isError={errors?.[name]}
-          // @ts-ignore
+          //@ts-expect-error ignore
           isError={splitByDotGetMany(name, errors)}
         />
-      )
-    if (type == 'roa-email')
+      );
+    if (type == "roa-email")
       return (
         <CkInput
           formControlClassName={`w-full ${formControlClassName}`}
-          placeholder={inputObj?.placeholder || 'Enter'}
+          placeholder={inputObj?.placeholder || "Enter"}
           suffix={inputObj?.suffix}
           suffixClassName={inputObj?.suffixClassName}
           type={type}
@@ -317,22 +316,22 @@ const AdminInputRenderer = ({
           {...rest}
           className={`w-[100%] max-w-[100%] ${className}`}
           // isError={errors?.[name]}
-          // @ts-ignore
+          //@ts-expect-error ignore
           isError={splitByDotGetMany(name, errors)}
         />
-      )
+      );
     if (
-      type == 'tel' ||
-      type == 'emergency_contact_phone_number' ||
-      type == 'primary_phone_number' ||
-      type == 'alternate_phone_number'
+      type == "tel" ||
+      type == "emergency_contact_phone_number" ||
+      type == "primary_phone_number" ||
+      type == "alternate_phone_number"
     )
       return (
         <CkInput
           prefix="+1"
           maxLength={14}
           formControlClassName={`w-full ${formControlClassName} `}
-          placeholder={inputObj?.placeholder || 'Enter'}
+          placeholder={inputObj?.placeholder || "Enter"}
           type={type}
           {...customizeReg}
           {...rest}
@@ -340,29 +339,29 @@ const AdminInputRenderer = ({
           // isError={errors?.[name]}
           isError={splitByDotGetMany(name, errors)}
           onChange={(event: any) => {
-            const unformattedValue = event.target.value.replace(/[()-]/g, '') // Remove special characters
+            const unformattedValue = event.target.value.replace(/[()-]/g, ""); // Remove special characters
             const formattedParts = [
               unformattedValue.slice(0, 3),
               unformattedValue.slice(3, 6),
               unformattedValue.slice(6),
-            ]
+            ];
             const formattedValue = formattedParts
-              .filter((part) => part !== '')
+              .filter((part) => part !== "")
               .map((part, index) => (index === 0 ? `(${part})` : part)) // Add parentheses to the first part
-              .join('-')
+              .join("-");
 
             // Update the formatted value immediately, even if the user hasn't finished typing
-            event.target.value = formattedValue
+            event.target.value = formattedValue;
           }}
         />
-      )
+      );
 
-    if (type == 'first_name' || type == 'last_name')
+    if (type == "first_name" || type == "last_name")
       return (
         <CkInput
           maxLength={14}
           formControlClassName={`w-full ${formControlClassName} `}
-          placeholder={inputObj?.placeholder || 'Enter'}
+          placeholder={inputObj?.placeholder || "Enter"}
           type={type}
           {...customizeReg}
           {...rest}
@@ -371,13 +370,16 @@ const AdminInputRenderer = ({
           isError={splitByDotGetMany(name, errors)}
           onChange={(event: any) => {
             // Remove all non-alphabetic characters
-            const formatedValue = event.target.value.replace(/[^a-zA-Z\s]/g, '')
-            event.target.value = formatedValue
+            const formatedValue = event.target.value.replace(
+              /[^a-zA-Z\s]/g,
+              ""
+            );
+            event.target.value = formatedValue;
           }}
         />
-      )
+      );
 
-    if (type == 'file')
+    if (type == "file")
       return (
         <AdminFileUpload
           handleChange={inputObj?.onChange}
@@ -387,7 +389,7 @@ const AdminInputRenderer = ({
           fileTypeKey={inputObj?.fileTypeKey}
           fileTypes={inputObj?.fileTypes}
           name={inputObj?.name}
-          //@ts-ignore
+          //@ts-expect-error ignore
           isError={errors?.[name]}
           customEndPoint={inputObj?.customEndPoint}
           isAgentFile={inputObj?.isAgentFile}
@@ -406,11 +408,11 @@ const AdminInputRenderer = ({
           forceLabel={inputObj?.forceLabel}
           multiFiles={inputObj?.multiFiles}
           disabled={inputObj?.disabled}
-        // isError={false}
+          // isError={false}
         />
-      )
+      );
 
-    if (type == 'multi-file')
+    if (type == "multi-file")
       return (
         <MultiFileUpload
           // handleChange={inputObj?.onChange}
@@ -420,13 +422,13 @@ const AdminInputRenderer = ({
           fileTypeKey={inputObj?.fileTypeKey}
           fileTypes={inputObj?.fileTypes}
           name={inputObj?.name}
-          //@ts-ignore
+          //@ts-expect-error ignore
           isError={errors?.[name]}
           customEndPoint={inputObj?.customEndPoint}
-        // isError={false}
+          // isError={false}
         />
-      )
-    if (type == 'support-doc-file')
+      );
+    if (type == "support-doc-file")
       return (
         <SupportDocumentUpload
           // handleChange={inputObj?.onChange}
@@ -436,19 +438,19 @@ const AdminInputRenderer = ({
           fileTypeKey={inputObj?.fileTypeKey}
           fileTypes={inputObj?.fileTypes}
           name={inputObj?.name}
-          //@ts-ignore
+          //@ts-expect-error ignore
           isError={errors?.[name]}
           customEndPoint={inputObj?.customEndPoint}
           inputObj={inputObj}
         />
-      )
-    if (type == 'textarea')
+      );
+    if (type == "textarea")
       return (
         <CkTextArea
           isError={splitByDotGetMany(name, errors)}
           formControlClassName={`w-full ${formControlClassName}`}
-          placeholder={inputObj?.placeholder || 'Enter'}
-          type={type || 'text'}
+          placeholder={inputObj?.placeholder || "Enter"}
+          type={type || "text"}
           {...customizeReg}
           {...rest}
           className={`w-[100%] max-w-[100%] ${className} ${inputObj?.className}`}
@@ -456,42 +458,42 @@ const AdminInputRenderer = ({
           customPrefixClassName={inputObj?.customPrefixClassName}
           maxLength={inputObj?.maxLength}
         />
-      )
+      );
 
-    if (type == 'readOnlyDocs')
-      return <ReadOnlyDocsInputComponent fileUrl={inputObj?.value} />
+    if (type == "readOnlyDocs")
+      return <ReadOnlyDocsInputComponent fileUrl={inputObj?.value} />;
 
-    if (type == 'radio') {
-      //@ts-ignore
-      const value = inputObj?.otherRegProps?.value
+    if (type == "radio") {
+      //@ts-expect-error ignore
+      const value = inputObj?.otherRegProps?.value;
       return (
         <div className="mt-4 mb-5">
           <CustomRadio
             errors={splitByDotGetMany(name, errors)}
             register={customizeReg}
             defaultValue={value}
-            //@ts-ignore
+            //@ts-expect-error ignore
             readOnly={inputObj?.readOnly}
             options={
-              //@ts-ignore
+              //@ts-expect-error ignore
               inputObj?.options && inputObj?.options?.length !== 0
                 ? inputObj?.options
                 : [
-                  { id: '1', label: 'Yes' },
-                  { id: '2', label: 'No' },
-                ]
+                    { id: "1", label: "Yes" },
+                    { id: "2", label: "No" },
+                  ]
             }
           />
         </div>
-      )
+      );
     }
 
-    if (type == 'custom-input') return inputObj?.comp
+    if (type == "custom-input") return inputObj?.comp;
 
     //  address, mls and license type only applicable for the form builder Forms
 
-    if (type == 'address') {
-      const { value }: any = inputObj?.otherRegProps
+    if (type == "address") {
+      const { value }: any = inputObj?.otherRegProps;
       return (
         <div className="grid grid-cols-1 gap-[40px]">
           <CkInput
@@ -499,9 +501,9 @@ const AdminInputRenderer = ({
             formControlClassName={`w-full ${formControlClassName}`}
             isRequired={true}
             formMessage="Enter a valid value"
-            placeholder={'Address line 1'}
-            type={type || 'text'}
-            //@ts-ignore
+            placeholder={"Address line 1"}
+            type={type || "text"}
+            //@ts-expect-error ignore
             {...register(`data.${name}.line1`, {
               required: true,
               value: value?.line1,
@@ -512,17 +514,17 @@ const AdminInputRenderer = ({
             customPrefixClassName={inputObj?.customPrefixClassName}
             maxLength={inputObj?.maxLength}
             inputControlClassName={inputControlClassName}
-            //@ts-ignore
+            //@ts-expect-error ignore
             readonly={inputObj?.readOnly}
-          // {...restProps}
+            // {...restProps}
           />
           <CkInput
-            // @ts-ignore
+            //@ts-expect-error ignore
             isError={splitByDotGetMany(`data.${name}.line2`, errors)}
             formControlClassName={`w-full ${formControlClassName}`}
-            placeholder={'Address line 2'}
-            type={type || 'text'}
-            // @ts-ignore
+            placeholder={"Address line 2"}
+            type={type || "text"}
+            //@ts-expect-error ignore
             {...register(`data.${name}.line2`, {
               required: false,
               value: value?.line2,
@@ -533,18 +535,18 @@ const AdminInputRenderer = ({
             customPrefixClassName={inputObj?.customPrefixClassName}
             maxLength={inputObj?.maxLength}
             inputControlClassName={inputControlClassName}
-            //@ts-ignore
+            //@ts-expect-error ignore
             readonly={inputObj?.readOnly}
-          // {...restProps}
+            // {...restProps}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-[40px] gap-x-[20px]">
             <CkInput
-              // @ts-ignore
+              //@ts-expect-error ignore
               isError={splitByDotGetMany(`data.${name}.city`, errors)}
               formControlClassName={`w-full ${formControlClassName}`}
-              placeholder={'City'}
-              type={type || 'text'}
-              // @ts-ignore
+              placeholder={"City"}
+              type={type || "text"}
+              //@ts-expect-error ignore
               {...register(`data.${name}.city`, {
                 required: true,
                 value: value?.city,
@@ -555,50 +557,50 @@ const AdminInputRenderer = ({
               customPrefixClassName={inputObj?.customPrefixClassName}
               maxLength={inputObj?.maxLength}
               inputControlClassName={inputControlClassName}
-              //@ts-ignore
+              //@ts-expect-error ignore
               readonly={inputObj?.readOnly}
-            // {...restProps}
+              // {...restProps}
             />
             <CkSelect
-              placeholder={'State'}
+              placeholder={"State"}
               // isMulti
               name={`data.${name}.state`}
               control={control}
-              // @ts-ignore
+              //@ts-expect-error ignore
               {...register(`data.${name}.state`, {
                 required: true,
                 value: value?.state,
               })}
-              //@ts-ignore
+              //@ts-expect-error ignore
               options={inputObj?.addressState}
               // {...rest}
               className={`w-[100%] max-w-[100%] ${inputObj?.className} ${className}`}
-              // @ts-ignore
+              //@ts-expect-error ignore
               // isError={errors?.[name]}
               onInputChange={inputObj?.onInpuChange}
               isLoading={inputObj?.isLoading}
-              //@ts-ignore
+              //@ts-expect-error ignore
               readOnly={inputObj?.readOnly}
-              //@ts-ignore
+              //@ts-expect-error ignore
               isClearable={!inputObj?.readOnly}
               isError={splitByDotGetMany(`data.${name}.state`, errors)}
             />
             <CkInput
-              // @ts-ignore
+              //@ts-expect-error ignore
               isError={splitByDotGetMany(`data.${name}.pincode`, errors)}
               formControlClassName={`w-full ${formControlClassName}`}
-              placeholder={'Zip Code'}
-              type={type || 'text'}
-              // @ts-ignore
+              placeholder={"Zip Code"}
+              type={type || "text"}
+              //@ts-expect-error ignore
               {...register(`data.${name}.pincode`, {
                 required: true,
                 value: value?.pincode,
                 onChange: (event: any) => {
                   // Remove non-numeric characters from the input value
-                  const numericValue = event.target.value.replace(/\D/g, '')
-                  event.target.value = numericValue
+                  const numericValue = event.target.value.replace(/\D/g, "");
+                  event.target.value = numericValue;
                   // Trigger onChange event with the updated value
-                  event.target.dispatchEvent(new Event('change'))
+                  event.target.dispatchEvent(new Event("change"));
                 },
               })}
               // {...rest}
@@ -607,96 +609,96 @@ const AdminInputRenderer = ({
               customPrefixClassName={inputObj?.customPrefixClassName}
               maxLength={5}
               inputControlClassName={inputControlClassName}
-              //@ts-ignore
+              //@ts-expect-error ignore
               readonly={inputObj?.readOnly}
-            // {...restProps}
+              // {...restProps}
             />
           </div>
         </div>
-      )
+      );
     }
 
-    if (type == 'mls') {
-      const { value }: any = inputObj?.otherRegProps
+    if (type == "mls") {
+      const { value }: any = inputObj?.otherRegProps;
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const [caseCadeCount, setCaseCadeCount] = useState(
         value && value.length
           ? value
           : [
-            {
-              board: '',
-              membership: '',
-              mls_id: '',
-            },
-          ]
-      )
+              {
+                board: "",
+                membership: "",
+                mls_id: "",
+              },
+            ]
+      );
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      const [indexVal, setIndexVal] = useState(0)
+      const [indexVal, setIndexVal] = useState(0);
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const [tempValueBoard, setTempValueBoard] = useState(
         value && value?.length !== 0
           ? caseCadeCount.map((each: any) => each?.board)
           : undefined
-      )
+      );
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const [tempValueMember, setTempValueBoardMember] = useState(
         value && value?.length !== 0
           ? caseCadeCount.map((each: any) => each?.membership)
           : undefined
-      )
-      console.log(tempValueBoard, tempValueMember)
+      );
+      console.log(tempValueBoard, tempValueMember);
       const customStyles = (index: any) => ({
         menu: (provided: any) => ({
           ...provided,
           zIndex: index + 1, // Ensures the menu is above the control
         }),
-      })
+      });
 
       const handleDelete = (index: any) => {
-        //@ts-ignore
-        const test = watch(`data.${name}`)
+        //@ts-expect-error ignore
+        const test = watch(`data.${name}`);
 
-        const filteredArr = test?.filter((f: any, ind: any) => ind !== index)
+        const filteredArr = test?.filter((f: any, ind: any) => ind !== index);
         setCaseCadeCount(
           filteredArr?.filter((each: any) => {
-            return each
+            return each;
           })
-        )
-        //@ts-ignore
-        setValue(`data.${name}`, filteredArr)
-      }
+        );
+        //@ts-expect-error ignore
+        setValue(`data.${name}`, filteredArr);
+      };
       const handleInputChangeMls = (e: string) => {
-        setSearchValMls(e)
-      }
+        setSearchValMls(e);
+      };
       const dependency = watch
-        ? //@ts-ignore
-        watch(`data.question_${inputObj?.casecadeDepend?.tag}`)
-        : null
+        ? //@ts-expect-error ignore
+          watch(`data.question_${inputObj?.casecadeDepend?.tag}`)
+        : null;
       return (
         <div className="flex flex-col gap-[20px]">
           <div className="flex flex-col gap-[6px]">
             {caseCadeCount?.map((each: any, index: any) => {
               const handleClick = (e: any) => {
                 setValue &&
-                  //@ts-ignore
-                  setValue(`data.${name}.${index}.board`, e === null ? '' : e)
-                setTempValueBoard(e)
-                //@ts-ignore
-                if (e?.state) setSelectedBoarded(e?.state)
-              }
+                  //@ts-expect-error ignore
+                  setValue(`data.${name}.${index}.board`, e === null ? "" : e);
+                setTempValueBoard(e);
+                //@ts-expect-error ignore
+                if (e?.state) setSelectedBoarded(e?.state);
+              };
               const handleClickMls = (e: any) => {
                 setValue &&
-                  //@ts-ignore
+                  //@ts-expect-error ignore
                   setValue(
                     `data.${name}.${index}.membership`,
-                    e === null ? '' : e
-                  )
-                setTempValueBoardMember(e)
-              }
+                    e === null ? "" : e
+                  );
+                setTempValueBoardMember(e);
+              };
               return (
                 <>
                   {
-                    //@ts-ignore
+                    //@ts-expect-error ignore
                     index !== 0 && !inputObj?.readOnly ? (
                       <div className="flex justify-end mt-[20px]">
                         {/* <AppText className="text-[14px] font-[600]">
@@ -708,7 +710,7 @@ const AdminInputRenderer = ({
                         >
                           <AppImage
                             alt=""
-                            src={'/assets/icons/delete-icon.svg'}
+                            src={"/assets/icons/delete-icon.svg"}
                             width={20}
                             height={20}
                           />
@@ -731,12 +733,12 @@ const AdminInputRenderer = ({
                             errors
                           )}
                           formControlClassName={`w-full ${formControlClassName}`}
-                          placeholder={'Board'}
-                          type={type || 'text'}
-                          //@ts-ignore
+                          placeholder={"Board"}
+                          type={type || "text"}
+                          //@ts-expect-error ignore
                           {...register(`data.${name}.${index}.board`, {
                             required: false,
-                            //@ts-ignore
+                            //@ts-expect-error ignore
                             value:
                               value && value?.length !== 0
                                 ? each?.board
@@ -750,7 +752,7 @@ const AdminInputRenderer = ({
                           }
                           maxLength={inputObj?.maxLength}
                           inputControlClassName={inputControlClassName}
-                        // {...restProps}
+                          // {...restProps}
                         />
                         <Select
                           inputId="mls-board-input"
@@ -759,13 +761,17 @@ const AdminInputRenderer = ({
                           )}
                           isLoading={isFetchingNextPage}
                           value={
-                            //@ts-ignore
+                            //@ts-expect-error ignore
                             watch(`data.${name}.${index}.board`) ?? each?.board
                           }
                           filterOption={() => true}
-                          placeholder={'Enter the Real Estate Board'}
-                          //@ts-ignore
-                          className={`w-full !text-[10px] md:!text-[14px]  !top-0 custom_select_css_mls  ${errors[name] && errors[name][index]?.board ? 'custom_select_css_mls_error' : ''} `}
+                          placeholder={"Enter the Real Estate Board"}
+                          //@ts-expect-error ignore
+                          className={`w-full !text-[10px] md:!text-[14px]  !top-0 custom_select_css_mls  ${
+                            errors[name] && errors[name][index]?.board
+                              ? "custom_select_css_mls_error"
+                              : ""
+                          } `}
                           options={groupedOptionMls}
                           onInputChange={handleInputChangeMls}
                           onChange={handleClick}
@@ -775,11 +781,11 @@ const AdminInputRenderer = ({
                           )}
                           styles={customStyles(100 - index - 1)}
                           isClearable
-                          //@ts-ignore
+                          //@ts-expect-error ignore
                           isDisabled={inputObj?.readOnly}
                         />
                         {
-                          //@ts-ignore
+                          //@ts-expect-error ignore
                           errors[name] && errors[name][index]?.board && (
                             <AppText className="text-[11px] mt-[1px] !text-[#e53e3e]">
                               Select the value
@@ -802,9 +808,9 @@ const AdminInputRenderer = ({
                               errors
                             )}
                             formControlClassName={`w-full ${formControlClassName}`}
-                            placeholder={'MLS#'}
-                            type={type || 'text'}
-                            //@ts-ignore
+                            placeholder={"MLS#"}
+                            type={type || "text"}
+                            //@ts-expect-error ignore
                             {...register(`data.${name}.${index}.membership`, {
                               required: false,
                               value:
@@ -820,9 +826,9 @@ const AdminInputRenderer = ({
                             }
                             maxLength={inputObj?.maxLength}
                             inputControlClassName={inputControlClassName}
-                            //@ts-ignore
+                            //@ts-expect-error ignore
                             readonly={inputObj?.readOnly}
-                          // {...restProps}
+                            // {...restProps}
                           />
                           <Select
                             inputId="mls-member-input"
@@ -830,7 +836,7 @@ const AdminInputRenderer = ({
                               <p className="text-[13px]">Searching......</p>
                             )}
                             value={
-                              //@ts-ignore
+                              //@ts-expect-error ignore
                               watch(`data.${name}.${index}.membership`) ??
                               each?.membership
                             }
@@ -840,29 +846,33 @@ const AdminInputRenderer = ({
                             onMenuScrollToBottom={loadMoreOptions}
                             isLoading={isFetchingNextPage}
                             filterOption={() => true}
-                            placeholder={'Enter the MLS Membership'}
-                            //@ts-ignore
-                            className={`w-full !text-[10px] md:!text-[14px]  !top-0 custom_select_css_mls  ${errors[name] && errors[name][index]?.membership ? 'custom_select_css_mls_error' : ''}`}
+                            placeholder={"Enter the MLS Membership"}
+                            //@ts-expect-error ignore
+                            className={`w-full !text-[10px] md:!text-[14px]  !top-0 custom_select_css_mls  ${
+                              errors[name] && errors[name][index]?.membership
+                                ? "custom_select_css_mls_error"
+                                : ""
+                            }`}
                             options={groupedOptionMls}
                             onInputChange={handleInputChangeMls}
                             onChange={handleClickMls}
                             styles={customStyles(100 - index - 1)}
                             isClearable
-                            //@ts-ignore
+                            //@ts-expect-error ignore
                             isDisabled={inputObj?.readOnly}
-                          // isDisabled={
-                          //   //@ts-ignore
-                          //   watch && watch(`data.${name}.${index}.board`)?.value
-                          //     ? false
-                          //     : true
-                          // }
+                            // isDisabled={
+                            //   //@ts-expect-error ignore
+                            //   watch && watch(`data.${name}.${index}.board`)?.value
+                            //     ? false
+                            //     : true
+                            // }
                           />
                           {
-                            //@ts-ignore
+                            //@ts-expect-error ignore
                             errors[name] && errors[name][index]?.membership && (
                               <AppText
                                 className="text-[11px] mt-[1px] !text-[#e53e3e]"
-                              // pos={'absolute'}
+                                // pos={'absolute'}
                               >
                                 Select the value
                               </AppText>
@@ -877,18 +887,18 @@ const AdminInputRenderer = ({
                           Primary MLS ID
                         </label>
                         <CkInput
-                          //@ts-ignore
+                          //@ts-expect-error ignore
                           isError={errors[name] && errors[name][index]?.mls_id}
                           formControlClassName={`w-full ${formControlClassName}`}
-                          placeholder={'MLS ID'}
-                          type={type || 'text'}
+                          placeholder={"MLS ID"}
+                          type={type || "text"}
                           value={
-                            //@ts-ignore
+                            //@ts-expect-error ignore
                             watch(`data.${name}.${index}.mls_id`) ??
                             each?.mls_id
                           }
                           // value={each?.mls_id}
-                          //@ts-ignore
+                          //@ts-expect-error ignore
                           {...register(`data.${name}.${index}.mls_id`, {
                             required: false,
                             value:
@@ -904,9 +914,9 @@ const AdminInputRenderer = ({
                           }
                           maxLength={inputObj?.maxLength}
                           inputControlClassName={inputControlClassName}
-                          //@ts-ignore
+                          //@ts-expect-error ignore
                           readonly={inputObj?.readOnly}
-                        // {...restProps}
+                          // {...restProps}
                         />
                       </div>
                       {/* <div className="flex flex-col gap-[16px]">
@@ -940,10 +950,10 @@ const AdminInputRenderer = ({
                         formControlClassName={`w-full ${formControlClassName}`}
                         placeholder={'Board'}
                         type={type || 'text'}
-                        //@ts-ignore
+                        //@ts-expect-error ignore
                         {...register(`data.${name}.${index}.board`, {
                           required: false,
-                          //@ts-ignore
+                          //@ts-expect-error ignore
                           value:
                             value && value?.length !== 0
                               ? value[index]?.board
@@ -969,7 +979,7 @@ const AdminInputRenderer = ({
                         }
                         filterOption={() => true}
                         placeholder={'Enter the Real Estate Board'}
-                        //@ts-ignore
+                        //@ts-expect-error ignore
                         className={`w-full !text-[10px] md:!text-[14px]  !top-0 custom_select_css_mls  ${errors[name] && errors[name][index]?.board ? 'custom_select_css_mls_error' : ''} `}
                         options={groupedOptions}
                         onInputChange={handleInputChange}
@@ -984,7 +994,7 @@ const AdminInputRenderer = ({
                         isClearable
                       />
                       {
-                        //@ts-ignore
+                        //@ts-expect-error ignore
                         errors[name] && errors[name][index]?.board && (
                           <AppText className="text-[11px] mt-[1px] !text-[#e53e3e]">
                             Select the value
@@ -1010,10 +1020,10 @@ const AdminInputRenderer = ({
                           formControlClassName={`w-full ${formControlClassName}`}
                           placeholder={'Board'}
                           type={type || 'text'}
-                          //@ts-ignore
+                          //@ts-expect-error ignore
                           {...register(`data.${name}.${index}.board`, {
                             required: false,
-                            //@ts-ignore
+                            //@ts-expect-error ignore
                             value:
                               value && value?.length !== 0
                                 ? value[index]?.board
@@ -1041,7 +1051,7 @@ const AdminInputRenderer = ({
                           }
                           filterOption={() => true}
                           placeholder={'Enter the Real Estate Board'}
-                          //@ts-ignore
+                          //@ts-expect-error ignore
                           className={`w-full !text-[10px] md:!text-[14px]  !top-0 custom_select_css_mls z-[11] ${errors[name] && errors[name][index]?.board ? 'custom_select_css_mls_error' : ''} `}
                           options={groupedOptions}
                           onInputChange={handleInputChange}
@@ -1052,7 +1062,7 @@ const AdminInputRenderer = ({
                           isClearable
                         />
                         {
-                          //@ts-ignore
+                          //@ts-expect-error ignore
                           errors[name] && errors[name][index]?.board && (
                             <AppText className="text-[11px] mt-[1px] !text-[#e53e3e]">
                               Select the value
@@ -1077,7 +1087,7 @@ const AdminInputRenderer = ({
                             formControlClassName={`w-full ${formControlClassName}`}
                             placeholder={'MLS#'}
                             type={type || 'text'}
-                            //@ts-ignore
+                            //@ts-expect-error ignore
                             {...register(`data.${name}.${index}.membership`, {
                               required: false,
                               value:
@@ -1110,21 +1120,21 @@ const AdminInputRenderer = ({
                             )}
                             filterOption={() => true}
                             placeholder={'Enter the MLS Membership'}
-                            //@ts-ignore
+                            //@ts-expect-error ignore
                             className={`w-full !text-[10px] md:!text-[14px]  !top-0 custom_select_css_mls z-[10] ${errors[name] && errors[name][index]?.membership ? 'custom_select_css_mls_error' : ''}`}
                             options={groupedOptionMls}
                             onInputChange={handleInputChangeMls}
                             onChange={handleClickMls}
                             isClearable
                             // isDisabled={
-                            //   //@ts-ignore
+                            //   //@ts-expect-error ignore
                             //   watch && watch(`data.${name}.${index}.board`)?.value
                             //     ? false
                             //     : true
                             // }
                           />
                           {
-                            //@ts-ignore
+                            //@ts-expect-error ignore
                             errors[name] && errors[name][index]?.membership && (
                               <AppText
                                 className="text-[11px] mt-[1px] !text-[#e53e3e]"
@@ -1143,12 +1153,12 @@ const AdminInputRenderer = ({
                           Primary MLS ID
                         </label>
                         <CkInput
-                          //@ts-ignore
+                          //@ts-expect-error ignore
                           isError={errors[name] && errors[name][index]?.mls_id}
                           formControlClassName={`w-full ${formControlClassName}`}
                           placeholder={'MLS ID'}
                           type={type || 'text'}
-                          //@ts-ignore
+                          //@ts-expect-error ignore
                           {...register(`data.${name}.${index}.mls_id`, {
                             required: false,
                             value:
@@ -1181,7 +1191,7 @@ const AdminInputRenderer = ({
                           : undefined
                       }
                       register={{
-                        //@ts-ignore
+                        //@ts-expect-error ignore
                         ...register(`data.${name}.${index}.alternat_names`, {
                           required: true,
                           value: '1',
@@ -1196,7 +1206,7 @@ const AdminInputRenderer = ({
                     </div>
                   </div>
                 </>
-              )
+              );
             })}
             <div className="flex md:justify-end">
               <AppText className="!text-[#787878CC] min-w-[266px]">
@@ -1205,24 +1215,28 @@ const AdminInputRenderer = ({
             </div>
           </div>
           <div
-            className={`flex items-center ${dependency?.value === 'Yes' ? 'md:justify-between' : 'md:justify-end'} flex-col-reverse md:flex-row`}
+            className={`flex items-center ${
+              dependency?.value === "Yes"
+                ? "md:justify-between"
+                : "md:justify-end"
+            } flex-col-reverse md:flex-row`}
           >
             {
-              //@ts-ignore
-              dependency?.value === 'Yes' && !inputObj?.readOnly ? (
+              //@ts-expect-error ignore
+              dependency?.value === "Yes" && !inputObj?.readOnly ? (
                 <AppButton
                   className="!text-[#1329E6] w-fit"
                   variant="transparent"
                   onClick={() => {
-                    setIndexVal(indexVal + 1)
+                    setIndexVal(indexVal + 1);
                     setCaseCadeCount([
                       ...caseCadeCount,
                       {
-                        board: '',
-                        membership: '',
-                        mls_id: '',
+                        board: "",
+                        membership: "",
+                        mls_id: "",
                       },
-                    ])
+                    ]);
                   }}
                 >
                   + Add Another MLS
@@ -1234,35 +1248,35 @@ const AdminInputRenderer = ({
             </AppText> */}
           </div>
         </div>
-      )
+      );
     }
 
-    if (type == 'license') {
-      const { value }: any = inputObj?.otherRegProps
+    if (type == "license") {
+      const { value }: any = inputObj?.otherRegProps;
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const [caseCadeCount, setCaseCadeCount] = useState(
         value && value.length !== 0 ? value : [0]
-      )
+      );
       const handleDelete = (index: any) => {
-        //@ts-ignore
-        const test = watch(`data.${name}`)
+        //@ts-expect-error ignore
+        const test = watch(`data.${name}`);
 
-        const filteredArr = test?.filter((f: any, ind: any) => ind !== index)
+        const filteredArr = test?.filter((f: any, ind: any) => ind !== index);
         setCaseCadeCount(
           filteredArr?.filter((each: any) => {
-            return each
+            return each;
           })
-        )
-        //@ts-ignore
-        setValue(`data.${name}`, filteredArr)
-      }
-      //@ts-ignore
+        );
+        //@ts-expect-error ignore
+        setValue(`data.${name}`, filteredArr);
+      };
+      //@ts-expect-error ignore
       const dependency = watch
-        ? //@ts-ignore
-        watch(`data.question_${inputObj?.casecadeDepend?.tag}`)
-        : null
-      //@ts-ignore
-      const selectVal = (index: number) => watch(`data.${name}.${index}.state`)
+        ? //@ts-expect-error ignore
+          watch(`data.question_${inputObj?.casecadeDepend?.tag}`)
+        : null;
+      //@ts-expect-error ignore
+      const selectVal = (index: number) => watch(`data.${name}.${index}.state`);
       return (
         <div className="flex flex-col gap-[32px]">
           {caseCadeCount.map((each: any, index: any) => {
@@ -1274,7 +1288,7 @@ const AdminInputRenderer = ({
                       License (additional) *
                     </AppText>
                     {
-                      //@ts-ignore
+                      //@ts-expect-error ignore
                       !inputObj?.readOnly ? (
                         <div
                           onClick={() => handleDelete(index)}
@@ -1282,7 +1296,7 @@ const AdminInputRenderer = ({
                         >
                           <AppImage
                             alt=""
-                            src={'/assets/icons/delete-icon.svg'}
+                            src={"/assets/icons/delete-icon.svg"}
                             width={20}
                             height={20}
                           />
@@ -1297,11 +1311,11 @@ const AdminInputRenderer = ({
                     chakraStyles={{
                       dropdownIndicator: (base: any) => ({
                         ...base,
-                        background: 'white',
+                        background: "white",
                       }),
                       clearIndicator: (provided: any) => ({
                         ...provided,
-                        fontSize: '9px',
+                        fontSize: "9px",
                       }),
                       menu: (provided: any) => ({
                         ...provided,
@@ -1309,7 +1323,7 @@ const AdminInputRenderer = ({
                       }),
                     }}
                     zIndex={false}
-                    placeholder={'Select State'}
+                    placeholder={"Select State"}
                     name={`data.${name}.${index}.state`}
                     control={control}
                     value={{
@@ -1331,47 +1345,47 @@ const AdminInputRenderer = ({
                         selectVal(index)?.value ||
                         each?.state?.id,
                     }}
-                    // @ts-ignore
+                    //@ts-expect-error ignore
                     {...register(`data.${name}.${index}.state`, {
                       required: true,
                       value:
                         value && value.length !== 0
                           ? {
-                            id:
-                              selectVal(index)?.id ||
-                              selectVal(index)?.value ||
-                              each?.state?.id ||
-                              null,
-                            label:
-                              selectVal(index)?.identity ||
-                              selectVal(index)?.label ||
-                              each?.state?.label ||
-                              each?.state?.identity ||
-                              null,
-                            identity:
-                              selectVal(index)?.identity ||
-                              selectVal(index)?.label ||
-                              each?.state?.identity ||
-                              null,
-                            value:
-                              selectVal(index)?.id ||
-                              selectVal(index)?.value ||
-                              each?.state?.id ||
-                              null,
-                          }
+                              id:
+                                selectVal(index)?.id ||
+                                selectVal(index)?.value ||
+                                each?.state?.id ||
+                                null,
+                              label:
+                                selectVal(index)?.identity ||
+                                selectVal(index)?.label ||
+                                each?.state?.label ||
+                                each?.state?.identity ||
+                                null,
+                              identity:
+                                selectVal(index)?.identity ||
+                                selectVal(index)?.label ||
+                                each?.state?.identity ||
+                                null,
+                              value:
+                                selectVal(index)?.id ||
+                                selectVal(index)?.value ||
+                                each?.state?.id ||
+                                null,
+                            }
                           : undefined,
                     })}
-                    //@ts-ignore
+                    //@ts-expect-error ignore
                     options={inputObj?.addressState}
                     // {...rest}
                     className={`w-[100%] max-w-[100%]  ${inputObj?.className} ${className}`}
-                    // @ts-ignore
+                    //@ts-expect-error ignore
                     // isError={errors?.[name]}
                     onInputChange={inputObj?.onInpuChange}
                     isLoading={inputObj?.isLoading}
-                    //@ts-ignore
+                    //@ts-expect-error ignore
                     readOnly={inputObj?.readOnly}
-                    //@ts-ignore
+                    //@ts-expect-error ignore
                     isClearable={!inputObj?.readOnly}
                     isError={splitByDotGetMany(
                       `data.${name}.${index}.state`,
@@ -1384,12 +1398,12 @@ const AdminInputRenderer = ({
                       errors
                     )}
                     formControlClassName={`w-full ${formControlClassName}`}
-                    placeholder={'License Number'}
-                    type={type || 'text'}
-                    //@ts-ignore
+                    placeholder={"License Number"}
+                    type={type || "text"}
+                    //@ts-expect-error ignore
                     {...register(`data.${name}.${index}.license_no`, {
                       required: true,
-                      //@ts-ignore
+                      //@ts-expect-error ignore
                       value:
                         value && value?.length !== 0
                           ? each?.license_no
@@ -1401,9 +1415,9 @@ const AdminInputRenderer = ({
                     customPrefixClassName={inputObj?.customPrefixClassName}
                     maxLength={inputObj?.maxLength}
                     inputControlClassName={inputControlClassName}
-                    //@ts-ignore
+                    //@ts-expect-error ignore
                     readonly={inputObj?.readOnly}
-                  // {...restProps}
+                    // {...restProps}
                   />
                   {/* <div className="flex flex-col gap-[16px]">
                     <label
@@ -1416,10 +1430,10 @@ const AdminInputRenderer = ({
                       formControlClassName={`w-full ${formControlClassName}`}
                       placeholder={'Registration date'}
                       type={'date'}
-                      //@ts-ignore
+                      //@ts-expect-error ignore
                       {...register(`data.${name}.${index}.registration_date`, {
                         required: true,
-                        //@ts-ignore
+                        //@ts-expect-error ignore
                         value:
                           value && value?.length !== 0
                             ? value[index]?.registration_date
@@ -1446,12 +1460,12 @@ const AdminInputRenderer = ({
                         errors
                       )}
                       formControlClassName={`w-full ${formControlClassName}`}
-                      placeholder={'Expiry date'}
-                      type={'date'}
-                      //@ts-ignore
+                      placeholder={"Expiry date"}
+                      type={"date"}
+                      //@ts-expect-error ignore
                       {...register(`data.${name}.${index}.expiry_date`, {
                         required: true,
-                        //@ts-ignore
+                        //@ts-expect-error ignore
                         value:
                           value && value?.length !== 0
                             ? each?.expiry_date
@@ -1463,18 +1477,18 @@ const AdminInputRenderer = ({
                       customPrefixClassName={inputObj?.customPrefixClassName}
                       maxLength={inputObj?.maxLength}
                       inputControlClassName={inputControlClassName}
-                      //@ts-ignore
+                      //@ts-expect-error ignore
                       readonly={inputObj?.readOnly}
-                    // {...restProps}
+                      // {...restProps}
                     />
                   </div>
                 </div>
               </div>
-            )
+            );
           })}
           {
-            //@ts-ignore
-            dependency?.value === 'Yes' && !inputObj?.readOnly ? (
+            //@ts-expect-error ignore
+            dependency?.value === "Yes" && !inputObj?.readOnly ? (
               <div>
                 <AppButton
                   className="!text-[#1329E6]"
@@ -1487,35 +1501,35 @@ const AdminInputRenderer = ({
             ) : null
           }
         </div>
-      )
+      );
     }
-    if (type == 'state') {
+    if (type == "state") {
       return (
         <CkSelect
           name={name}
           control={control}
           {...customizeReg}
-          //@ts-ignore
+          //@ts-expect-error ignore
           options={inputObj?.options}
           {...rest}
           className={`w-[100%] max-w-[100%] ${className} ${inputObj?.className}`}
-          // @ts-ignore
+          //@ts-expect-error ignore
           isError={errors?.[name]}
-          placeholder={inputObj?.placeholder || 'Select'}
+          placeholder={inputObj?.placeholder || "Select"}
           onInputChange={inputObj?.onInpuChange}
           isLoading={inputObj?.isLoading}
-          //@ts-ignore
+          //@ts-expect-error ignore
           isClearable={!inputObj?.readOnly}
         />
-      )
+      );
     }
-    if (type == 'dob') {
+    if (type == "dob") {
       return (
         <CkInput
           isError={splitByDotGetMany(name, errors)}
           formControlClassName={`w-full ${formControlClassName}`}
-          placeholder={inputObj?.placeholder || 'Enter'}
-          type={'date'}
+          placeholder={inputObj?.placeholder || "Enter"}
+          type={"date"}
           {...customizeReg}
           {...rest}
           className={`w-[100%] max-w-[100%] ${className} ${inputObj?.className}`}
@@ -1525,15 +1539,15 @@ const AdminInputRenderer = ({
           inputControlClassName={inputControlClassName}
           {...restProps}
         />
-      )
+      );
     }
 
     return (
       <CkInput
         isError={splitByDotGetMany(name, errors)}
         formControlClassName={`w-full ${formControlClassName}`}
-        placeholder={inputObj?.placeholder || 'Enter'}
-        type={type || 'text'}
+        placeholder={inputObj?.placeholder || "Enter"}
+        type={type || "text"}
         {...customizeReg}
         {...rest}
         className={`w-[100%] max-w-[100%] ${className} ${inputObj?.className}`}
@@ -1543,16 +1557,16 @@ const AdminInputRenderer = ({
         inputControlClassName={inputControlClassName}
         {...restProps}
       />
-    )
-  }
+    );
+  };
 
   return (
     <div
       className={`flex flex-col gap-[8px] ${wrapperClassName} ${inputObj?.wrapperClass}`}
     >
       <Flex
-        gap={'10px'}
-        alignItems={'center'}
+        gap={"10px"}
+        alignItems={"center"}
         className={`${labelContainerClassName}`}
       >
         {inputObj?.label ? (
@@ -1583,17 +1597,17 @@ const AdminInputRenderer = ({
       {getInputField()}
       {inputObj?.bottomLeftInfo || inputObj?.bottomRightInfo ? (
         <Flex
-          w={'100%'}
-          justifyContent={'space-between'}
-          mt={'3px'}
-          fontSize={'12px'}
+          w={"100%"}
+          justifyContent={"space-between"}
+          mt={"3px"}
+          fontSize={"12px"}
         >
           <Box>{inputObj?.bottomLeftInfo}</Box>
           <Box>{inputObj?.bottomRightInfo}</Box>
         </Flex>
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default AdminInputRenderer
+export default AdminInputRenderer;

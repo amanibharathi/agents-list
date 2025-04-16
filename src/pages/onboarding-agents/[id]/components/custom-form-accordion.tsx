@@ -1,5 +1,4 @@
-
-import  { ReactNode, useRef } from 'react'
+import { ReactNode, useRef } from "react";
 import {
   Accordion,
   AccordionButton,
@@ -7,66 +6,66 @@ import {
   AccordionItem,
   AccordionPanel,
   //   Box,
-} from '@chakra-ui/react'
-import { useParams } from 'react-router-dom'
-import { useGetAgentLicenseAndMlsList } from './useGetAgentLicenseAndMlsList'
+} from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { useGetAgentLicenseAndMlsList } from "./useGetAgentLicenseAndMlsList";
 
 interface IAccordionData {
-  icon?: any
-  iconOnClick?: () => void
-  accordionItem: ReactNode | string
-  accordionPanel: ReactNode | string
+  icon?: any;
+  iconOnClick?: () => void;
+  accordionItem: ReactNode | string;
+  accordionPanel: ReactNode | string;
 }
 
 interface CustomFormAccordionInterface {
-  accordionWrapperClass?: string
-  accordionItemClass?: string
-  accordionPanelClass?: string
-  accordionData?: IAccordionData[]
+  accordionWrapperClass?: string;
+  accordionItemClass?: string;
+  accordionPanelClass?: string;
+  accordionData?: IAccordionData[];
 }
 
 export default function CustomFormAccordion({
-  accordionWrapperClass = '',
-  accordionItemClass = '',
-  accordionPanelClass = '',
+  accordionWrapperClass = "",
+  accordionItemClass = "",
+  accordionPanelClass = "",
   accordionData = [],
 }: CustomFormAccordionInterface) {
-  const { id } = useParams()
-  const currentPanel = useRef('')
-  const { refetchLicense, refetchMls } = useGetAgentLicenseAndMlsList(id)
+  const { id } = useParams();
+  const currentPanel = useRef("");
+  const { refetchLicense, refetchMls } = useGetAgentLicenseAndMlsList(id);
   return (
     <Accordion
       allowToggle
       className={`flex flex-col gap-[20px] ${accordionWrapperClass}`}
       onChange={(index) => {
-        if (index == 0 && currentPanel?.current == 'Transfer License & Board') {
-          refetchLicense()
-          refetchMls()
+        if (index == 0 && currentPanel?.current == "Transfer License & Board") {
+          refetchLicense();
+          refetchMls();
         }
       }}
     >
       {accordionData.map((each, index) => {
-        // @ts-ignore
-        currentPanel.current = each?.accordionItem?.props?.title
+        //@ts-expect-error ignore
+        currentPanel.current = each?.accordionItem?.props?.title;
         return (
           <AccordionItem
             key={index}
             className={`overflow_unset !border !border-[#CDCDCD] rounded-[20px] bg-white ${accordionItemClass}`}
           >
             <div className="relative">
-              <AccordionButton px={'40px'} py={'16px'} rounded={'20px'}>
+              <AccordionButton px={"40px"} py={"16px"} rounded={"20px"}>
                 {each.accordionItem}
                 {each?.icon ? (
                   <div
                     className="absolute  w-[50px] h-[50px] rounded-full flex items-center justify-center cursor-pointer hover:bg-[#E6E7E9] mr-[100px] mt-[12px] top-0 right-0"
                     onClick={() => {
-                      each?.iconOnClick && each?.iconOnClick()
+                      each?.iconOnClick && each?.iconOnClick();
                     }}
                   >
                     {each?.icon}
                   </div>
                 ) : null}
-                <AccordionIcon width={'40px'} height={'40px'} />
+                <AccordionIcon width={"40px"} height={"40px"} />
               </AccordionButton>
             </div>
             <AccordionPanel
@@ -76,7 +75,7 @@ export default function CustomFormAccordion({
               {each.accordionPanel}
             </AccordionPanel>
           </AccordionItem>
-        )
+        );
       })}
       {/* <AccordionItem
         className={`!border !border-[#CDCDCD] rounded-[20px] p-[10px] ${accordionItemClass}`}
@@ -97,5 +96,5 @@ export default function CustomFormAccordion({
         </AccordionPanel>
       </AccordionItem> */}
     </Accordion>
-  )
+  );
 }

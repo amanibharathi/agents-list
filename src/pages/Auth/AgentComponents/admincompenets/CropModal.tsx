@@ -1,23 +1,22 @@
-import React, { RefObject } from 'react'
-import CkAppModal from './AppModal'
-import ReactCrop, { Crop, PixelCrop } from 'react-image-crop'
-import AppButton from '../../../../AppComponents/AppButton-agent'
-
+import React, { RefObject } from "react";
+import CkAppModal from "./AppModal";
+import ReactCrop, { Crop, PixelCrop } from "react-image-crop";
+import AppButton from "../../../../AppComponents/AppButton-agent";
 
 interface ICropModal {
-  isOpen: boolean
-  onClose: () => void
-  imgRef: RefObject<HTMLImageElement>
-  imgSrc: string
-  onImageLoad: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void
-  crop: Crop | undefined
-  setCrop: React.Dispatch<React.SetStateAction<Crop | undefined>>
-  setCompletedCrop: React.Dispatch<React.SetStateAction<PixelCrop | undefined>>
-  aspect: number | undefined
-  onDownloadCropClick: () => void
-  previewCanvasRef: React.RefObject<HTMLCanvasElement>
-  completedCrop: PixelCrop | undefined
-  isLoading?: boolean
+  isOpen: boolean;
+  onClose: () => void;
+  imgRef: RefObject<HTMLImageElement>;
+  imgSrc: string;
+  onImageLoad: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
+  crop: Crop | undefined;
+  setCrop: React.Dispatch<React.SetStateAction<Crop | undefined>>;
+  setCompletedCrop: React.Dispatch<React.SetStateAction<PixelCrop | undefined>>;
+  aspect: number | undefined;
+  onDownloadCropClick: () => void;
+  previewCanvasRef: React.RefObject<HTMLCanvasElement>;
+  completedCrop: PixelCrop | undefined;
+  isLoading?: boolean;
 }
 
 const CropModal = ({
@@ -58,7 +57,7 @@ const CropModal = ({
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  //@ts-ignore
+                  //@ts-expect-error ignore
                   ref={imgRef}
                   alt="Crop me"
                   src={imgSrc}
@@ -94,11 +93,11 @@ const CropModal = ({
                 className="w-full max-w-[205px]"
                 ref={previewCanvasRef}
                 style={{
-                  border: '1px solid black',
-                  objectFit: 'contain',
+                  border: "1px solid black",
+                  objectFit: "contain",
                   width: completedCrop?.width,
                   height: completedCrop?.height,
-                  display: 'none',
+                  display: "none",
                 }}
               />
             </div>
@@ -106,7 +105,7 @@ const CropModal = ({
         </div>
       </div>
     </CkAppModal>
-  )
-}
+  );
+};
 
-export default CropModal
+export default CropModal;

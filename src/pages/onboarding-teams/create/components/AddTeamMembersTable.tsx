@@ -12,30 +12,30 @@ import ListingTable from '../../../Auth/AgentComponents/table/ListingTable'
 const tableMeta = {
   data: {
     columns: {
-      first_name: 'First Name',
-      last_name: 'Last Name',
-      full_name: 'Full Name',
-      phone_number: 'Phone Number',
-      email: 'Email',
+      first_name: "First Name",
+      last_name: "Last Name",
+      full_name: "Full Name",
+      phone_number: "Phone Number",
+      email: "Email",
     },
   },
-}
+};
 
 const AddTeamMembersTable = ({ tableData }: { tableData: any }) => {
   const selectedData = {
     data: {
       results: [...tableData],
     },
-  }
+  };
 
   return (
     <AdminFormWrapper
       titleClassName="mb-[39px] mt-[-4px]"
-      title={'Added Team Members'}
+      title={"Added Team Members"}
     >
       {/* <Flex gap={'10px'} alignItems={'center'} mb={'39px'}>
         <CkInput
-          //@ts-ignore
+          //@ts-expect-error ignore
           value={mail}
           onChange={(e: any) => setMail(e?.target?.value)}
           placeholder="Enter Email Id"
@@ -60,7 +60,7 @@ const AddTeamMembersTable = ({ tableData }: { tableData: any }) => {
         />
       </Box>
     </AdminFormWrapper>
-  )
-}
+  );
+};
 
-export default AddTeamMembersTable
+export default AddTeamMembersTable;

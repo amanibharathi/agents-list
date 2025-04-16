@@ -63,9 +63,9 @@ const AdminLoginComp = ({
 
   const handleFormSubmit = (val: unknown) => {
     const dataToSubmit = {
-      //@ts-ignore
+      //@ts-expect-error ignore
       ...val,
-      type: "admin",
+      login_type: "admin",
     };
     mutate(dataToSubmit);
   };
@@ -95,7 +95,7 @@ const AdminLoginComp = ({
           ))}
         </Flex>
         <AppText
-          //@ts-ignore
+          //@ts-expect-error ignore
           onClick={() => setComp("forgot-password")}
           className="!text-[#206BC4] cursor-pointer text-center text-[14px] mt-[10px]"
           text="Forgot Password?"
@@ -104,7 +104,7 @@ const AdminLoginComp = ({
           <AppButton
             isLoading={isLoading}
             className="w-full mt-[30px]"
-            //@ts-ignore
+            //@ts-expect-error ignore
             type="submit"
           >
             Sign in
@@ -112,7 +112,7 @@ const AdminLoginComp = ({
         </Flex>
         <AppText
           className="err-text mt-[20px]"
-          //@ts-ignore
+          //@ts-expect-error ignore
           text={getErrorMsg(error)}
         />
       </form>

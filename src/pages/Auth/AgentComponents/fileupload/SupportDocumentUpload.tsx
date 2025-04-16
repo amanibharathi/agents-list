@@ -10,7 +10,7 @@ import {
 import { FileUploader } from "react-drag-drop-files";
 import { IoClose } from "react-icons/io5";
 
-import { useMutation } from 'react-query'
+import { useMutation } from "react-query";
 
 import useUploadFiles from "../../../../utils/hooks/useUploadFiles";
 import makeDeleteRequest from "../../../../api/makeDeleteRequest";
@@ -66,26 +66,27 @@ const SupportDocumentUpload = ({
   const { mutate: deleteMutate } = useMutation(
     (body: any) =>
       makeDeleteRequest(DELETE_AGENT_SUPPORT_DOCUMENT(body?.id), body),
-    
-      {onSuccess: (res) => {
-        setImageState(res)
+
+    {
+      onSuccess: (res) => {
+        setImageState(res);
       },
       onError: (err) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const handleChangeInComponent = (file: any) => {
     const state = name?.split("_").pop();
     const formData = new FormData();
     formData.append("file", file);
-    //@ts-ignore
+    //@ts-expect-error ignore
     formData.append("state", state);
-    // @ts-ignore
+    //@ts-expect-error ignore
     fileMutate(formData);
   };
 

@@ -36,73 +36,78 @@ export const CommonDetailContainer = ({
   refetch,
 }: {
   data: {
-    id: string
-    agent_fullName: string
-    license: string
-    email: string
-    phone: string
-    profile: string
-    role?: { id: string; identity: string; label: string; value: string } | null
-    cap?: { id: string; identity: string; label: string; value: string } | null
+    id: string;
+    agent_fullName: string;
+    license: string;
+    email: string;
+    phone: string;
+    profile: string;
+    role?: {
+      id: string;
+      identity: string;
+      label: string;
+      value: string;
+    } | null;
+    cap?: { id: string; identity: string; label: string; value: string } | null;
     commision_plan: {
-      id: string
-      identity: string
-      label: string
-      value: string
-    } | null
+      id: string;
+      identity: string;
+      label: string;
+      value: string;
+    } | null;
     commision_split: {
-      id: string
-      identity: string
-      label: string
-      value: string
-    } | null
-  }
-  fields: any
-  editForm: UseFormReturn<any>
-  documents: any
-  params: { tab: string; id: string; memberId: string }
-  refetch: any
+      id: string;
+      identity: string;
+      label: string;
+      value: string;
+    } | null;
+  };
+  fields: any;
+  editForm: UseFormReturn<any>;
+  documents: any;
+  params: { tab: string; id: string; memberId: string };
+  refetch: any;
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const docTypes = ['Team Document', 'Agent Document']
-  const [deletingId, setDeletingId] = useState('')
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const docTypes = ["Team Document", "Agent Document"];
+  const [deletingId, setDeletingId] = useState("");
 
   const { mutate, isLoading } = useMutation(
     (body) =>
       makePostRequest(ADMIN_TEAM_DOCUMENT_UPLOAD_DELETE(params?.id), body),
     {
       onSuccess: () => {
-        toast.success('Documents Deleted Successfully')
-        refetch()
+        toast.success("Documents Deleted Successfully");
+        refetch();
       },
       onError: (err) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
-  const [imageState, setImageState] = useState()
+  const [imageState, setImageState] = useState();
   const inputObj = {
-    label: '',
-    name: '',
-    type: '',
+    label: "",
+    name: "",
+    type: "",
     required: true,
     imageState: imageState,
     setImageState: setImageState,
-    uploadKey: '',
-    fileTypes: ['jpg', 'jpeg', 'png', 'pdf', 'xlsx'],
-    placeholder: '',
-    fileTypeKey: '',
-  }
+    uploadKey: "",
+    fileTypes: ["jpg", "jpeg", "png", "pdf", "xlsx"],
+    placeholder: "",
+    fileTypeKey: "",
+  };
 
   const agentNameAndLicense = {
     name: data?.agent_fullName,
     license: data?.license,
     avatarUrl: data?.profile,
-  }
+  };
 
   return (
     <Box className="border border-[#61687640] p-[40px]">
@@ -121,7 +126,7 @@ export const CommonDetailContainer = ({
           </Box>
         ))}
       </Box>
-      <Flex justify={'space-between'} w={'80%'} my={'20px'}>
+      <Flex justify={"space-between"} w={"80%"} my={"20px"}>
         <AppText
           className="!text-[#10295A] text-[24px] font-semibold"
           text={`Documents`}
@@ -135,23 +140,25 @@ export const CommonDetailContainer = ({
         />
       </Flex>
       {documents ? (
-        <Flex gap={'10px'} flexDirection={'column'} w={'80%'}>
+        <Flex gap={"10px"} flexDirection={"column"} w={"80%"}>
           {documents?.map((each: any) => (
             <div
               key={each?.id}
               className="flex p-[15px] justify-between items-center h-[64px] border-[1px] border-[#F0F0F0] rounded-[8px]"
             >
-              <Flex gap={'10px'}>
+              <Flex gap={"10px"}>
                 <DocumentFile />
                 <a
                   className="text-[#10295A]"
                   target="_blank"
                   href={each?.document?.file}
                 >
-                  {`${each?.document?.file_name} - ${formatDate(each?.created)}`}
+                  {`${each?.document?.file_name} - ${formatDate(
+                    each?.created
+                  )}`}
                 </a>
               </Flex>
-              <Flex gap={'10px'}>
+              <Flex gap={"10px"}>
                 <Box
                   className="cursor-pointer"
                   onClick={() =>
@@ -167,9 +174,9 @@ export const CommonDetailContainer = ({
                 <Box
                   className="cursor-pointer"
                   onClick={() => {
-                    setDeletingId(each?.id)
-                    //@ts-ignore
-                    mutate({ team_document: [each?.id] })
+                    setDeletingId(each?.id);
+                    //@ts-expect-error ignore
+                    mutate({ team_document: [each?.id] });
                   }}
                 >
                   {isLoading && each?.id == deletingId ? (
@@ -194,5 +201,5 @@ export const CommonDetailContainer = ({
         id={data?.id}
       />
     </Box>
-  )
-}
+  );
+};

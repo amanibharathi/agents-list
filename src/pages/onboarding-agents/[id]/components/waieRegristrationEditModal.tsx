@@ -1,15 +1,14 @@
-
 //import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
 //import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
 //import CkAppModal from '@/app/components/modal/AppModal'
 // import { getResponse } from '@/app/real-estate-agents/join/onboard/stage/utils/common'
-import { Box, Checkbox, Flex, Text } from '@chakra-ui/react'
-import { useEffect, useMemo } from 'react'
-import { useForm } from 'react-hook-form'
-import AdminInputRenderer from '../../../../login/adminlogin/AdminInputRenderer'
-import ButtonPair from '../../../Auth/AgentComponents/admincompenets/ButtonPair'
-import CkAppModal from '../../../Auth/AgentComponents/admincompenets/AppModal'
-import { getResponse } from '../../../../utils/functions/commonFunctions'
+import { Box, Checkbox, Flex, Text } from "@chakra-ui/react";
+import { useEffect, useMemo } from "react";
+import { useForm } from "react-hook-form";
+import AdminInputRenderer from "../../../../login/adminlogin/AdminInputRenderer";
+import ButtonPair from "../../../Auth/AgentComponents/admincompenets/ButtonPair";
+import CkAppModal from "../../../Auth/AgentComponents/admincompenets/AppModal";
+import { getResponse } from "../../../../utils/functions/commonFunctions";
 
 const WaieRegristrationEditModal = ({
   isOpen,
@@ -18,42 +17,42 @@ const WaieRegristrationEditModal = ({
   mutate,
   isLoading = false,
 }: {
-  isOpen: boolean
-  onClose: () => void
-  data: any
-  mutate: any
-  isLoading: boolean
+  isOpen: boolean;
+  onClose: () => void;
+  data: any;
+  mutate: any;
+  isLoading: boolean;
 }) => {
-  const formUtil = useForm()
-  const { watch, setValue, reset } = formUtil
+  const formUtil = useForm();
+  const { watch, setValue, reset } = formUtil;
 
   const inputFields = useMemo(
     () => [
       {
-        name: 'license_fee_waived_states',
-        label: 'Select States for Waive License Fee',
-        type: 'multi-select',
+        name: "license_fee_waived_states",
+        label: "Select States for Waive License Fee",
+        type: "multi-select",
         options: data?.agent_detail?.licensed_states,
         required: false,
       },
     ],
     [data]
-  )
+  );
 
   const handlePrimaryBtnClick = () => {
     const finalData = {
       is_registration_fee_waived:
-        watch('data.is_registration_fee_waived') == true ? true : false,
-      license_fee_waived_states: watch('data.license_fee_waived_states')?.map(
+        watch("data.is_registration_fee_waived") == true ? true : false,
+      license_fee_waived_states: watch("data.license_fee_waived_states")?.map(
         (i: any) => i?.id
       ),
-    }
-    // @ts-ignore
-    mutate(finalData)
-  }
+    };
+    //@ts-expect-error ignore
+    mutate(finalData);
+  };
 
   const handleSecondaryBtnClick = () => {
-    onClose()
+    onClose();
     reset({
       data: {
         ...data,
@@ -63,8 +62,8 @@ const WaieRegristrationEditModal = ({
           data?.agent_detail?.license_fee_waived_states
         ),
       },
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     reset({
@@ -75,8 +74,8 @@ const WaieRegristrationEditModal = ({
           data?.agent_detail?.license_fee_waived_states
         ),
       },
-    })
-  }, [data])
+    });
+  }, [data]);
 
   return (
     <CkAppModal
@@ -91,9 +90,9 @@ const WaieRegristrationEditModal = ({
       <form onSubmit={formUtil.handleSubmit(handlePrimaryBtnClick)}>
         <Box className="grid grid-cols-1 gap-[28px] basis-[70%]">
           <Checkbox
-            isChecked={watch('data.is_registration_fee_waived') || false}
+            isChecked={watch("data.is_registration_fee_waived") || false}
             onChange={(e) =>
-              setValue('data.is_registration_fee_waived', e.target.checked)
+              setValue("data.is_registration_fee_waived", e.target.checked)
             }
           >
             <Text>Waive Registration Fee</Text>
@@ -111,19 +110,19 @@ const WaieRegristrationEditModal = ({
             />
           ))}
         </Box>
-        <Flex mb={'28px'} justifyContent={'end'} mt={'40px'}>
+        <Flex mb={"28px"} justifyContent={"end"} mt={"40px"}>
           <ButtonPair
-            primaryBtnText={'Waive Fee'}
-            secondaryBtnText={'Cancel'}
+            primaryBtnText={"Waive Fee"}
+            secondaryBtnText={"Cancel"}
             onPrimaryClick={undefined}
-            primaryBtnType={'submit'}
+            primaryBtnType={"submit"}
             onSecondaryClick={handleSecondaryBtnClick}
             primaryBtnIsLoading={isLoading}
           />
         </Flex>
       </form>
     </CkAppModal>
-  )
-}
+  );
+};
 
-export default WaieRegristrationEditModal
+export default WaieRegristrationEditModal;

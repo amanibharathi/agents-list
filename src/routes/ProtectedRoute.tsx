@@ -5,7 +5,7 @@ const ProtectedLayout = () => {
   const token = Cookies.get("token");
 
   if (!token) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/admin/login" replace />;
   }
 
   return <Outlet />;

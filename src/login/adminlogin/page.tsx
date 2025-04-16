@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LoginWrapper from "../LoginWrapper";
 import AdminLoginForm from "./AdminLoginFormContainer";
-import { useMutation } from "react-query";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-import makePostRequest from "../../api/makePostRequest";
 import { REFRESH_API } from "../../api-utils";
-import {
-  ADMIN_DASHBOARD,
-  MAKE_ABSOLUTE_URL,
-} from "../../pages/Auth/AgentComponents/navigation/urls";
+import { ADMIN_DASHBOARD } from "../../pages/Auth/AgentComponents/navigation/urls";
 import useManageCookies from "../../utils/hooks/useSetCookiesOnSuccess";
+import makeGetRequest from "../../api/makeGetRequest";
 
 const AdminLoginPage = () => {
   const [comp, setComp] = useState("login");
@@ -17,19 +14,13 @@ const AdminLoginPage = () => {
   const { handleSetCookiesOnSuccess } = useManageCookies();
 
   // Convert to the object syntax for useMutation
-  const { mutate } = useMutation({
-    mutationFn: (body: any) => makePostRequest(REFRESH_API, body),
+  useQuery([], () => makeGetRequest(REFRESH_API), {
     onSuccess: (res) => {
       handleSetCookiesOnSuccess(res);
       navigate(ADMIN_DASHBOARD);
     },
     retry: 1,
   });
-
-  useEffect(() => {
-    // @ts-ignore
-    mutate({ type: "admin" });
-  }, []);
 
   return (
     <LoginWrapper>

@@ -160,14 +160,14 @@ export function getFirstErrorMessage(errorObject: unknown): string | undefined {
   // }
 
   const traverseForError = (
-    // @ts-ignore
+    //@ts-expect-error ignore
     obj: unknown,
     currentPath: string[] = []
   ): string | undefined => {
-    // @ts-ignore
+    //@ts-expect-error ignore
     for (const key in obj) {
       const newPath = [...currentPath, key];
-      // @ts-ignore
+      //@ts-expect-error ignore
       const value = obj[key];
       if (typeof value === "string" && value.trim().length > 0) {
         // Check if value might be an error message
@@ -267,8 +267,8 @@ export const getErrorMsg = (obj: any) => {
   const firstErrorKey = Object?.keys(err)?.[0];
   const msg = `${err?.[firstErrorKey]}`;
 
-  return msg
-}
+  return msg;
+};
 export function getFirstErrorMessageCms(
   errorObject: unknown
 ): string | undefined {
@@ -284,81 +284,81 @@ export function getFirstErrorMessageCms(
   // }
 
   const traverseForError = (
-    // @ts-ignore
+    //@ts-expect-error ignore
     obj: unknown,
     currentPath: string[] = []
   ): string | undefined => {
-    // @ts-ignore
+    //@ts-expect-error ignore
     for (const key in obj) {
-      const newPath = [...currentPath, key]
-      // @ts-ignore
-      const value = obj[key]
+      const newPath = [...currentPath, key];
+      //@ts-expect-error ignore
+      const value = obj[key];
       if (
-        typeof value === 'string' &&
+        typeof value === "string" &&
         value.trim().length > 0 &&
-        key === 'message'
+        key === "message"
       ) {
         // Check if value might be an error message
-        return `Error: ${value}`
-      } else if (typeof value === 'object' && value !== null) {
-        const nestedError = traverseForError(value, newPath)
+        return `Error: ${value}`;
+      } else if (typeof value === "object" && value !== null) {
+        const nestedError = traverseForError(value, newPath);
         if (nestedError) {
-          return nestedError
+          return nestedError;
         }
       }
     }
-    return undefined
-  }
+    return undefined;
+  };
 
-  return traverseForError(errorObject)
+  return traverseForError(errorObject);
 }
 export function validateName(value: any) {
-  const namePattern = /^[a-zA-Z][a-zA-Z\s-_]*[a-zA-Z]$/
+  const namePattern = /^[a-zA-Z][a-zA-Z\s-_]*[a-zA-Z]$/;
 
   if (
     !namePattern.test(value) ||
-    value.startsWith('-') ||
-    value.startsWith('_') ||
-    value.endsWith('-') ||
-    value.endsWith('_')
+    value.startsWith("-") ||
+    value.startsWith("_") ||
+    value.endsWith("-") ||
+    value.endsWith("_")
   ) {
-    return 'Name must include only letters, spaces, - or _.'
+    return "Name must include only letters, spaces, - or _.";
   }
 }
 export const removeSpecialChars = (phoneNumber) => {
-  return phoneNumber?.replace(/[^\d]/g, '')
-}
+  return phoneNumber?.replace(/[^\d]/g, "");
+};
 export const addSpecialCharsForPhoneNumber = (phoneNumber) => {
-  if (phoneNumber?.startsWith('+')) {
+  if (phoneNumber?.startsWith("+")) {
     return phoneNumber
       ?.substr(2)
-      ?.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3')
+      ?.replace(/(\d{3})(\d{3})(\d{4})/, "($1)-$2-$3");
   }
-  return phoneNumber?.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3')
-}
+  return phoneNumber?.replace(/(\d{3})(\d{3})(\d{4})/, "($1)-$2-$3");
+};
 export function addCommas(str: any) {
-  if (!str && str !== 0) return 'N/A'
-  const parts = str?.split('.')
-  const integerPart = parts?.[0]
-  const decimalPart = parts?.length > 1 ? '.' + parts[1] : ''
+  if (!str && str !== 0) return "N/A";
+  const parts = str?.split(".");
+  const integerPart = parts?.[0];
+  const decimalPart = parts?.length > 1 ? "." + parts[1] : "";
 
   const formattedIntegerPart = integerPart?.replace(
     /\B(?=(\d{3})+(?!\d))/g,
-    ','
-  )
+    ","
+  );
 
-  return formattedIntegerPart + decimalPart
+  return formattedIntegerPart + decimalPart;
 }
 export const extractIdentities = (data) => {
   // Map the "identity" values to a new array
-  const identities = data?.map((item) => item?.identity || item)
+  const identities = data?.map((item) => item?.identity || item);
 
   // Join the identities into a comma-separated string
-  return identities?.join(', ')
-}
+  return identities?.join(", ");
+};
 export const getResponse = (data: any) => {
   if (data === null) {
-    return [] // Return an empty array if input is null
+    return []; // Return an empty array if input is null
   }
 
   const newArray = data?.map((item: any) => ({
@@ -366,48 +366,48 @@ export const getResponse = (data: any) => {
     value: item?.id,
     identity: item?.identity || item?.name,
     id: item?.id,
-  }))
+  }));
 
-  return newArray
-}
+  return newArray;
+};
 export const checkBoxDummyData = [
   {
-    title: 'Join the ROA Community',
+    title: "Join the ROA Community",
     description:
-      'Powered by Workvivo. Join the ROA Community — an agent experience platform designed to enhance communication, collaboration, and engagement between peers and state groups. To join download the Workvivo app or log in here:',
-    link: 'https://roa.workvivo.us',
+      "Powered by Workvivo. Join the ROA Community — an agent experience platform designed to enhance communication, collaboration, and engagement between peers and state groups. To join download the Workvivo app or log in here:",
+    link: "https://roa.workvivo.us",
     checked: false,
     id: null,
   },
   {
-    title: 'Login to Skyslope',
+    title: "Login to Skyslope",
     description:
-      'Your Real Estate Forms & Signing Solution designed to streamline collaboration and accelerate workflows, Skyslope Forms centralizes and consolidates compliance, document libraries, form editing and e-signatures into one easy-to-use tool. Initiate real estate contracts quickly & professionally. Click here to log in:',
-    link: 'https://app.skyslope.com',
+      "Your Real Estate Forms & Signing Solution designed to streamline collaboration and accelerate workflows, Skyslope Forms centralizes and consolidates compliance, document libraries, form editing and e-signatures into one easy-to-use tool. Initiate real estate contracts quickly & professionally. Click here to log in:",
+    link: "https://app.skyslope.com",
     checked: false,
     id: null,
   },
   {
-    title: 'Join Cloze CRM',
+    title: "Join Cloze CRM",
     description:
       'Cloze is your "personal assistant in your pocket" providing a relationship management platform that automatically tracks your emails, phone calls, text, meetings, notes, and social media interactions while providing insight to AI based nurturing opportunities. Click here to log in:',
-    link: 'https://www.cloze.com/in/',
+    link: "https://www.cloze.com/in/",
     checked: false,
     id: null,
   },
   {
-    title: 'Set up Learning @ROA',
+    title: "Set up Learning @ROA",
     description:
-      'COMING SOON! Launch your learning journey with ROA. Powered by Continu, our training-on-demand learning system offers a solution for agents and brokers to access our learning programs in a single, streamlined platform. ',
-    link: '',
+      "COMING SOON! Launch your learning journey with ROA. Powered by Continu, our training-on-demand learning system offers a solution for agents and brokers to access our learning programs in a single, streamlined platform. ",
+    link: "",
     checked: false,
     id: null,
   },
   {
-    title: 'Set up Lead Management',
+    title: "Set up Lead Management",
     description:
-      'COMING SOON! Nurture & ReDiscover LEADS through RealScout. RealScout is a real estate platform designed to enhance the home search experience for both agents and their clients',
-    link: '',
+      "COMING SOON! Nurture & ReDiscover LEADS through RealScout. RealScout is a real estate platform designed to enhance the home search experience for both agents and their clients",
+    link: "",
     checked: false,
     id: null,
   },
@@ -419,123 +419,123 @@ export const checkBoxDummyData = [
   //   checked: false,
   //   id: null,
   // },
-]
+];
 export const getDateFormat = (dateString: any) => {
-  const date = new Date(dateString)
-  const day = date.getDate()
-  const month = date.toLocaleString('default', { month: 'long' })
-  const year = date.getFullYear()
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
 
   // Determine the ordinal suffix for the day
   const ordinalSuffix = (n: any) => {
-    const s = ['th', 'st', 'nd', 'rd']
-    const v = n % 100
-    return s[(v - 20) % 10] || s[v] || s[0]
-  }
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return s[(v - 20) % 10] || s[v] || s[0];
+  };
 
-  return `${day}${ordinalSuffix(day)} ${month} ${year}`
-}
+  return `${day}${ordinalSuffix(day)} ${month} ${year}`;
+};
 export const getInputOptions = (val: string, valToRemove?: string[]) => {
-  let valArray = val?.split(';')
+  let valArray = val?.split(";");
   if (valToRemove?.[0])
-    valArray = valArray?.filter((f) => !valToRemove?.includes(f))
-  const options: any = []
+    valArray = valArray?.filter((f) => !valToRemove?.includes(f));
+  const options: any = [];
   valArray?.map((item: any) => {
     options.push({
-      identity: item.replaceAll('_', ' '),
+      identity: item.replaceAll("_", " "),
       id: item,
-    })
-  })
-  return options
-}
+    });
+  });
+  return options;
+};
 export const getResponseBasedOnInputType = (inputType: any, data: any) => {
   if (
-    inputType == 'primary_phone_number' ||
-    inputType == 'alternate_phone_number' ||
-    inputType == 'emergency_contact_phone_number'
+    inputType == "primary_phone_number" ||
+    inputType == "alternate_phone_number" ||
+    inputType == "emergency_contact_phone_number"
   ) {
-    if (data?.response?.response?.startsWith('+1')) {
+    if (data?.response?.response?.startsWith("+1")) {
       return {
         response: data?.response?.response
           ?.substr(2)
-          ?.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3'),
-      }
+          ?.replace(/(\d{3})(\d{3})(\d{4})/, "($1)-$2-$3"),
+      };
     } else {
       return {
         response: data?.response?.response?.replace(
           /(\d{3})(\d{3})(\d{4})/,
-          '($1)-$2-$3'
+          "($1)-$2-$3"
         ),
-      }
+      };
     }
   }
-  if (inputType == 'select' && data?.response) {
-    if (typeof data?.response?.response === 'string')
+  if (inputType == "select" && data?.response) {
+    if (typeof data?.response?.response === "string")
       return {
         response: data?.response?.response
           ? {
-              label: data?.response?.response?.replaceAll('_', ' '),
+              label: data?.response?.response?.replaceAll("_", " "),
               value: data?.response?.response,
               id: data?.response?.response,
               identity: data?.response?.response,
             }
           : null,
-      }
-    else return { response: data?.response?.response }
+      };
+    else return { response: data?.response?.response };
   }
-  if (inputType == 'multi-select' || inputType == 'checkbox') {
-    if (typeof data?.response?.response === 'string') {
-      const responseArray = data?.response?.split(';')
-      const multiSelectResponse = <any>[]
+  if (inputType == "multi-select" || inputType == "checkbox") {
+    if (typeof data?.response?.response === "string") {
+      const responseArray = data?.response?.split(";");
+      const multiSelectResponse = <any>[];
       responseArray?.map((each: any) => {
-        if (typeof each == 'string')
+        if (typeof each == "string")
           multiSelectResponse.push({
             label: getInputOptions(each),
             value: each,
             id: each,
             identity: each,
-          })
-        console.log('res', multiSelectResponse)
-      })
-    } else return { response: data?.response?.response }
+          });
+        console.log("res", multiSelectResponse);
+      });
+    } else return { response: data?.response?.response };
     // return multiSelectResponse
-    return null
+    return null;
   }
-  return data?.response
-}
+  return data?.response;
+};
 export const formatDateTime = (datetimeStr: string) => {
   const options = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-  }
-  const dt = new Date(datetimeStr)
-  return dt.toLocaleDateString('en-US', options)
-}
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  };
+  const dt = new Date(datetimeStr);
+  return dt.toLocaleDateString("en-US", options);
+};
 export function upperToLowercaseInString(str: string) {
   return str?.replace(
     /\b[A-Z]+\b/g,
     (word) => word[0] + word.slice(1).toLowerCase()
-  )
+  );
 }
 export function getNextMonthText(dateString) {
-  return moment(dateString, 'YYYY-MM-DD').add(1, 'month').format('MMMM')
+  return moment(dateString, "YYYY-MM-DD").add(1, "month").format("MMMM");
 }
 export function transformSelectData(item) {
-  if (!item || typeof item !== 'object') return null
+  if (!item || typeof item !== "object") return null;
 
-  const id = item?.id ?? ''
-  const identity = item?.identity ?? ''
+  const id = item?.id ?? "";
+  const identity = item?.identity ?? "";
 
   return {
     id,
     identity,
     label: identity,
     value: id,
-  }
+  };
 }
 export function formatDate(isoString) {
   const date = new Date(isoString)

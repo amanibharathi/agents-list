@@ -1,20 +1,19 @@
-
-import React from 'react'
-import { Box } from '@chakra-ui/react'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
+import React from "react";
+import { Box } from "@chakra-ui/react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 interface QuillEditorProps {
-  width?: string
-  ref?: React.Ref<null>
-  handletextEditorChange: (value: string) => void
-  value?: string
-  isError?: boolean
-  placeholder?: string
-  readOnly?: boolean
-  className?: string
-  name?: string
-  minH?: string
+  width?: string;
+  ref?: React.Ref<null>;
+  handletextEditorChange: (value: string) => void;
+  value?: string;
+  isError?: boolean;
+  placeholder?: string;
+  readOnly?: boolean;
+  className?: string;
+  name?: string;
+  minH?: string;
 }
 
 const QuillEditorRaw: React.FC<QuillEditorProps> = ({
@@ -23,50 +22,50 @@ const QuillEditorRaw: React.FC<QuillEditorProps> = ({
   handletextEditorChange,
   value,
   isError,
-  placeholder = '',
+  placeholder = "",
   readOnly,
   className,
-  minH = 'auto',
+  minH = "auto",
   name,
   ...others
 }) => {
   const formats: string[] = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'align',
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "align",
     // "image",
-  ]
+  ];
 
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      ["bold", "italic", "underline", "strike", "blockquote"],
       [
         { align: [] },
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
       ],
-      ['link'],
-      ['clean'],
+      ["link"],
+      ["clean"],
     ],
-  }
+  };
 
   return (
-    <Box pos="relative" width={width ? width : '100%'}>
+    <Box pos="relative" width={width ? width : "100%"}>
       <ReactQuill
         className={`${className}`}
         placeholder={placeholder}
-        //@ts-ignore
+        //@ts-expect-error ignore
         ref={ref}
         theme="snow"
         value={value}
@@ -74,8 +73,8 @@ const QuillEditorRaw: React.FC<QuillEditorProps> = ({
         modules={modules}
         formats={formats}
         style={{
-          border: isError ? '2px solid #FC8181' : '2px solid #E6E7E9',
-          height: '100%',
+          border: isError ? "2px solid #FC8181" : "2px solid #E6E7E9",
+          height: "100%",
           minHeight: minH,
         }}
         readOnly={readOnly}
@@ -85,15 +84,15 @@ const QuillEditorRaw: React.FC<QuillEditorProps> = ({
         onBlur={() => null}
       />
       {isError && (
-        <Box color={'#E53E3E'} fontSize={'11px'}>
+        <Box color={"#E53E3E"} fontSize={"11px"}>
           {
-            //@ts-ignore
-            isError?.message || 'Enter a valid value'
+            //@ts-expect-error ignore
+            isError?.message || "Enter a valid value"
           }
         </Box>
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default QuillEditorRaw
+export default QuillEditorRaw;

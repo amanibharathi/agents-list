@@ -1,10 +1,9 @@
-
-import { Box, Flex } from '@chakra-ui/react'
-import { Dispatch, SetStateAction, useMemo, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { IoIosRemoveCircleOutline } from 'react-icons/io'
-import { useMutation } from 'react-query'
+import { Box, Flex } from "@chakra-ui/react";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { useMutation } from "react-query";
 
 import {
   ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST,
@@ -62,7 +61,7 @@ const AssignAgentToBrokerageModal = ({
         list = selected?.filter((f) => f?.id);
     } else {
       if (!isAssign && Array.isArray(selected)) {
-        //@ts-ignore
+        //@ts-expect-error ignore
         list = selected?.filter((f) => f?.agent?.id);
       }
     }
@@ -124,13 +123,13 @@ const AssignAgentToBrokerageModal = ({
   //       onError: (err) => {
   //         console.log(
   //           'err?.response?.data?.data',
-  //           //@ts-ignore
-  //           //@ts-ignore
+  //           //@ts-expect-error ignore
+  //           //@ts-expect-error ignore
   //           err?.response?.data?.data
   //         )
-  //         //@ts-ignore
+  //         //@ts-expect-error ignore
   //         const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-  //         //@ts-ignore
+  //         //@ts-expect-error ignore
   //         toast.error(errMsg)
   //       },
   //     }
@@ -148,23 +147,23 @@ const AssignAgentToBrokerageModal = ({
   //     const dataToSubmit = isAssign
   //       ? {
   //           team: watch('agent')?.value,
-  //           //@ts-ignore
+  //           //@ts-expect-error ignore
   //           user_ids: selectedData?.data?.results?.map((m: any) => m?.id),
   //           role: 'member',
   //         }
   //       : {
   //           brokerage: watch('agent')?.value,
-  //           //@ts-ignore
+  //           //@ts-expect-error ignore
   //           members: selectedData?.data?.results?.map((m: any) => m?.id),
   //           // role: 'member',
   //           team: [],
   //         }
-  //     //@ts-ignore
+  //     //@ts-expect-error ignore
   //     mutate(dataToSubmit)
   //   }
 
   const removeFromList = (val: unknown) => {
-    //@ts-ignore
+    //@ts-expect-error ignore
     const newArr = selectedData?.data?.results?.filter(
       (f) => f?.id !== val?.id
     );
@@ -194,21 +193,22 @@ const AssignAgentToBrokerageModal = ({
 
   const { mutate: officeMutate, isLoading } = useMutation(
     (body) => makePostRequest(ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST, body),
-    
-      {onSuccess: () => {
-        onClose()
-        toast.success('Assigned Successfully')
-        setSelected([])
-        refetch()
+
+    {
+      onSuccess: () => {
+        onClose();
+        toast.success("Assigned Successfully");
+        setSelected([]);
+        refetch();
       },
       onError: (err: any) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const officeList = office?.data?.results ?? [];
 
@@ -245,11 +245,11 @@ const AssignAgentToBrokerageModal = ({
     }
     const bdy = {
       team: teamList,
-      // @ts-ignore
+      //@ts-expect-error ignore
       members: memberList,
       brokerage: bdyObj?.data?.office?.map((each: any) => each?.value),
     };
-    //@ts-ignore
+    //@ts-expect-error ignore
     officeMutate(bdy);
   };
 
@@ -265,7 +265,7 @@ const AssignAgentToBrokerageModal = ({
           tableMeta={!isBrokerage ? tableMeta : tableMeta2}
           tableData={selectedData}
           includeIndex
-          //@ts-ignore
+          //@ts-expect-error ignore
           relativeTime={["created"]}
         />
       </Box>

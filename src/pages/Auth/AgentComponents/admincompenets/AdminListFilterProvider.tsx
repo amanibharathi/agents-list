@@ -1,14 +1,9 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
-import { useAppStore } from "../../../../store-admin";
-import AppLoader from "./AppLoader";
-import {
-  ADMIN_LOGIN_PAGE,
-  agentProtectedRoutes,
-  isPermitted,
-} from "./roles-and-permissions";
+// import { useAppStore } from "../../../../store-admin";
+// import { ADMIN_LOGIN_PAGE } from "./roles-and-permissions";
 import { Outlet } from "react-router";
 
 export const AdminListFilterContext = createContext({});
@@ -21,16 +16,16 @@ export const AdminListFilterProvider = () => {
   const AppliedTeamsRosterFilterForm = useForm();
   const managingBrokerFilterForm = useForm();
 
-  const [dateRange, setDateRange] = useState<any>({});
+  const [dateRange, setDateRange] = useState({});
   const [agentListData, setAgentListData] = useState([]);
   const [sponsors, setSponsors] = useState([]);
 
-  const location = useLocation(); // ✅ Equivalent to usePathname()
-  const pathname = location.pathname;
+  // const location = useLocation(); // ✅ Equivalent to usePathname()
+  // const pathname = location.pathname;
 
-  const { adminRoles } = useAppStore();
-  const isRolesFetched = adminRoles !== null;
-  const isAdminLoginPage = pathname === ADMIN_LOGIN_PAGE;
+  // const { adminRoles } = useAppStore();
+  // const isRolesFetched = adminRoles !== null;
+  // const isAdminLoginPage = pathname === ADMIN_LOGIN_PAGE;
 
   return (
     <div>

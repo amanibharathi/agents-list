@@ -1,45 +1,47 @@
-
-import { Image, Text } from '@chakra-ui/react'
-import { useParams } from 'react-router-dom'
+import { Image, Text } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
 // import makeGetRequest from '@/app/utils/api/makeGetRequest'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery } from "react-query";
 // import LoaderLayout from '@/app/components/layouts/loaderLayout/LoaderLayout'
-import { useState } from 'react'
+import { useState } from "react";
 // import AppButton from '@/app/components/elements/AppButton'
 // import makePostRequest from '@/app/utils/api/makePostRequest'
-import toast from 'react-hot-toast'
-import OnboardingLayout from './onboardingLayout'
+import toast from "react-hot-toast";
+import OnboardingLayout from "./onboardingLayout";
 // import AppText from '@/app/components/elements/AppText'
 // import { getFirstErrorMessage } from '@/app/utils/functions/otherFunctions'
 // import useGetAgentStatus from '@/app/hooks/admin/useGetAgentStatus'
-import { GET_AGENT_STAGE_LICENSE_LIST, GET_AGENT_STAGE_MLS_LIST,
-  POST_AGENT_MLS_LICENSE_STATUS_UPDATE, } from '../../../../../api-utils'
-import makeGetRequest from '../../../../../api/makeGetRequest'
-import LoaderLayout from '../../../../Auth/AgentComponents/table/LoaderLayout'
-import AppButton from '../../../../../AppComponents/AppButton-agent'
-import makePostRequest from '../../../../../api/makePostRequest'
-import AppText from '../../../../../AppComponents/AppText-agent'
-import { getFirstErrorMessage } from '../../../../../utils/functions/commonFunctions'
-import useGetAgentStatus from '../../../../../utils/hooks/useGetAgentStatus'
+import {
+  GET_AGENT_STAGE_LICENSE_LIST,
+  GET_AGENT_STAGE_MLS_LIST,
+  POST_AGENT_MLS_LICENSE_STATUS_UPDATE,
+} from "../../../../../api-utils";
+import makeGetRequest from "../../../../../api/makeGetRequest";
+import LoaderLayout from "../../../../Auth/AgentComponents/table/LoaderLayout";
+import AppButton from "../../../../../AppComponents/AppButton-agent";
+import makePostRequest from "../../../../../api/makePostRequest";
+import AppText from "../../../../../AppComponents/AppText-agent";
+import { getFirstErrorMessage } from "../../../../../utils/functions/commonFunctions";
+import useGetAgentStatus from "../../../../../utils/hooks/useGetAgentStatus";
 
 export default function TransferLicense() {
-  const [licenseData, setLicenseData] = useState<any[]>([])
-  const [mlsData, setMlsData] = useState<any[]>([])
-  const { id } = useParams()
-  const [selectedId, setSelectedId] = useState('')
-  const { refetch } = useGetAgentStatus(id)
+  const [licenseData, setLicenseData] = useState<any[]>([]);
+  const [mlsData, setMlsData] = useState<any[]>([]);
+  const { id } = useParams();
+  const [selectedId, setSelectedId] = useState("");
+  const { refetch } = useGetAgentStatus(id);
 
   function isLicenseId(id: any) {
     return (
-      selectedId?.split('_')[0] === 'license' &&
-      parseInt(selectedId.split('_')[1]) === id
-    )
+      selectedId?.split("_")[0] === "license" &&
+      parseInt(selectedId.split("_")[1]) === id
+    );
   }
   function isMlsId(id: any) {
     return (
-      selectedId?.split('_')[0] === 'mls' &&
-      parseInt(selectedId.split('_')[1]) === id
-    )
+      selectedId?.split("_")[0] === "mls" &&
+      parseInt(selectedId.split("_")[1]) === id
+    );
   }
 
   const { isLoading: licenseLoading, refetch: refetchLicense } = useQuery(
@@ -47,58 +49,58 @@ export default function TransferLicense() {
     async () => makeGetRequest(GET_AGENT_STAGE_LICENSE_LIST(id)),
     {
       onSuccess: (res) => {
-        setLicenseData(res?.data?.results)
+        setLicenseData(res?.data?.results);
       },
     }
-  )
+  );
 
   const { isLoading: mlsLoading, refetch: refetchMls } = useQuery(
     [GET_AGENT_STAGE_MLS_LIST(id)],
     async () => makeGetRequest(GET_AGENT_STAGE_MLS_LIST(id)),
     {
       onSuccess: (res) => {
-        setMlsData(res?.data?.results)
+        setMlsData(res?.data?.results);
       },
     }
-  )
+  );
 
   const { isLoading, mutate: submitMutate } = useMutation(
     (body) => makePostRequest(POST_AGENT_MLS_LICENSE_STATUS_UPDATE, body),
     {
       onSuccess: () => {
-        toast.success('Transfer License & Board Updated Successfully')
-        refetchLicense()
-        refetchMls()
-        refetch()
+        toast.success("Transfer License & Board Updated Successfully");
+        refetchLicense();
+        refetchMls();
+        refetch();
       },
       onError: (err) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const onClickHandler = (type: any, id: any) => {
-    setSelectedId(type + '_' + id)
+    setSelectedId(type + "_" + id);
 
-    const licenseId = type === 'license' ? [id] : []
-    const mlsId = type === 'mls' ? [id] : []
-    // @ts-ignore
+    const licenseId = type === "license" ? [id] : [];
+    const mlsId = type === "mls" ? [id] : [];
+    //@ts-expect-error ignore
     submitMutate({
       agent_license: licenseId,
       mls: mlsId,
-      status: 'approved',
-    })
-  }
+      status: "approved",
+    });
+  };
 
   return (
     <div className="">
       {licenseData?.length || mlsData?.length ? (
         <OnboardingLayout
-          imageSrc={'/license-frame.png'}
-          title={'Transfer License & Board'}
+          imageSrc={"/license-frame.png"}
+          title={"Transfer License & Board"}
         >
           <div className="flex flex-col gap-[20px]">
             {/* Transfer License */}
@@ -132,7 +134,7 @@ export default function TransferLicense() {
                         </div>
                         {/* {license?.status !== 'pending' && ( */}
 
-                        {license?.status === 'approved' ? (
+                        {license?.status === "approved" ? (
                           <AppText
                             type="span"
                             className={`font-semibold rounded-[80px] px-[10px] !text-[#2FB344] bg-[#2FB3441A]`}
@@ -144,7 +146,7 @@ export default function TransferLicense() {
                             className="!rounded-[20px] text-[13px] font-[500] w-fit py-[8px] hover:text-white hover:bg-[#10295A]"
                             variant="outline"
                             onClick={() =>
-                              onClickHandler('license', license?.id)
+                              onClickHandler("license", license?.id)
                             }
                             isLoading={
                               isLoading ? isLicenseId(license?.id) : false
@@ -194,7 +196,7 @@ export default function TransferLicense() {
                         </div>
                         {/* mls?.status !== 'pending' && ( */}
 
-                        {mls?.status === 'approved' ? (
+                        {mls?.status === "approved" ? (
                           <AppText
                             type="span"
                             className={`font-semibold rounded-[80px] px-[10px] !text-[#2FB344] bg-[#2FB3441A]`}
@@ -205,7 +207,7 @@ export default function TransferLicense() {
                           <AppButton
                             className="!rounded-[20px] text-[13px] font-[500] w-fit py-[8px] hover:text-white hover:bg-[#10295A]"
                             variant="outline"
-                            onClick={() => onClickHandler('mls', mls?.id)}
+                            onClick={() => onClickHandler("mls", mls?.id)}
                             isLoading={isLoading && isMlsId(mls?.id)}
                             // disabled={mls?.status === 'pending'}
                           >
@@ -224,5 +226,5 @@ export default function TransferLicense() {
         <div></div>
       )}
     </div>
-  )
+  );
 }

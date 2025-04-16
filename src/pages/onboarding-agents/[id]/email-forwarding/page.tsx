@@ -1,113 +1,118 @@
-
-import { Tag, Text } from '@chakra-ui/react'
-import { useParams } from 'react-router-dom'
-import { useRef } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { useMutation, useQuery } from 'react-query'
-import AdminInputRenderer from '../../../../login/adminlogin/AdminInputRenderer'
-import ButtonPair from '../../../Auth/AgentComponents/admincompenets/ButtonPair'
-import NoData from '../../../Auth/AgentComponents/admincompenets/NoData'
-import { GET_AGENT_FORWARD_EMAIL_STATUS,POST_AGENT_FORWARD_EMAIL, } from '../../../../api-utils'
-import AppText from '../../../../AppComponents/AppText-agent'
-import LoaderLayout from '../../../Auth/AgentComponents/table/LoaderLayout'
-import makeGetRequest from '../../../../api/makeGetRequest'
-import makePostRequest from '../../../../api/makePostRequest'
-import { capitalize,getFirstErrorMessage, } from '../../../../utils/functions/commonFunctions'
+import { Tag, Text } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { useRef } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useMutation, useQuery } from "react-query";
+import AdminInputRenderer from "../../../../login/adminlogin/AdminInputRenderer";
+import ButtonPair from "../../../Auth/AgentComponents/admincompenets/ButtonPair";
+import NoData from "../../../Auth/AgentComponents/admincompenets/NoData";
+import {
+  GET_AGENT_FORWARD_EMAIL_STATUS,
+  POST_AGENT_FORWARD_EMAIL,
+} from "../../../../api-utils";
+import AppText from "../../../../AppComponents/AppText-agent";
+import LoaderLayout from "../../../Auth/AgentComponents/table/LoaderLayout";
+import makeGetRequest from "../../../../api/makeGetRequest";
+import makePostRequest from "../../../../api/makePostRequest";
+import {
+  capitalize,
+  getFirstErrorMessage,
+} from "../../../../utils/functions/commonFunctions";
 
 const inputFields = {
-  name: 'email',
-  type: 'email',
-  placeholder: 'Add Email here...',
+  name: "email",
+  type: "email",
+  placeholder: "Add Email here...",
   otherRegProps: {
     required: true,
   },
-}
+};
 
 export default function Page() {
-  const { id } = useParams()
-  const notesForm = useForm()
-  const { watch, reset } = notesForm
+  const { id } = useParams();
+  const notesForm = useForm();
+  const { watch, reset } = notesForm;
 
-  // @ts-ignore
-  const agentStatus = useRef(false)
-  const roaEmail = useRef('')
+  //@ts-expect-error ignore
+  const agentStatus = useRef(false);
+  const roaEmail = useRef("");
 
   const { refetch, isLoading: agentDataLoader } = useQuery(
     [GET_AGENT_FORWARD_EMAIL_STATUS(id)],
     () => makeGetRequest(GET_AGENT_FORWARD_EMAIL_STATUS(id)),
     {
       onSuccess: (res) => {
-        agentStatus.current = res?.data?.is_active
-        roaEmail.current = res?.data?.roa_email
+        agentStatus.current = res?.data?.is_active;
+        roaEmail.current = res?.data?.roa_email;
         reset({
           data: {
             email: res?.data?.forwarding_email,
           },
-        })
+        });
       },
       onError: (err) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const { mutate, isLoading } = useMutation(
     (body) => makePostRequest(POST_AGENT_FORWARD_EMAIL, body),
     {
       onSuccess: () => {
-        notesForm.reset()
-        toast.success('Forward Email Updated Successfully')
-        refetch()
+        notesForm.reset();
+        toast.success("Forward Email Updated Successfully");
+        refetch();
       },
       onError: (err: any) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const handleNoteSubmit = (data: any) => {
     if (data?.data?.email) {
-      // @ts-ignore
+      //@ts-expect-error ignore
       mutate({
-        forwarding_email: watch('data.email'),
+        forwarding_email: watch("data.email"),
         user: id,
-      })
+      });
     }
-  }
+  };
 
   const handleCancel = () => {
-    refetch()
-  }
+    refetch();
+  };
 
   const returnAsTag = (color: any, txt: any) => {
     return (
       <Tag className={`${color}-tag truncate`}>
         <AppText
-          text={capitalize(txt).replaceAll('_', ' ')}
+          text={capitalize(txt).replaceAll("_", " ")}
           className="!text-[inherit] text-left capitalize truncate"
         />
       </Tag>
-    )
-  }
+    );
+  };
 
   const showTextAsTag = {
-    approved: 'green',
-    waiting_for_approval: 'yellow',
-    application_in_progress: 'yellow',
-    invite_sent: 'yellow',
-    uploaded: 'yellow',
-    rejected: 'red',
-    new: 'blue',
-    active: 'green',
-    in_active: 'red',
-  }
+    approved: "green",
+    waiting_for_approval: "yellow",
+    application_in_progress: "yellow",
+    invite_sent: "yellow",
+    uploaded: "yellow",
+    rejected: "red",
+    new: "blue",
+    active: "green",
+    in_active: "red",
+  };
 
   return (
     <div className="rounded-[20px]  mt-[30px] w-[100%] h-[274px] border-[1px] border-[#fffff] bg-white p-[40px]">
@@ -125,13 +130,13 @@ export default function Page() {
             <div className="rounded-[8px] px-[20px] py-[14px] border-[1px] border-[#F0F0F0] flex justify-between items-center ">
               {/* Tag */}
               {agentStatus.current
-                ? //@ts-ignore
-                  returnAsTag(showTextAsTag['active'], 'active')
-                : returnAsTag(showTextAsTag['in_active'], 'in_active')}
+                ? //@ts-expect-error ignore
+                  returnAsTag(showTextAsTag["active"], "active")
+                : returnAsTag(showTextAsTag["in_active"], "in_active")}
               {/* From Email */}
               <div className="flex gap-[30px]">
                 <AppText
-                  text={roaEmail.current || 'N/A'}
+                  text={roaEmail.current || "N/A"}
                   className="text-[16px] leading-[24px] font-normal !text-[#000000] "
                 />
                 {/* <AppText
@@ -155,7 +160,7 @@ export default function Page() {
                   className="w-full max-w-[100%]"
                   wrapperClassName={`flex gap-[20px] text-[14px] `}
                   labelClassName=""
-                  // @ts-ignore
+                  //@ts-expect-error ignore
                   inputObj={inputFields}
                   key={inputFields?.name}
                   register={notesForm.register}
@@ -168,7 +173,7 @@ export default function Page() {
               <ButtonPair
                 onSecondaryClick={handleCancel}
                 secondaryBtnText="Cancel"
-                primaryBtnText={agentStatus.current ? 'Update' : 'Create'}
+                primaryBtnText={agentStatus.current ? "Update" : "Create"}
                 onPrimaryClick={undefined}
                 primaryBtnIsLoading={isLoading}
               />
@@ -179,5 +184,5 @@ export default function Page() {
         <NoData />
       )}
     </div>
-  )
+  );
 }

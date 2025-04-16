@@ -6,30 +6,29 @@ import {
   MenuItem,
   MenuList,
   useDisclosure,
-} from '@chakra-ui/react'
-import 'react-date-range/dist/styles.css' // main css file
-import 'react-date-range/dist/theme/default.css' // theme css file
-import { RxCalendar } from 'react-icons/rx'
-import { DateRange } from 'react-date-range'
-import AppButton from '../../../../AppComponents/AppButton-agent'
-
+} from "@chakra-ui/react";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { RxCalendar } from "react-icons/rx";
+import { DateRange } from "react-date-range";
+import AppButton from "../../../../AppComponents/AppButton-agent";
 
 const DashFilterDateRange = (props: unknown) => {
-  //@ts-ignore
+  //@ts-expect-error ignore
   const setDateRange = (val: any) => {
-    //@ts-ignore
+    //@ts-expect-error ignore
     if (props?.value) {
-      //@ts-ignore
-      props?.setValue(props?.name, val)
+      //@ts-expect-error ignore
+      props?.setValue(props?.name, val);
     } else {
-      //@ts-ignore
-      props?.setValue('dateRange', val)
+      //@ts-expect-error ignore
+      props?.setValue("dateRange", val);
     }
-  }
-  //@ts-ignore
-  const dateRange = props?.watch('dateRange')
+  };
+  //@ts-expect-error ignore
+  const dateRange = props?.watch("dateRange");
 
-  const { isOpen, onClose, onOpen } = useDisclosure()
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   // console.log(first)
 
@@ -43,27 +42,27 @@ const DashFilterDateRange = (props: unknown) => {
     >
       <MenuButton>
         <Flex
-          alignItems={'center'}
-          borderRadius={'10px'}
-          bg={'white'}
-          padding={'9.5px 11px'}
-          boxShadow={'1px 1px 4px 0px #00000040 !important'}
+          alignItems={"center"}
+          borderRadius={"10px"}
+          bg={"white"}
+          padding={"9.5px 11px"}
+          boxShadow={"1px 1px 4px 0px #00000040 !important"}
           border="1px solid #cdcdcdcc !important"
-          cursor={'pointer'}
-          pos={'relative'}
+          cursor={"pointer"}
+          pos={"relative"}
         >
           <Flex
             // onBlur={onClose}
-            alignItems={'center'}
+            alignItems={"center"}
             // border={'1px solid #f3f3f5'}
           >
             <label htmlFor="date-dash">
               <Flex
-                cursor={'pointer'}
-                alignItems={'center'}
-                whiteSpace={'nowrap'}
-                gap={'10px'}
-                fontSize={'13px'}
+                cursor={"pointer"}
+                alignItems={"center"}
+                whiteSpace={"nowrap"}
+                gap={"10px"}
+                fontSize={"13px"}
               >
                 <RxCalendar />
                 {/* @ts-ignore */}
@@ -74,12 +73,12 @@ const DashFilterDateRange = (props: unknown) => {
         </Flex>
       </MenuButton>
       <MenuList>
-        <MenuItem p={'0px'}>
+        <MenuItem p={"0px"}>
           <Box>
             <DateRange
               editableDateInputs={true}
               onChange={(item: any) => {
-                setDateRange([item.selection])
+                setDateRange([item.selection]);
               }}
               moveRangeOnFirstSelection={false}
               ranges={dateRange}
@@ -87,7 +86,7 @@ const DashFilterDateRange = (props: unknown) => {
               direction="horizontal"
               color=""
             />
-            <Flex mt={'5px'} px={'10px'} gap={'10px'}>
+            <Flex mt={"5px"} px={"10px"} gap={"10px"}>
               <AppButton
                 variant="outline"
                 className="flex-1 py-1"
@@ -100,7 +99,7 @@ const DashFilterDateRange = (props: unknown) => {
         </MenuItem>
       </MenuList>
     </Menu>
-  )
-}
+  );
+};
 
-export default DashFilterDateRange
+export default DashFilterDateRange;

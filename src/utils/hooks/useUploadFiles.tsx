@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query'
+import { useMutation } from "react-query";
 
 import toast from "react-hot-toast";
 
@@ -22,7 +22,7 @@ const useUploadFiles = ({
   customEndPoint?: string;
   isForm?: boolean;
 }) => {
-  //@ts-ignore
+  //@ts-expect-error ignore
   const API = customEndPoint ? customEndPoint : POST_FILE(key, fileTypeKey);
   const {
     isLoading: fileIsLoading,
@@ -32,23 +32,24 @@ const useUploadFiles = ({
   } = useMutation(
     (body) =>
       isForm ? makePatchRequest(API, body) : makePostRequest(API, body),
-    
-      {onSuccess: (res) => {
-        console.log(res)
-        onSuccess && onSuccess(res)
+
+    {
+      onSuccess: (res) => {
+        console.log(res);
+        onSuccess && onSuccess(res);
       },
       onError: (err) => {
-        // @ts-ignore
-        const errMsg = getFileUploadErrorMsg(err)
-        if (typeof errMsg === 'string') {
-          toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFileUploadErrorMsg(err);
+        if (typeof errMsg === "string") {
+          toast.error(errMsg);
         } else {
-          toast.error('Failed to upload')
+          toast.error("Failed to upload");
         }
-        onError && onError(err)
+        onError && onError(err);
       },
     }
-  )
+  );
 
   return { fileMutate, fileIsLoading };
 };

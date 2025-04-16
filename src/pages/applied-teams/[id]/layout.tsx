@@ -39,8 +39,8 @@ const Layout = ({
   children,
   params,
 }: {
-  children: ReactNode
-  params: { id: string; tab: string }
+  children: ReactNode;
+  params: { id: string; tab: string };
 }) => {
   const id = params?.id
   const location = useLocation();
@@ -49,78 +49,78 @@ const Layout = ({
   const { data: detailData, refetch } = useQuery(
     [ADMIN_AGENT_TEAM_DETAIL(id)],
     () => makeGetRequest(ADMIN_AGENT_TEAM_DETAIL(id))
-  )
+  );
 
-  const rejectedStatus = detailData?.data?.status == 'rejected'
+  const rejectedStatus = detailData?.data?.status == "rejected";
   const {
     isOpen: isOffOpen,
     onOpen: onOffOpen,
     onClose: onOffClose,
-  } = useDisclosure()
+  } = useDisclosure();
   const {
     isOpen: isRemoveOpen,
     onOpen: onRemoveOpen,
     onClose: onRemoveClose,
-  } = useDisclosure()
+  } = useDisclosure();
   const breadcrumbs = useMemo(
     () => [
       {
-        text: 'Agents',
-        link: '/admin/agents/agents-list',
+        text: "Agents",
+        link: "/admin/agents/agents-list",
       },
       {
-        text: 'Applied Teams',
-        link: '/admin/agents/applied-teams-list',
+        text: "Applied Teams",
+        link: "/admin/agents/applied-teams-list",
       },
       {
         text: detailData?.data?.identity,
       },
     ],
     [detailData]
-  )
+  );
   const navData = useMemo(
     () => [
       {
-        id: '1',
-        label: 'Team Details',
-        link: MAKE_ADMIN_APPLIED_TEAM_DETAIL_TAB(id, 'team-details'),
-        includes: 'team-details',
+        id: "1",
+        label: "Team Details",
+        link: MAKE_ADMIN_APPLIED_TEAM_DETAIL_TAB(id, "team-details"),
+        includes: "team-details",
       },
       {
-        id: '2',
-        label: 'Documents',
-        link: MAKE_ADMIN_APPLIED_TEAM_DETAIL_TAB(id, 'documents'),
-        includes: 'documents',
+        id: "2",
+        label: "Documents",
+        link: MAKE_ADMIN_APPLIED_TEAM_DETAIL_TAB(id, "documents"),
+        includes: "documents",
       },
       {
-        id: '3',
-        label: 'Activity Log',
-        link: MAKE_ADMIN_APPLIED_TEAM_DETAIL_TAB(id, 'activity-log'),
-        includes: 'activity-log',
+        id: "3",
+        label: "Activity Log",
+        link: MAKE_ADMIN_APPLIED_TEAM_DETAIL_TAB(id, "activity-log"),
+        includes: "activity-log",
       },
     ],
     []
-  )
+  );
 
   const { data: office } = useQuery(
     [AGENT_DASHBOARD_OFFICE_OR_BROKERAGE_LIST],
     () => makeGetRequest(AGENT_DASHBOARD_OFFICE_OR_BROKERAGE_LIST)
-  )
+  );
   const getLabel = (val: any) => {
     const cvalue = val?.map((each: any) => {
       return {
         label: each?.identity,
         value: each?.id,
-      }
-    })
-    return cvalue
-  }
-  const officeList = office?.data?.results ?? []
+      };
+    });
+    return cvalue;
+  };
+  const officeList = office?.data?.results ?? [];
   const inputFields = useMemo(
     () => [
       {
-        name: 'office',
-        label: 'Select office',
+        name: "office",
+        label: "Select office",
         otherRegProps: {
           required: true,
           value:
@@ -129,7 +129,7 @@ const Layout = ({
               : null,
           onChange: (e: any) => handleOfficeDelete(e.target?.value),
         },
-        type: 'multi-select',
+        type: "multi-select",
         options: officeList,
       },
     ],
@@ -144,43 +144,43 @@ const Layout = ({
         router(MAKE_ACTIVE_TEAMS_LIST_PAGE())
       },
       onError: (err: any) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
-    })
+    });
   const { mutate: officeMutate } = useMutation(
     (body) => makePostRequest(ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST, body),
     {
       onSuccess: () => {
-        refetch()
-        onOffClose()
-        toast.success('Assigned Successfully')
+        refetch();
+        onOffClose();
+        toast.success("Assigned Successfully");
       },
       onError: (err: any) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const { mutate: removeOfficeMutate } = useMutation(
     (body) => makePostRequest(REMOVE_OFFICE_AGENT, body),
     {
       onSuccess() {
-        refetch()
+        refetch();
       },
       onError: (err: any) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const handleOfficeDelete = (val: any) => {
     if (
@@ -188,60 +188,60 @@ const Layout = ({
       detailData?.data?.brokerage?.length !== 0
     ) {
       const value = detailData?.data?.brokerage?.filter((each: any) => {
-        return !val?.some((eachSome: any) => each?.id == eachSome?.value)
-      })
+        return !val?.some((eachSome: any) => each?.id == eachSome?.value);
+      });
       if (value?.length !== 0) {
         const bdy = {
           team: [parseInt(detailData?.data?.id)],
           members: [],
           brokerage: value?.map((each: any) => {
-            return each?.value || each?.id
+            return each?.value || each?.id;
           }),
-        }
-        //@ts-ignore
-        removeOfficeMutate(bdy)
+        };
+        //@ts-expect-error ignore
+        removeOfficeMutate(bdy);
       }
     }
-  }
+  };
 
   const handleSumbitOffice = (bdyObj: any) => {
     const bdy = {
       members: [],
       team: [parseInt(detailData?.data?.id)],
       brokerage: bdyObj?.data?.office?.map((each: any) => {
-        return each?.id || each?.value
+        return each?.id || each?.value;
       }),
-    }
-    //@ts-ignore
-    officeMutate(bdy)
-  }
+    };
+    //@ts-expect-error ignore
+    officeMutate(bdy);
+  };
 
   const nav = useMemo(
     () => [
       {
         id: uuidv4(),
-        label: 'Active Agents',
-        link: MAKE_AGENT_RELATED_LIST_PAGE('agents-list'),
+        label: "Active Agents",
+        link: MAKE_AGENT_RELATED_LIST_PAGE("agents-list"),
       },
       {
         id: uuidv4(),
-        label: 'Active Teams',
-        link: MAKE_AGENT_RELATED_LIST_PAGE('teams-list'),
+        label: "Active Teams",
+        link: MAKE_AGENT_RELATED_LIST_PAGE("teams-list"),
       },
       {
         id: uuidv4(),
-        label: 'Applied Agents',
-        link: MAKE_AGENT_RELATED_LIST_PAGE('applied-agents-list'),
+        label: "Applied Agents",
+        link: MAKE_AGENT_RELATED_LIST_PAGE("applied-agents-list"),
       },
       {
         id: uuidv4(),
-        label: 'Applied Teams',
-        link: MAKE_AGENT_RELATED_LIST_PAGE('applied-teams-list'),
-        includes: ['/admin/agents/applied-teams/'],
+        label: "Applied Teams",
+        link: MAKE_AGENT_RELATED_LIST_PAGE("applied-teams-list"),
+        includes: ["/admin/agents/applied-teams/"],
       },
     ],
     []
-  )
+  );
 
   return (
     <AdminContainer className="bg-[#ffffff]">
@@ -253,23 +253,23 @@ const Layout = ({
         urlPath={pathname}
       />
       {!editPage && (
-        <Flex justifyContent={'space-between'} alignItems={'end'}>
+        <Flex justifyContent={"space-between"} alignItems={"end"}>
           <AdminBreadcrumbs route={breadcrumbs} />
           {!rejectedStatus && (
-            <Flex gap={'16px'}>
+            <Flex gap={"16px"}>
               <AppButton
                 variant="outline"
                 className="max-h-[39px] !px-[30px] !py-[10px] flex items-center"
                 onClick={() => {
-                  onRemoveOpen()
+                  onRemoveOpen();
                 }}
               >
                 Reject Team
               </AppButton>
               <AppButton
                 onClick={() => {
-                  //@ts-ignore
-                  approveOrRejectMutate({ status: 'approved' })
+                  //@ts-expect-error ignore
+                  approveOrRejectMutate({ status: "approved" });
                 }}
                 className="max-w-[170px] whitespace-nowrap"
               >
@@ -281,32 +281,32 @@ const Layout = ({
       )}
       {!editPage && (
         <>
-          <Box mt={'39px'}>
+          <Box mt={"39px"}>
             <AdminTeamHeaderBox
               onAssignBrokerageClick={() => onOffOpen()}
               brokerAgeContent={
                 detailData?.data?.brokerage?.length !== 0
                   ? detailData?.data?.brokerage
                       ?.map((each: any) => each?.identity)
-                      ?.join(', ')
-                  : '-'
+                      ?.join(", ")
+                  : "-"
               }
               board={extractIdentities(detailData?.data?.board)}
               mls={extractIdentities(detailData?.data?.mls)}
               state={detailData?.data?.state?.identity}
               name={detailData?.data?.identity}
-              teamId={detailData?.data?.team_id || '0'}
+              teamId={detailData?.data?.team_id || "0"}
               created={detailData?.data?.created}
-              status={detailData?.data?.status ?? ''}
-              teamAdmin={extractIdentities(detailData?.data?.team_admins) || ''}
-              teamLead={extractIdentities(detailData?.data?.team_leaders) || ''}
-              image={detailData?.data?.image ?? ''}
+              status={detailData?.data?.status ?? ""}
+              teamAdmin={extractIdentities(detailData?.data?.team_admins) || ""}
+              teamLead={extractIdentities(detailData?.data?.team_leaders) || ""}
+              image={detailData?.data?.image ?? ""}
               closedVolumes={detailData?.data?.closed_volumes}
               transactions={detailData?.data?.no_of_transactions}
             />
           </Box>
 
-          <Box mt={'40px'} borderBottom={'1px solid #CDCDCD80'}>
+          <Box mt={"40px"} borderBottom={"1px solid #CDCDCD80"}>
             <SecondaryNav
               tabClassName="text-[16px] !text-[#000000]"
               isSelectedClassName="!text-[#10295A]"
@@ -323,7 +323,7 @@ const Layout = ({
         bodyClassName="!px-[40px] !py-[6px]"
         isOpen={isOffOpen}
         onClose={onOffClose}
-        //@ts-ignore
+        //@ts-expect-error ignore
         header={`Assign Office - ${detailData?.data?.identity}`}
         headerClassName="rounded-md text-[#10295A] text-[20px] font-[500] !py-[26px] !px-[40px] "
         closeButton={true}
@@ -345,7 +345,7 @@ const Layout = ({
         btnLabel="reject"
       />
     </AdminContainer>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

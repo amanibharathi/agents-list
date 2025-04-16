@@ -1,13 +1,12 @@
-
-import { PortableText } from '@portabletext/react'
-import AppText from '../../../../AppComponents/AppText-agent'
+import { PortableText } from "@portabletext/react";
+import AppText from "../../../../AppComponents/AppText-agent";
 
 interface BoxDataInterface {
   boxData: {
-    title: string
-    description: any
-    link?: string
-  }
+    title: string;
+    description: any;
+    link?: string;
+  };
 }
 
 const CustomBoxBlockComponent = ({ boxData }: BoxDataInterface) => {
@@ -18,11 +17,11 @@ const CustomBoxBlockComponent = ({ boxData }: BoxDataInterface) => {
       </AppText>
       <PortableText
         className="text-[14px] md:text-[16px] !text-[#858585]"
-        //@ts-ignore
+        //@ts-expect-error ignore
         value={boxData?.descrpition}
       />
     </div>
-  )
-}
+  );
+};
 
-export default CustomBoxBlockComponent
+export default CustomBoxBlockComponent;

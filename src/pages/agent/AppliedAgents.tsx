@@ -59,9 +59,9 @@ import { DashIconTotalAgents } from "../../assets";
 
 const AppliedAgents = () => {
   const [dateRange, setDateRange] = useState<any>({});
-  // @ts-ignore
+  //@ts-expect-error ignore
   const { appliedAgentsFilterForm } = useContext(AdminListFilterContext);
-  // @ts-ignore
+  //@ts-expect-error ignore
   const { register, control, watch, setValue } = appliedAgentsFilterForm;
 
   const [isBulkLicenseUpload, setIsBulkLicenseUpload] = useState(false);
@@ -178,7 +178,7 @@ const AppliedAgents = () => {
   });
 
   const { mutate: deleteMutate, isLoading: deleteIsLoading } = useMutation(
-    //@ts-ignore
+    //@ts-expect-error ignore
     () => makeDeleteRequest(ADMIN_CREATE_TEAM_MEMBER_AGENT(agent?.id)),
     {
       onSuccess: () => {
@@ -365,7 +365,7 @@ const AppliedAgents = () => {
         {
           label: "View Agent",
           onClick: () =>
-            //@ts-ignore
+            //@ts-expect-error ignore
             router.push(ADMIN_MAKE_AGENT_INDIVIDUAL_PAGE(obj?.id)),
         },
         isDeletable && {
@@ -443,7 +443,7 @@ const AppliedAgents = () => {
   };
 
   const { mutate: sendLinkMutate, isLoading: isSendLinkLoading } = useMutation(
-    //@ts-ignore
+    //@ts-expect-error ignore
     (body) => makePostRequest(ADMIN_TEAM_LIST_SEND_INVITE, body),
     {
       onSuccess: () => {
@@ -464,7 +464,7 @@ const AppliedAgents = () => {
     const bdy = {
       agents_id: selectedData?.length !== 0 ? selectedData : [obj?.id],
     };
-    //@ts-ignore
+    //@ts-expect-error ignore
     sendLinkMutate(bdy);
   };
 
@@ -478,9 +478,9 @@ const AppliedAgents = () => {
         CreateAgentOnClose();
       },
       onError: (err) => {
-        //@ts-ignore
+        //@ts-expect-error ignore
         const errMsg = getFirstErrorMessage(err?.response?.data?.data);
-        //@ts-ignore
+        //@ts-expect-error ignore
         toast.error(errMsg);
       },
     }
@@ -495,7 +495,7 @@ const AppliedAgents = () => {
       country: data?.data?.country,
       onboard_type: "individual",
     };
-    //@ts-ignore
+    //@ts-expect-error ignore
     mutate(obj);
   };
 
@@ -545,7 +545,7 @@ const AppliedAgents = () => {
             setValue={setValue}
             watch={watch}
             dateRange={dateRange}
-            // @ts-ignore
+            //@ts-expect-error ignore
             setDateRange={setDateRange}
             // reset={reset}
           />
@@ -599,9 +599,9 @@ const AppliedAgents = () => {
         max={max}
         tableMeta={listMeta}
         tableData={listData}
-        //@ts-ignore
+        //@ts-expect-error ignore
         avatar={["full_name"]}
-        //@ts-ignore
+        //@ts-expect-error ignore
         relativeTime={["created"]}
         selectable={selectable}
         isLoading={isLoading}
@@ -628,7 +628,7 @@ const AppliedAgents = () => {
         isBulkLicenseUpload={isBulkLicenseUpload}
       />
       {
-        //@ts-ignore
+        //@ts-expect-error ignore
         agent?.team ? (
           <ConfirmRemoveAgentModal
             isOpen={isOpen}

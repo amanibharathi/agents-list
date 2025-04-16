@@ -1,9 +1,8 @@
-import { useState, useCallback } from 'react'
-import toast from 'react-hot-toast'
-import { useDebounce } from './useDebounce'
-import { useInfiniteQuery } from 'react-query'
-import makeGetRequest from '../../api/makeGetRequest'
-
+import { useState, useCallback } from "react";
+import toast from "react-hot-toast";
+import { useDebounce } from "./useDebounce";
+import { useInfiniteQuery } from "react-query";
+import makeGetRequest from "../../api/makeGetRequest";
 
 export function useGetMemberMlsList() {
   const [searchVal, setSearchVal] = useState("");
@@ -24,7 +23,7 @@ export function useGetMemberMlsList() {
   //   enabled: !!debouncedValue,
   //   onError: (err) => {
   //     toast.error('Error occured while getting search meta')
-  //     //@ts-ignore
+  //     //@ts-expect-error ignore
   //     console.error(err)
   //   },
   // })
@@ -35,7 +34,7 @@ export function useGetMemberMlsList() {
     fetchNextPage,
     hasNextPage,
     isLoading,
-    //@ts-ignore
+    //@ts-expect-error ignore
   } = useInfiniteQuery({
     queryKey: [`apiEndPoint ${debouncedValue}`],
     queryFn: ({ pageParam = 1 }) =>
@@ -45,12 +44,12 @@ export function useGetMemberMlsList() {
     initialPageParam: 0,
     onError: (err) => {
       toast.error("Error occured while getting search meta");
-      //@ts-ignore
+      //@ts-expect-error ignore
       console.error(err);
     },
-    //@ts-ignore
+    //@ts-expect-error ignore
     getPreviousPageParam: (firstPage) => firstPage?.data?.previous ?? undefined,
-    //@ts-ignore
+    //@ts-expect-error ignore
     getNextPageParam: (lastPage) => {
       if (lastPage?.data?.next) {
         const urlObj = new URL(lastPage?.data?.next);
