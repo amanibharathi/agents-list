@@ -4,7 +4,7 @@ import AdminNavbar from "../Components/AdminNavbar";
 const AppLayout = () => {
   return (
     <div>
-      <div className="pb-[90px]">
+      <div className="pb-[160px]">
         <AdminNavbar />
       </div>
       <Outlet />

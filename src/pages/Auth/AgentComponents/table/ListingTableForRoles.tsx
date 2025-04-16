@@ -1,28 +1,28 @@
-import { useState, useEffect } from 'react'
-import { Table, Thead, Tbody, Tr, Th, Td, Checkbox } from '@chakra-ui/react'
-import { GoEye, GoPlusCircle, GoTrash } from 'react-icons/go'
-import { FaRegEdit } from 'react-icons/fa'
+import { useState, useEffect } from "react";
+import { Table, Thead, Tbody, Tr, Th, Td, Checkbox } from "@chakra-ui/react";
+import { GoEye, GoPlusCircle, GoTrash } from "react-icons/go";
+import { FaRegEdit } from "react-icons/fa";
 
 const permissions = [
   {
-    key: 'is_creatable',
-    label: 'Create',
-    icon: <GoPlusCircle fontSize={'18px'} />,
+    key: "is_creatable",
+    label: "Create",
+    icon: <GoPlusCircle fontSize={"18px"} />,
   },
-  { key: 'is_editable', label: 'Edit', icon: <FaRegEdit fontSize={'18px'} /> },
-  { key: 'is_viewable', label: 'View', icon: <GoEye fontSize={'18px'} /> },
-  { key: 'is_deletable', label: 'Delete', icon: <GoTrash fontSize={'18px'} /> },
-]
+  { key: "is_editable", label: "Edit", icon: <FaRegEdit fontSize={"18px"} /> },
+  { key: "is_viewable", label: "View", icon: <GoEye fontSize={"18px"} /> },
+  { key: "is_deletable", label: "Delete", icon: <GoTrash fontSize={"18px"} /> },
+];
 
 const dummyData = [
   {
     id: 1,
-    identity: 'Meta Management',
+    identity: "Meta Management",
     policies: [
       {
         id: 1,
-        identity: 'Tool Management Policy',
-        description: 'Tool Management Policy',
+        identity: "Tool Management Policy",
+        description: "Tool Management Policy",
         policy_category: 1,
         permissions: {
           is_creatable: false,
@@ -33,8 +33,8 @@ const dummyData = [
       },
       {
         id: 2,
-        identity: 'State Management Policy',
-        description: 'State Management Policy',
+        identity: "State Management Policy",
+        description: "State Management Policy",
         policy_category: 1,
         permissions: {
           is_creatable: false,
@@ -47,12 +47,12 @@ const dummyData = [
   },
   {
     id: 2,
-    identity: 'Resource Management',
+    identity: "Resource Management",
     policies: [
       {
         id: 2,
-        identity: 'Resource Management Policy',
-        description: 'Resource Management Policy',
+        identity: "Resource Management Policy",
+        description: "Resource Management Policy",
         policy_category: 2,
         permissions: {
           is_creatable: false,
@@ -63,51 +63,51 @@ const dummyData = [
       },
     ],
   },
-]
+];
 
 interface PermissionSet {
-  is_creatable: boolean
-  is_editable: boolean
-  is_viewable: boolean
-  is_deletable: boolean
+  is_creatable: boolean;
+  is_editable: boolean;
+  is_viewable: boolean;
+  is_deletable: boolean;
 }
 
 interface Policy {
-  id: number
-  identity: string
-  description: string
-  policy_category: number
-  permissions: PermissionSet
+  id: number;
+  identity: string;
+  description: string;
+  policy_category: number;
+  permissions: PermissionSet;
 }
 
 interface Module {
-  id: number
-  identity: string
-  policies: Policy[]
+  id: number;
+  identity: string;
+  policies: Policy[];
 }
 
 const ListingTableForRole: React.FC = () => {
-  const [modules, setModules] = useState<Module[]>([])
+  const [modules, setModules] = useState<Module[]>([]);
   const [selectedPermissions, setSelectedPermissions] = useState<{
-    [key: string]: PermissionSet
-  }>({})
+    [key: string]: PermissionSet;
+  }>({});
   const [headerSelections, setHeaderSelections] = useState<{
-    [key: string]: boolean
-  }>({})
+    [key: string]: boolean;
+  }>({});
   const [selectedRows, setSelectedRows] = useState<{ [key: number]: boolean }>(
     {}
-  )
+  );
 
   useEffect(() => {
-    setModules(dummyData)
-    const initialPermissions: { [key: string]: PermissionSet } = {}
+    setModules(dummyData);
+    const initialPermissions: { [key: string]: PermissionSet } = {};
     dummyData.forEach((mod: Module) => {
       mod.policies.forEach((policy) => {
-        initialPermissions[policy.identity] = { ...policy.permissions }
-      })
-    })
-    setSelectedPermissions(initialPermissions)
-  }, [])
+        initialPermissions[policy.identity] = { ...policy.permissions };
+      });
+    });
+    setSelectedPermissions(initialPermissions);
+  }, []);
 
   const togglePermission = (
     policy: string,
@@ -116,43 +116,43 @@ const ListingTableForRole: React.FC = () => {
     setSelectedPermissions((prev) => ({
       ...prev,
       [policy]: { ...prev[policy], [permission]: !prev[policy][permission] },
-    }))
-  }
+    }));
+  };
 
   const toggleHeaderPermission = (permission: keyof PermissionSet) => {
-    const newState = !headerSelections[permission]
-    setHeaderSelections((prev) => ({ ...prev, [permission]: newState }))
+    const newState = !headerSelections[permission];
+    setHeaderSelections((prev) => ({ ...prev, [permission]: newState }));
     setSelectedPermissions((prev) => {
-      const updatedPermissions = { ...prev }
+      const updatedPermissions = { ...prev };
       modules.forEach((mod) => {
         mod.policies.forEach((policy) => {
-          updatedPermissions[policy.identity][permission] = newState
-        })
-      })
-      return updatedPermissions
-    })
-  }
+          updatedPermissions[policy.identity][permission] = newState;
+        });
+      });
+      return updatedPermissions;
+    });
+  };
 
   const toggleRowSelection = (moduleId: number, policies: Policy[]) => {
-    const newState = !selectedRows[moduleId]
+    const newState = !selectedRows[moduleId];
     setSelectedRows((prev) => ({
       ...prev,
       [moduleId]: newState,
-    }))
+    }));
 
     setSelectedPermissions((prev) => {
-      const updatedPermissions = { ...prev }
+      const updatedPermissions = { ...prev };
       policies.forEach((policy) => {
         permissions.forEach((perm) => {
           updatedPermissions[policy.identity] = {
             ...updatedPermissions[policy.identity],
             [perm.key]: newState,
-          }
-        })
-      })
-      return updatedPermissions
-    })
-  }
+          };
+        });
+      });
+      return updatedPermissions;
+    });
+  };
 
   return (
     <Table variant="simple" borderWidth="1px">
@@ -162,30 +162,29 @@ const ListingTableForRole: React.FC = () => {
             <Checkbox
               isChecked={modules.every((mod) => selectedRows[mod.id])}
               onChange={() => {
-                const allSelected = modules.every((mod) => selectedRows[mod.id])
-                const newSelection = modules.reduce(
-                  (acc, mod) => {
-                    acc[mod.id] = !allSelected
-                    return acc
-                  },
-                  {} as { [key: number]: boolean }
-                )
-                setSelectedRows(newSelection)
+                const allSelected = modules.every(
+                  (mod) => selectedRows[mod.id]
+                );
+                const newSelection = modules.reduce((acc, mod) => {
+                  acc[mod.id] = !allSelected;
+                  return acc;
+                }, {} as { [key: number]: boolean });
+                setSelectedRows(newSelection);
 
                 setSelectedPermissions((prev) => {
-                  const updatedPermissions = { ...prev }
+                  const updatedPermissions = { ...prev };
                   modules.forEach((mod) => {
                     mod.policies.forEach((policy) => {
                       permissions.forEach((perm) => {
                         updatedPermissions[policy.identity] = {
                           ...updatedPermissions[policy.identity],
                           [perm.key]: !allSelected,
-                        }
-                      })
-                    })
-                  })
-                  return updatedPermissions
-                })
+                        };
+                      });
+                    });
+                  });
+                  return updatedPermissions;
+                });
               }}
             />
           </Th>
@@ -201,7 +200,7 @@ const ListingTableForRole: React.FC = () => {
                   isChecked={modules.every((mod) =>
                     mod.policies.every(
                       (policy) =>
-                        //@ts-ignore
+                        //@ts-expect-error ignore
                         selectedPermissions[policy.identity]?.[perm.key]
                     )
                   )}
@@ -232,7 +231,7 @@ const ListingTableForRole: React.FC = () => {
                   <div className="flex justify-center">
                     <Checkbox
                       isChecked={
-                        //@ts-ignore
+                        //@ts-expect-error ignore
                         selectedPermissions[policy.identity]?.[perm.key] ||
                         false
                       }
@@ -251,7 +250,7 @@ const ListingTableForRole: React.FC = () => {
         )}
       </Tbody>
     </Table>
-  )
-}
+  );
+};
 
-export default ListingTableForRole
+export default ListingTableForRole;

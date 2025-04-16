@@ -1,16 +1,16 @@
-
-import { useMutation } from 'react-query'
-import toast from 'react-hot-toast'
+import { useMutation } from "react-query";
+import toast from "react-hot-toast";
 
 import { GET_EXPORT_DATA } from "../../api-utils";
 import makePostRequest from "../../api/makePostRequest";
 
 const useHandleExportData = () => {
   const { isLoading, mutate } = useMutation(
-    //@ts-ignore
+    //@ts-expect-error ignore
     (body) => makePostRequest(GET_EXPORT_DATA(), { ...body }),
-    
-      {onSuccess: () => {
+
+    {
+      onSuccess: () => {
         toast.success(
           "Data export initialized, once done the report will be sent to your ROA email id"
         );
@@ -18,7 +18,7 @@ const useHandleExportData = () => {
     }
   );
   const generateData = (obj: any) => {
-    //@ts-ignore
+    //@ts-expect-error ignore
     mutate({ ...obj });
   };
 

@@ -1,18 +1,17 @@
-
-import  { ReactNode } from 'react'
-import { Checkbox, CheckboxGroup, Stack } from '@chakra-ui/react'
+import { ReactNode } from "react";
+import { Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react";
 interface CkCheckBoxInterface {
-  checkBoxData: ReactNode[] | string[]
-  wrapperClass?: string
-  checkBoxWrapperClass?: string
-  onClickHandler?: any
-  selectedList?: any
+  checkBoxData: ReactNode[] | string[];
+  wrapperClass?: string;
+  checkBoxWrapperClass?: string;
+  onClickHandler?: any;
+  selectedList?: any;
 }
 
 export default function CkCheckBox({
   checkBoxData = [],
-  wrapperClass = '',
-  checkBoxWrapperClass = '',
+  wrapperClass = "",
+  checkBoxWrapperClass = "",
   onClickHandler,
 }: CkCheckBoxInterface) {
   return (
@@ -21,12 +20,12 @@ export default function CkCheckBox({
         {checkBoxData.map((each, index) => (
           <div className={`${wrapperClass}`} key={index}>
             <Checkbox
-              //@ts-ignore
+              //@ts-expect-error ignore
               isChecked={each?.props?.boxData?.checked}
               onChange={(e) => {
-                onClickHandler(e?.target?.checked, each)
+                onClickHandler(e?.target?.checked, each);
               }}
-              size={'lg'}
+              size={"lg"}
               className={`${checkBoxWrapperClass}`}
             >
               {each}
@@ -35,5 +34,5 @@ export default function CkCheckBox({
         ))}
       </Stack>
     </CheckboxGroup>
-  )
+  );
 }

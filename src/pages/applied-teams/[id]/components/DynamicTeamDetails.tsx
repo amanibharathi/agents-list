@@ -1,22 +1,22 @@
-'use client'
-import { Box, Flex } from '@chakra-ui/react'
-import React from 'react'
-import { UseFormRegister, Control } from 'react-hook-form'
-import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
-import AppText from '@/app/components/elements/AppText'
-import { DownloadGreen } from '@/app/icons/DownloadGreen'
-import { convertDateFormat } from '@/app/utils/constants/dateAndTime'
-import { DocumentFile } from '@/app/icons/DocumentFile'
-import { downloadFile } from '@/app/utils/functions/otherFunctions'
+"use client";
+import { Box, Flex } from "@chakra-ui/react";
+import React from "react";
+import { UseFormRegister, Control } from "react-hook-form";
+import AdminInputRenderer from "@/app/admin/_AdminComponent/AdminInputRenderer";
+import AppText from "@/app/components/elements/AppText";
+import { DownloadGreen } from "@/app/icons/DownloadGreen";
+import { convertDateFormat } from "@/app/utils/constants/dateAndTime";
+import { DocumentFile } from "@/app/icons/DocumentFile";
+import { downloadFile } from "@/app/utils/functions/otherFunctions";
 
 interface DynamicTeamDetailsProps {
-  teamInfoInputObj?: any
-  register?: UseFormRegister<any>
-  control?: Control<any>
-  errors?: any
-  title: string
-  isDocument?: boolean
-  documents?: any
+  teamInfoInputObj?: any;
+  register?: UseFormRegister<any>;
+  control?: Control<any>;
+  errors?: any;
+  title: string;
+  isDocument?: boolean;
+  documents?: any;
 }
 
 const DynamicTeamDetails: React.FC<DynamicTeamDetailsProps> = ({
@@ -42,30 +42,32 @@ const DynamicTeamDetails: React.FC<DynamicTeamDetailsProps> = ({
                 register={register}
                 control={control}
                 errors={errors}
-                //@ts-ignore
+                //@ts-expect-error ignore
                 inputObj={input}
               />
             </Box>
           ))}
         </Box>
         {isDocument && documents ? (
-          <Flex gap={'10px'} flexDirection={'column'} w={'70%'}>
+          <Flex gap={"10px"} flexDirection={"column"} w={"70%"}>
             {documents?.map((each: any) => (
               <div
                 key={each?.id}
                 className="flex p-[15px] justify-between items-center h-[64px] border-[1px] border-[#F0F0F0] rounded-[8px]"
               >
-                <Flex gap={'10px'}>
+                <Flex gap={"10px"}>
                   <DocumentFile />
                   <a
                     className="text-[#10295A]"
                     target="_blank"
                     href={each?.document?.file}
                   >
-                    {`${each?.document?.file_name} - ${convertDateFormat(each?.created)}`}
+                    {`${each?.document?.file_name} - ${convertDateFormat(
+                      each?.created
+                    )}`}
                   </a>
                 </Flex>
-                <Flex gap={'10px'}>
+                <Flex gap={"10px"}>
                   <Box
                     className="cursor-pointer"
                     onClick={() =>
@@ -84,7 +86,7 @@ const DynamicTeamDetails: React.FC<DynamicTeamDetailsProps> = ({
         ) : null}
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default DynamicTeamDetails
+export default DynamicTeamDetails;

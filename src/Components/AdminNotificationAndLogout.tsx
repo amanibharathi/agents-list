@@ -4,7 +4,7 @@ import AppButton from "../AppComponents/AppButton-agent";
 import { useContext } from "react";
 
 const AdminNotificationAndLogout = () => {
-  //@ts-ignore
+  //@ts-expect-error ignore
   const { openLogoutModal } = useContext(AdminNavContext);
   return (
     <Flex alignItems={"center"} justifyContent={"center"} gap={"30px"}>

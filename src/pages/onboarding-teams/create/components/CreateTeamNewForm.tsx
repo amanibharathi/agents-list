@@ -1,71 +1,71 @@
-'use client'
-import { Box, Flex } from '@chakra-ui/react'
-import React, { createContext, useEffect, useMemo, useState } from 'react'
-import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
+"use client";
+import { Box, Flex } from "@chakra-ui/react";
+import React, { createContext, useEffect, useMemo, useState } from "react";
+import ButtonPair from "@/app/admin/_AdminComponent/ButtonPair/ButtonPair";
 import {
   MAKE_ACTIVE_TEAMS_LIST_PAGE,
   MAKE_ADMIN_TEAM_DETAIL_TAB,
-} from '@/app/utils/navigation'
-import { useMutation } from 'react-query'
+} from "@/app/utils/navigation";
+import { useMutation } from "react-query";
 import {
   // ADMIN_AGENT_TEAM_CREATE,
   ADMIN_TEAM_CUD,
   ADMIN_TEAM_DOCUMENT_UPLOAD,
   GET_TEAM_AGENT_LIST,
-} from '@/app/api-utils'
-import makePostRequest from '@/app/utils/api/makePostRequest'
-import toast from 'react-hot-toast'
+} from "@/app/api-utils";
+import makePostRequest from "@/app/utils/api/makePostRequest";
+import toast from "react-hot-toast";
 import {
   ADMIN_AGENT_MLS_LIST,
   ADMIN_AGENT_STATE_LIST,
   // ADMIN_AGENT_TEAM_MEMBERS_LIST,
-} from '@/app/api-utils'
-import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
-import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
+} from "@/app/api-utils";
+import useGetMetaFromApi from "@/app/hooks/admin/useGetMetaFromApi";
+import AdminInputRenderer from "@/app/admin/_AdminComponent/AdminInputRenderer";
 import {
   addSpecialCharsForPhoneNumber,
   closedValueOptions,
   getFirstErrorMessage,
   removeSpecialChars,
   transformSelectData,
-} from '@/app/utils/functions/otherFunctions'
-import AdminFormWrapperTeam from '@/app/admin/_AdminComponent/AdminFormWrapperTeam'
+} from "@/app/utils/functions/otherFunctions";
+import AdminFormWrapperTeam from "@/app/admin/_AdminComponent/AdminFormWrapperTeam";
 // import { AgentDetailSearch } from './AgentDetailSearch'
-import Select, { components } from 'react-select'
-import { useGetAgentList } from '@/app/hooks/useGetAgentList'
-import AppText from '@/app/components/elements/AppText'
+import Select, { components } from "react-select";
+import { useGetAgentList } from "@/app/hooks/useGetAgentList";
+import AppText from "@/app/components/elements/AppText";
 // import { AppSearchIcon } from '@/public/assets'
-import { GoSearch } from 'react-icons/go'
-import AppLoader from '@/app/components/elements/AppLoader'
-import { ExportUp } from '@/app/components/elements/ExportUp'
+import { GoSearch } from "react-icons/go";
+import AppLoader from "@/app/components/elements/AppLoader";
+import { ExportUp } from "@/app/components/elements/ExportUp";
 // import AdminFileUpload from '@/app/admin/_AdminComponent/fileupload/AdminFileUpload'
-import MultiFileUpload from '@/app/admin/_AdminComponent/fileupload/MultiFileUpload'
-import { useRouter } from 'next-nprogress-bar'
-import { numberToNumeralSystem } from '@/app/utils/helpers'
+import MultiFileUpload from "@/app/admin/_AdminComponent/fileupload/MultiFileUpload";
+import { useRouter } from "next-nprogress-bar";
+import { numberToNumeralSystem } from "@/app/utils/helpers";
 
-export const CreateTeamProvider = createContext({})
+export const CreateTeamProvider = createContext({});
 
 const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
-  const router = useRouter()
-  const [selectedAgent, setSelectAgent] = useState()
-  const [transactions, setTransactions] = useState('')
+  const router = useRouter();
+  const [selectedAgent, setSelectAgent] = useState();
+  const [transactions, setTransactions] = useState("");
 
   const { mutate, isLoading } = useMutation(
     (body) => makePostRequest(ADMIN_TEAM_CUD(), body),
     {
       onSuccess: (res) => {
-        const id = res?.data?.id
-        router.push(MAKE_ADMIN_TEAM_DETAIL_TAB(id))
-        toast.success('Team Created Successfully')
+        const id = res?.data?.id;
+        router.push(MAKE_ADMIN_TEAM_DETAIL_TAB(id));
+        toast.success("Team Created Successfully");
       },
       onError: (err) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const handleSubmit = (data: any) => {
     const bdyObj = {
@@ -82,95 +82,95 @@ const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
         ? data?.data?.board?.map((each: any) => each?.value)
         : [],
       website: data?.data?.website,
-      //@ts-ignore
+      //@ts-expect-error ignore
       // team_admin: data?.data?.team_admin?.value || null,
-      //@ts-ignore
+      //@ts-expect-error ignore
       team_leader: selectedAgent?.value || null,
-      //@ts-ignore
+      //@ts-expect-error ignore
       documents: imageState?.flat()?.map((i: any) => i?.id),
       closed_volumes: data?.data?.closed_volumes?.value ?? null,
       no_of_transactions:
-        data?.data?.no_of_transactions != ''
-          ? data?.data?.no_of_transactions?.replace(',', '')
+        data?.data?.no_of_transactions != ""
+          ? data?.data?.no_of_transactions?.replace(",", "")
           : null,
-    }
-    //@ts-ignore
-    mutate(bdyObj)
-  }
+    };
+    //@ts-expect-error ignore
+    mutate(bdyObj);
+  };
 
   const { metaData: agentsMlsData, handleOnInputChange: handleMlsDataChange } =
     useGetMetaFromApi({
       endPoint: ADMIN_AGENT_MLS_LIST,
-    })
+    });
   const {
     metaData: agentsStateData,
     handleOnInputChange: handleStateDataChange,
   } = useGetMetaFromApi({
     endPoint: ADMIN_AGENT_STATE_LIST,
-  })
+  });
 
   // const agentsMemberOptions = metaData?.data?.results
-  const agentMlsOptions = agentsMlsData?.data?.results
-  const agentStateOptions = agentsStateData?.data?.results
+  const agentMlsOptions = agentsMlsData?.data?.results;
+  const agentStateOptions = agentsStateData?.data?.results;
 
   const teamInfoInputObj = [
     {
-      label: 'Contact Email *',
-      name: 'team_email',
-      className: ' w-full max-w-[495px]',
+      label: "Contact Email *",
+      name: "team_email",
+      className: " w-full max-w-[495px]",
       otherRegProps: {
         required: true,
         pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,20})+$/,
       },
     },
     {
-      label: 'Contact Phone Number *',
-      name: 'team_phone',
-      type: 'tel',
-      className: ' w-full max-w-[495px]',
+      label: "Contact Phone Number *",
+      name: "team_phone",
+      type: "tel",
+      className: " w-full max-w-[495px]",
       otherRegProps: {
         pattern: /^\(\d{3}\)-\d{3}-\d{4}$/,
         required: true,
       },
     },
     {
-      label: 'Primary State *',
-      name: 'team_state',
-      type: 'select',
+      label: "Primary State *",
+      name: "team_state",
+      type: "select",
       options: agentStateOptions,
       onInpuChange: (val: any) => handleStateDataChange(val),
-      className: 'w-full max-w-[495px] !z-[22]',
+      className: "w-full max-w-[495px] !z-[22]",
       otherRegProps: {
         required: true,
       },
     },
     {
-      label: 'Board',
-      type: 'multi-select',
-      name: 'board',
+      label: "Board",
+      type: "multi-select",
+      name: "board",
       options: agentMlsOptions,
       onInpuChange: (val: any) => handleMlsDataChange(val),
-      className: 'w-full max-w-[495px]',
+      className: "w-full max-w-[495px]",
       otherRegProps: {
         required: false,
       },
     },
     {
-      label: 'MLS',
-      name: 'mls',
-      type: 'multi-select',
+      label: "MLS",
+      name: "mls",
+      type: "multi-select",
       options: agentMlsOptions,
       onInpuChange: (val: any) => handleMlsDataChange(val),
-      className: ' w-full max-w-[495px] !z-[21]',
+      className: " w-full max-w-[495px] !z-[21]",
       otherRegProps: {
         required: false,
       },
       filterOption: () => true,
     },
     {
-      label: 'Team Website',
-      name: 'website',
-      className: ' w-full max-w-[495px]',
+      label: "Team Website",
+      name: "website",
+      className: " w-full max-w-[495px]",
       otherRegProps: {
         pattern:
           /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
@@ -178,85 +178,85 @@ const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
       },
     },
     {
-      label: 'Closed Volume',
-      name: 'closed_volumes',
+      label: "Closed Volume",
+      name: "closed_volumes",
       otherRegProps: {
         required: false,
       },
-      type: 'select',
+      type: "select",
       options: closedValueOptions,
     },
     {
-      label: 'No of Transactions',
-      name: 'no_of_transactions',
+      label: "No of Transactions",
+      name: "no_of_transactions",
       otherRegProps: {
         required: false,
       },
       value: transactions,
       onChange: (event: any) => {
-        const input = event.target
-        const value = input.value.replace(/\D/g, '') // Remove non-numeric characters
+        const input = event.target;
+        const value = input.value.replace(/\D/g, ""); // Remove non-numeric characters
         const formattedValue =
-          value !== '' ? numberToNumeralSystem(parseInt(value)) : ''
-        setTransactions(formattedValue)
+          value !== "" ? numberToNumeralSystem(parseInt(value)) : "";
+        setTransactions(formattedValue);
       },
     },
-  ]
+  ];
 
   const agentsInfoInputObj = useMemo(
     () => [
       {
-        label: 'First Name *',
-        name: 'first_name',
-        className: ' w-full max-w-[495px]',
+        label: "First Name *",
+        name: "first_name",
+        className: " w-full max-w-[495px]",
         readOnly: true,
         otherRegProps: {
           required: false,
         },
       },
       {
-        label: 'Last Name *',
-        name: 'last_name',
-        className: ' w-full max-w-[495px]',
+        label: "Last Name *",
+        name: "last_name",
+        className: " w-full max-w-[495px]",
         readOnly: true,
         otherRegProps: {
           required: false,
         },
       },
       {
-        label: 'License# *',
-        name: 'license',
-        className: ' w-full max-w-[495px]',
+        label: "License# *",
+        name: "license",
+        className: " w-full max-w-[495px]",
         readOnly: true,
         otherRegProps: {
           required: false,
         },
       },
       {
-        label: 'Primary State *',
-        type: 'select',
-        name: 'state',
+        label: "Primary State *",
+        type: "select",
+        name: "state",
         options: agentStateOptions,
-        className: ' w-full max-w-[495px] !z-[11]',
+        className: " w-full max-w-[495px] !z-[11]",
         readOnly: true,
         otherRegProps: {
           required: false,
         },
       },
       {
-        label: 'Contact Phone Number *',
-        name: 'phone_number',
-        type: 'tel',
-        className: ' w-full max-w-[495px]',
+        label: "Contact Phone Number *",
+        name: "phone_number",
+        type: "tel",
+        className: " w-full max-w-[495px]",
         readOnly: true,
         otherRegProps: {
           required: false,
         },
       },
       {
-        label: 'Contact Email *',
-        name: 'email',
-        className: ' w-full max-w-[495px]',
+        label: "Contact Email *",
+        name: "email",
+        className: " w-full max-w-[495px]",
         readOnly: true,
         otherRegProps: {
           required: false,
@@ -264,37 +264,37 @@ const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
       },
     ],
     [agentMlsOptions, agentStateOptions]
-  )
+  );
 
   const goToPrvPage = () => {
-    router.push(MAKE_ACTIVE_TEAMS_LIST_PAGE())
-  }
+    router.push(MAKE_ACTIVE_TEAMS_LIST_PAGE());
+  };
   const {
     // metaIsLoading,
     groupedOptions,
     // isFetching,
     // isSuccess,
     setSearchVal,
-  } = useGetAgentList(GET_TEAM_AGENT_LIST, true)
+  } = useGetAgentList(GET_TEAM_AGENT_LIST, true);
 
   const customOptionComp = ({ ...props }) => {
     return (
-      //@ts-ignore
+      //@ts-expect-error ignore
       <components.Option {...props} className="!cursor-pointer">
         <div className="flex gap-[10px] md:gap-[15px] items-center h-full">
           {
             <div>
               <div className="flex flex-col">
                 <span className="text-[14px] capitalize font-[500]">
-                  {props?.data?.label}{' '}
+                  {props?.data?.label}{" "}
                   <span className="text-[#9a9191]">
-                    {props?.data?.license ? ' #' + props?.data?.license : ''}
+                    {props?.data?.license ? " #" + props?.data?.license : ""}
                   </span>
                 </span>
                 <span className="text-[12px] capitalize">
                   {props?.data?.phone_number
-                    ? props?.data?.phone_number + ',  '
-                    : ''}
+                    ? props?.data?.phone_number + ",  "
+                    : ""}
                   {props?.data?.email}
                 </span>
               </div>
@@ -302,71 +302,71 @@ const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
           }
         </div>
       </components.Option>
-    )
-  }
+    );
+  };
 
-  //@ts-ignore
+  //@ts-expect-error ignore
   const Menu = ({ children, ...props }) => {
     // if (groupedOptions?.length == 0) return null
     return (
-      //@ts-ignore
+      //@ts-expect-error ignore
       <components.Menu {...props} className="!cursor-pointer">
         {children}
       </components.Menu>
-    )
-  }
+    );
+  };
 
   const handleInputChange = (e: string) => {
-    setSearchVal(e)
-  }
+    setSearchVal(e);
+  };
 
   const handleClick = (e: any) => {
-    if (e?.value !== '0') setSelectAgent(e)
-  }
+    if (e?.value !== "0") setSelectAgent(e);
+  };
 
   useEffect(() => {
     newTeamForm.setValue(
-      'data.first_name',
-      //@ts-ignore
-      selectedAgent?.label?.split(' ')?.[0]
-    )
+      "data.first_name",
+      //@ts-expect-error ignore
+      selectedAgent?.label?.split(" ")?.[0]
+    );
     newTeamForm.setValue(
-      'data.last_name',
-      //@ts-ignore
-      selectedAgent?.label?.split(' ')?.[1]
-    )
+      "data.last_name",
+      //@ts-expect-error ignore
+      selectedAgent?.label?.split(" ")?.[1]
+    );
     newTeamForm.setValue(
-      'data.license',
-      //@ts-ignore
+      "data.license",
+      //@ts-expect-error ignore
       selectedAgent?.license
-    )
-    //@ts-ignore
-    newTeamForm.setValue('data.email', selectedAgent?.email)
+    );
+    //@ts-expect-error ignore
+    newTeamForm.setValue("data.email", selectedAgent?.email);
     newTeamForm.setValue(
-      'data.state',
-      //@ts-ignore
+      "data.state",
+      //@ts-expect-error ignore
       transformSelectData(selectedAgent?.state)
-    )
+    );
     newTeamForm.setValue(
-      'data.phone_number',
-      //@ts-ignore
+      "data.phone_number",
+      //@ts-expect-error ignore
       addSpecialCharsForPhoneNumber(selectedAgent?.phone_number)
-    )
-  }, [selectedAgent])
+    );
+  }, [selectedAgent]);
 
-  const [imageState, setImageState] = useState()
+  const [imageState, setImageState] = useState();
 
   const uploadObj = {
-    label: '',
-    name: '',
-    type: '',
+    label: "",
+    name: "",
+    type: "",
     imageState: imageState,
     setImageState: setImageState,
-    uploadKey: '',
-    fileTypes: ['jpg', 'jpeg', 'png', 'pdf', 'xlsx'],
-    placeholder: '',
-    fileTypeKey: '',
-  }
+    uploadKey: "",
+    fileTypes: ["jpg", "jpeg", "png", "pdf", "xlsx"],
+    placeholder: "",
+    fileTypeKey: "",
+  };
 
   const customUiBodyComp = (isLoading: boolean) => {
     return (
@@ -376,9 +376,9 @@ const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
         </AppText>
         <Flex
           className="border border-dashed border-[#C0C0C0] w-[700px] h-[150px] items-center justify-center"
-          maxWidth={'700px'}
-          alignItems={'center'}
-          flexFlow={'column'}
+          maxWidth={"700px"}
+          alignItems={"center"}
+          flexFlow={"column"}
         >
           {isLoading ? (
             <AppLoader />
@@ -386,20 +386,20 @@ const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
             <div className=" flex flex-col gap-[10px] items-center">
               <ExportUp />
               <AppText>
-                Drag your files here or{' '}
+                Drag your files here or{" "}
                 <span className="underline text-[#10295A]">Browse</span>
               </AppText>
             </div>
           )}
         </Flex>
       </>
-    )
-  }
+    );
+  };
 
   return (
     <div>
       <form onSubmit={newTeamForm.handleSubmit(handleSubmit)}>
-        <Flex pb={'57px'} gap={'40px'} flexFlow={'column'}>
+        <Flex pb={"57px"} gap={"40px"} flexFlow={"column"}>
           <AdminFormWrapperTeam title="Team Details">
             <Box className="flex flex-col gap-[28px] max-w-[1020px]">
               <AdminInputRenderer
@@ -407,11 +407,11 @@ const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
                 control={newTeamForm?.control}
                 errors={newTeamForm?.formState?.errors?.data}
                 labelClassName="!text-[#444444] !text-[16px]"
-                //@ts-ignore
+                //@ts-expect-error ignore
                 inputObj={{
-                  label: 'Team Name*',
-                  name: 'identity',
-                  className: ' w-full max-w-[495px]',
+                  label: "Team Name*",
+                  name: "identity",
+                  className: " w-full max-w-[495px]",
                   otherRegProps: {
                     required: true,
                   },
@@ -454,14 +454,14 @@ const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
                   className="w-full !border-none !shadow-none !outline-none !ring-0 !text-[10px] md:!text-[14px] !top-0 rounded-[5px] !z-[12]"
                   options={groupedOptions}
                   filterOption={() => true}
-                  //@ts-ignore
+                  //@ts-expect-error ignore
                   isOptionDisabled={(option) => option?.team}
-                  value={''}
+                  value={""}
                   components={{
                     Option: customOptionComp,
                     DropdownIndicator: (props) => (
                       <components.DropdownIndicator {...props}>
-                        <GoSearch color="#000000" fontSize={'22px'} />
+                        <GoSearch color="#000000" fontSize={"22px"} />
                       </components.DropdownIndicator>
                     ),
                     Menu: Menu,
@@ -498,12 +498,12 @@ const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
               isCreate
             />
           </AdminFormWrapperTeam>
-          <Flex justifyContent={'end'} mt={'10px'}>
+          <Flex justifyContent={"end"} mt={"10px"}>
             <ButtonPair
-              primaryBtnText={'Create'}
-              secondaryBtnText={'Cancel'}
+              primaryBtnText={"Create"}
+              secondaryBtnText={"Cancel"}
               onPrimaryClick={undefined}
-              primaryBtnType={'submit'}
+              primaryBtnType={"submit"}
               onSecondaryClick={goToPrvPage}
               primaryBtnIsLoading={isLoading}
             />
@@ -511,7 +511,7 @@ const CreateTeamNewForm = ({ newTeamForm }: { newTeamForm: any }) => {
         </Flex>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default CreateTeamNewForm
+export default CreateTeamNewForm;

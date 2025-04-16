@@ -1,11 +1,11 @@
 import { useDisclosure } from "@chakra-ui/react";
-import { createContext, useEffect } from "react";
+import { createContext } from "react";
 import useManageCookies from "../utils/hooks/useSetCookiesOnSuccess";
-import { useNavigate } from "react-router-dom";
-import makePostRequest from "../api/makePostRequest";
-import { useMutation } from "react-query";
+// import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 import { REFRESH_API } from "../api-utils";
 import AdminDesktopNavbar from "./AdminDesktopNavbar";
+import makeGetRequest from "../api/makeGetRequest";
 
 interface IcontextValue {
   check: boolean;
@@ -14,35 +14,31 @@ interface IcontextValue {
 export const AdminNavContext = createContext<IcontextValue | null>(null);
 
 const AdminNavbar = () => {
-  const { isOpen, onClose, onOpen: openLogoutModal } = useDisclosure();
+  const {
+    // isOpen, onClose,
+    onOpen: openLogoutModal,
+  } = useDisclosure();
   const { handleClearCookiesOnSignOut, handleSetCookiesOnSuccess } =
     useManageCookies();
   const contextValue: IcontextValue = {
     check: true,
     openLogoutModal,
   };
-  const router = useNavigate();
-  const { mutate, data } = useMutation(
-    (body) => makePostRequest(REFRESH_API, body),
-    {
-      onSuccess: (res) => {
-        // todorefresh
-        handleSetCookiesOnSuccess(res);
-        if (res?.data?.current_role_type !== "admin") {
-          router("/");
-        }
-      },
-      onError: () => {
-        // router(MAKE_ABSOLUTE_URL(ADMIN_LOGIN));
-        handleClearCookiesOnSignOut();
-      },
-      retry: false,
-    }
-  );
-  useEffect(() => {
-    //@ts-ignore
-    mutate({ type: "admin" });
-  }, []);
+  // const router = useNavigate();
+  const { data } = useQuery([REFRESH_API], () => makeGetRequest(REFRESH_API), {
+    onSuccess: (res) => {
+      // todorefresh
+      handleSetCookiesOnSuccess(res);
+      // if (res?.data?.current_role_type !== "admin") {
+      //   router("/");
+      // }
+    },
+    onError: () => {
+      // router(MAKE_ABSOLUTE_URL(ADMIN_LOGIN));
+      handleClearCookiesOnSignOut();
+    },
+    retry: false,
+  });
   return (
     <AdminNavContext.Provider value={contextValue}>
       {data && <AdminDesktopNavbar />}

@@ -1,12 +1,11 @@
+import DashFilterDateRange from "./DashFilterDateRange";
+import DashFilterSelect from "./DashFilterSelect";
+import DateRangePicker from "./DateRangePicker";
+import AppText from "../../../../AppComponents/AppText-agent";
 
-import DashFilterDateRange from './DashFilterDateRange'
-import DashFilterSelect from './DashFilterSelect'
-import DateRangePicker from './DateRangePicker'
-import AppText from '../../../../AppComponents/AppText-agent'
-
-//@ts-ignore
+//@ts-expect-error ignore
 const AdminFilterRenderer = ({
-  filterTitle = '',
+  filterTitle = "",
   filterArr,
   control,
   register,
@@ -20,23 +19,23 @@ const AdminFilterRenderer = ({
     // if (reset) reset()
     // else
     if (!!Object.keys(dateRange)?.length) {
-      setDateRange({})
+      setDateRange({});
     }
     filterArr?.map((m) => {
-      if (m?.name == 'dateRange')
+      if (m?.name == "dateRange")
         setValue(m?.name, [
           {
             startDate: null,
             endDate: null,
-            key: 'selection',
+            key: "selection",
           },
-        ])
-      else setValue(m?.name, null)
-    })
-  }
+        ]);
+      else setValue(m?.name, null);
+    });
+  };
 
   const getFilterType = (type: string, m: unknown, ind: number) => {
-    if (type == 'select')
+    if (type == "select")
       return (
         <DashFilterSelect
           className={`!z-[${20 - ind}]`}
@@ -55,21 +54,21 @@ const AdminFilterRenderer = ({
           selectIcon={m?.icon}
           {...m}
         />
-      )
+      );
 
-    if (type == 'dateRange')
+    if (type == "dateRange")
       return (
         <DashFilterDateRange
           watch={watch}
           setValue={setValue}
           filterLabel={m?.filterLabel}
         />
-      )
-    if (type == 'dob')
+      );
+    if (type == "dob")
       return (
         <DateRangePicker dateRange={dateRange} setDateRange={setDateRange} />
-      )
-  }
+      );
+  };
   return (
     <div>
       <div className="flex items-center gap-[20px]">
@@ -78,7 +77,9 @@ const AdminFilterRenderer = ({
         ) : null}
         <div className="flex  flex-wrap w-[100%] list-filters  gap-[10px]">
           {/* @ts-ignore */}
-          {filterArr?.map((m, ind) => <>{getFilterType(m?.type, m, ind)}</>)}
+          {filterArr?.map((m, ind) => (
+            <>{getFilterType(m?.type, m, ind)}</>
+          ))}
         </div>
         <AppText
           onClick={clearFilters}
@@ -87,7 +88,7 @@ const AdminFilterRenderer = ({
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminFilterRenderer
+export default AdminFilterRenderer;

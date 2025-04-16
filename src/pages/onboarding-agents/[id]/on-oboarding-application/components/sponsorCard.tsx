@@ -1,145 +1,147 @@
-
-import { Text, useDisclosure } from '@chakra-ui/react'
-import OnboardingLayout from './onboardingLayout'
+import { Text, useDisclosure } from "@chakra-ui/react";
+import OnboardingLayout from "./onboardingLayout";
 // import LoaderLayout from '@/app/components/layouts/loaderLayout/LoaderLayout'
-import  DummyProfileImage  from '../../../../../assets/Images/dummy-profile-placeholder.png'
+import DummyProfileImage from "../../../../../assets/Images/dummy-profile-placeholder.png";
 // import AppImage from '@/app/components/elements/AppImage'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery } from "react-query";
 // import { ADMIN_AGENT_DETAIL_GET, SPONSOR_UPDATE } from '@/app/api-utils'
 // import makeGetRequest from '@/app/utils/api/makeGetRequest'
-import { useParams } from 'react-router-dom'
+import { useParams } from "react-router-dom";
 // import { useGetAgentList } from '@/app/hooks/useGetAgentList'
 // import AppText from '@/app/components/elements/AppText'
-import Select, { components } from 'react-select'
-import toast from 'react-hot-toast'
-import { IoMdClose } from 'react-icons/io'
+import Select, { components } from "react-select";
+import toast from "react-hot-toast";
+import { IoMdClose } from "react-icons/io";
 // import AppButton from '@/app/components/elements/AppButton'
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from "uuid";
 // import CkAppModal from '@/app/components/modal/AppModal'
-import { useForm } from 'react-hook-form'
+import { useForm } from "react-hook-form";
 // import CkInput from '@/app/components/chakraOverwrites/CkInput'
 // import makePostRequest from '@/app/utils/api/makePostRequest'
-import { useState } from 'react'
+import { useState } from "react";
 // import { removeSpecialChars } from '@/app/utils/functions/otherFunctions'
 // import { useAppStore } from '@/app/utils/store'
-import LoaderLayout from '../../../../Auth/AgentComponents/table/LoaderLayout'
-import AppImage from '../../../../../AppComponents/AppImage'
-import { ADMIN_AGENT_DETAIL_GET,SPONSOR_UPDATE } from '../../../../../api-utils'
-import makeGetRequest from '../../../../../api/makeGetRequest'
-import { useGetAgentList } from '../../../../../utils/hooks/useGetAgentList'
-import AppText from '../../../../../AppComponents/AppText-agent'
-import AppButton from '../../../../../AppComponents/AppButton-agent'
-import CkAppModal from '../../../../Auth/AgentComponents/admincompenets/AppModal'
-import CkInput from '../../../../Auth/AgentComponents/admincompenets/CkInput'
-import makePostRequest from '../../../../../api/makePostRequest'
-import { removeSpecialChars } from '../../../../../utils/functions/commonFunctions'
-import { useAppStore } from '../../../../../store-admin'
+import LoaderLayout from "../../../../Auth/AgentComponents/table/LoaderLayout";
+import AppImage from "../../../../../AppComponents/AppImage";
+import {
+  ADMIN_AGENT_DETAIL_GET,
+  SPONSOR_UPDATE,
+} from "../../../../../api-utils";
+import makeGetRequest from "../../../../../api/makeGetRequest";
+import { useGetAgentList } from "../../../../../utils/hooks/useGetAgentList";
+import AppText from "../../../../../AppComponents/AppText-agent";
+import AppButton from "../../../../../AppComponents/AppButton-agent";
+import CkAppModal from "../../../../Auth/AgentComponents/admincompenets/AppModal";
+import CkInput from "../../../../Auth/AgentComponents/admincompenets/CkInput";
+import makePostRequest from "../../../../../api/makePostRequest";
+import { removeSpecialChars } from "../../../../../utils/functions/commonFunctions";
+import { useAppStore } from "../../../../../store-admin";
 
 const formData = [
   {
     id: uuidv4(),
-    label: 'Sponsor Name',
-    name: 'sponsor_name',
+    label: "Sponsor Name",
+    name: "sponsor_name",
     requried: true,
   },
   {
     id: uuidv4(),
-    label: 'Sponsor Phone Number',
-    name: 'sponsor_phone_no',
+    label: "Sponsor Phone Number",
+    name: "sponsor_phone_no",
     requried: true,
-    prefix: '+1',
-    type: 'tel',
+    prefix: "+1",
+    type: "tel",
     maxLength: 14,
     onChange: (event: any) => {
-      const unformattedValue = event.target.value.replace(/[()-]/g, '') // Remove special characters
+      const unformattedValue = event.target.value.replace(/[()-]/g, ""); // Remove special characters
       const formattedParts = [
         unformattedValue.slice(0, 3),
         unformattedValue.slice(3, 6),
         unformattedValue.slice(6),
-      ]
+      ];
       const formattedValue = formattedParts
-        .filter((part) => part !== '')
+        .filter((part) => part !== "")
         .map((part, index) => (index === 0 ? `(${part})` : part)) // Add parentheses to the first part
-        .join('-')
+        .join("-");
 
       // Update the formatted value immediately, even if the user hasn't finished typing
-      event.target.value = formattedValue
+      event.target.value = formattedValue;
     },
   },
-]
+];
 
 export default function SponsorCard() {
-  const { id } = useParams()
-  const [selectedAgent, setSelectAgent] = useState<any>()
-  const { isOpen, onClose, onOpen } = useDisclosure()
+  const { id } = useParams();
+  const [selectedAgent, setSelectAgent] = useState<any>();
+  const { isOpen, onClose, onOpen } = useDisclosure();
   // getting sponsor list
-  const { groupedOptions, setSearchVal } = useGetAgentList()
-  const { adminRoles } = useAppStore()
+  const { groupedOptions, setSearchVal } = useGetAgentList();
+  const { adminRoles } = useAppStore();
 
-  const roleData = adminRoles['Sponsor Management Policy']?.permissions
+  const roleData = adminRoles["Sponsor Management Policy"]?.permissions;
 
-  const editable = roleData?.is_editable || roleData?.is_creatable
+  const editable = roleData?.is_editable || roleData?.is_creatable;
 
-  const removable = roleData?.is_deletable
+  const removable = roleData?.is_deletable;
 
-  const agentForm = useForm()
+  const agentForm = useForm();
 
   const { isLoading, refetch } = useQuery(
     [ADMIN_AGENT_DETAIL_GET(id)],
     () => makeGetRequest(ADMIN_AGENT_DETAIL_GET(id)),
     {
       onSuccess: (data) => {
-        const agentDetail = data?.data?.agent_detail
+        const agentDetail = data?.data?.agent_detail;
         const labelValue = agentDetail?.sponsor_name
           ? agentDetail?.sponsor_name
           : agentDetail?.sponsor?.name
-            ? agentDetail?.sponsor?.name
-            : null
+          ? agentDetail?.sponsor?.name
+          : null;
         setSelectAgent({
           ...agentDetail,
-          value: '0',
+          value: "0",
           label: labelValue,
           agent: { primary_state: { identity: agentDetail?.sponsor_phone_no } },
-        })
+        });
       },
     }
-  )
+  );
 
   // update sponsor
   const { mutate } = useMutation(
     (body) => makePostRequest(SPONSOR_UPDATE, body),
     {
       onSuccess: () => {
-        toast.success('Sponsor Details Updated Sucessfully')
-        refetch()
+        toast.success("Sponsor Details Updated Sucessfully");
+        refetch();
       },
       onError: (err) => {
-        //@ts-ignore
-        const errMsg = getFirstErrorMessage(err?.response?.data)
-        //@ts-ignore
-        toast.error(errMsg)
+        //@ts-expect-error ignore
+        const errMsg = getFirstErrorMessage(err?.response?.data);
+        //@ts-expect-error ignore
+        toast.error(errMsg);
       },
     }
-  )
+  );
 
   const customOptionComp = ({ ...props }) => {
     return (
-      //@ts-ignore
+      //@ts-expect-error ignore
       <components.Option {...props} className="!cursor-pointer">
         <div className="flex gap-[10px] md:gap-[15px] items-center h-full">
           {
             <div>
               <div className="flex flex-col">
                 <span className="text-[14px] capitalize font-[500]">
-                  {props?.data?.label}{' '}
+                  {props?.data?.label}{" "}
                   <span className="text-[#9a9191]">
                     {props?.data?.agent?.primary_license_no
-                      ? ' #' + props?.data?.agent?.primary_license_no
-                      : ''}
+                      ? " #" + props?.data?.agent?.primary_license_no
+                      : ""}
                   </span>
                 </span>
                 <span className="text-[12px] capitalize">
-                  {props?.data?.city ? props?.data?.city + ', ' : ''}
+                  {props?.data?.city ? props?.data?.city + ", " : ""}
                   {props?.data?.agent?.primary_state?.identity}
                 </span>
               </div>
@@ -147,77 +149,77 @@ export default function SponsorCard() {
           }
         </div>
       </components.Option>
-    )
-  }
+    );
+  };
 
-  //@ts-ignore
+  //@ts-expect-error ignore
   const Menu = ({ children, ...props }) => {
     // if (groupedOptions?.length == 0) return null
     return (
-      //@ts-ignore
+      //@ts-expect-error ignore
       <components.Menu {...props} className="!cursor-pointer">
         {children}
       </components.Menu>
-    )
-  }
+    );
+  };
 
   const handleInputChange = (e: string) => {
-    setSearchVal(e)
-  }
+    setSearchVal(e);
+  };
 
   const handleFormSubmit = (data: any) => {
     setSelectAgent({
       ...data,
-      value: '0',
+      value: "0",
       label: data?.sponsor_name,
       agent: { primary_state: { identity: data?.sponsor_phone_no } },
-    })
+    });
     const bdy = {
-      //@ts-ignore
+      //@ts-expect-error ignore
       sponsor: null,
-      //@ts-ignore
+      //@ts-expect-error ignore
       sponsor_name: data?.sponsor_name,
-      //@ts-ignore
+      //@ts-expect-error ignore
       sponsor_phone_no: `+1${removeSpecialChars(data?.sponsor_phone_no)}`,
       user: id,
-    }
-    //@ts-ignore
-    mutate(bdy)
-    onClose()
-  }
+    };
+    //@ts-expect-error ignore
+    mutate(bdy);
+    onClose();
+  };
 
   const handleClick = (e: any) => {
-    //@ts-ignore
-    if (e?.value !== '0') {
-      //@ts-ignore
+    //@ts-expect-error ignore
+    if (e?.value !== "0") {
+      //@ts-expect-error ignore
       const bdy = {
-        //@ts-ignore
+        //@ts-expect-error ignore
         sponsor: e?.value,
-        //@ts-ignore
+        //@ts-expect-error ignore
         sponsor_name: null,
-        //@ts-ignore
+        //@ts-expect-error ignore
         sponsor_phone_no: null,
         user: id,
-      }
-      //@ts-ignore
-      mutate(bdy)
-    } else onOpen()
-  }
+      };
+      //@ts-expect-error ignore
+      mutate(bdy);
+    } else onOpen();
+  };
 
   const handleRemoveClick = () => {
-    setSelectAgent(undefined)
+    setSelectAgent(undefined);
     const bdy = {
-      //@ts-ignore
+      //@ts-expect-error ignore
       sponsor: null,
-      //@ts-ignore
+      //@ts-expect-error ignore
       sponsor_name: null,
-      //@ts-ignore
+      //@ts-expect-error ignore
       sponsor_phone_no: null,
       user: id,
-    }
-    //@ts-ignore
-    mutate(bdy)
-  }
+    };
+    //@ts-expect-error ignore
+    mutate(bdy);
+  };
 
   return (
     <div className="px-[40px] pb-[30px] flex flex-col gap-[10px]  bg-white">
@@ -227,8 +229,8 @@ export default function SponsorCard() {
         isOpen={isOpen}
         onClose={onClose}
         closeButton={true}
-        //@ts-ignore
-        header={'Enter the Agent Details'}
+        //@ts-expect-error ignore
+        header={"Enter the Agent Details"}
         headerClassName={`rounded-md text-[#10295A] text-[20px] font-[500] border-b-[1px] border-[#D9D9D9] !py-[20px] !px-[40px] text-center `}
       >
         <div className="mb-10">
@@ -238,18 +240,18 @@ export default function SponsorCard() {
                 <div key={each.id}>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] md:text-[14px]">
-                      {each.label}{' '}
+                      {each.label}{" "}
                       <span className="text-[10px] md:text-[14px] text-red-500">
                         *
                       </span>
                     </span>
                   </div>
                   <CkInput
-                    type={each?.type || 'text'}
+                    type={each?.type || "text"}
                     placeholder={each.label}
                     className="border-none max-w-[334px] w-full py-[13px] px-[20px]"
                     wrapperClassName={
-                      'mt-[3px] md:mt-[7px] max-w-[334px] w-full'
+                      "mt-[3px] md:mt-[7px] max-w-[334px] w-full"
                     }
                     maxLength={each?.maxLength}
                     onInput={each?.onInput}
@@ -257,9 +259,9 @@ export default function SponsorCard() {
                       required: each.requried,
                       onChange: each?.onChange ? each?.onChange : null,
                     })}
-                    //@ts-ignore
+                    //@ts-expect-error ignore
                     prefix={each?.prefix}
-                    //@ts-ignore
+                    //@ts-expect-error ignore
                     isError={agentForm.formState.errors?.[each.name]}
                   />
                 </div>
@@ -272,7 +274,7 @@ export default function SponsorCard() {
         </div>
       </CkAppModal>
 
-      <OnboardingLayout imageSrc={'/license-frame.png'} title={'Sponsor'}>
+      <OnboardingLayout imageSrc={"/license-frame.png"} title={"Sponsor"}>
         <div className="flex flex-col ">
           {/* Transfer License */}
 
@@ -285,11 +287,11 @@ export default function SponsorCard() {
               loadingMessage={() => (
                 <p className="text-[13px]">Searching......</p>
               )}
-              placeholder={'Enter the Agent Name'}
+              placeholder={"Enter the Agent Name"}
               className={`w-[260px] !text-[10px] md:!text-[14px]  !top-0 custom_select_css`}
               options={groupedOptions}
               filterOption={() => true}
-              value={''}
+              value={""}
               components={{
                 Option: customOptionComp,
                 DropdownIndicator: null,
@@ -308,7 +310,7 @@ export default function SponsorCard() {
                   Selected Sponsor
                 </Text>
                 <div
-                  key={'90'}
+                  key={"90"}
                   className="relative flex p-[20px] justify-start items-center w-[540px] h-[120px] border-[1px] border-[#F0F0F0] rounded-[8px] shadow-[8px_16px_56px_0px_#0000000A]"
                 >
                   <AppImage
@@ -351,5 +353,5 @@ export default function SponsorCard() {
         </div>
       </OnboardingLayout>
     </div>
-  )
+  );
 }

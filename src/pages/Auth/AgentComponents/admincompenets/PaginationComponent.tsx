@@ -1,27 +1,27 @@
-import { Flex } from '@chakra-ui/react'
-import ReactPaginate from 'react-paginate'
+import { Flex } from "@chakra-ui/react";
+import ReactPaginate from "react-paginate";
 
-//@ts-ignore
+//@ts-expect-error ignore
 const PaginationComponent = ({
   handlePaginationClick,
   pageCount,
   initialPage,
   forcePage,
 }: {
-  handlePaginationClick: any
-  pageCount: number
-  initialPage?: number
-  forcePage?: number
+  handlePaginationClick: any;
+  pageCount: number;
+  initialPage?: number;
+  forcePage?: number;
 }) => {
   // Invoke when user click to request another page.
   const handlePageClick = (event: { selected: number }) => {
     if (handlePaginationClick) {
-      handlePaginationClick(event?.selected + 1)
+      handlePaginationClick(event?.selected + 1);
     }
-  }
+  };
 
   return (
-    <Flex w={'600px'} margin={'auto'} justifyContent={'center'}>
+    <Flex w={"600px"} margin={"auto"} justifyContent={"center"}>
       <ReactPaginate
         initialPage={initialPage}
         forcePage={forcePage}
@@ -41,7 +41,7 @@ const PaginationComponent = ({
         disabledClassName="hidden"
       />
     </Flex>
-  )
-}
+  );
+};
 
-export default PaginationComponent
+export default PaginationComponent;

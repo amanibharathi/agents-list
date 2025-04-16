@@ -1,15 +1,18 @@
-import { POST_RESET_PASSWORD } from '../../api-utils'
-import AppButton from '../../AppComponents/AppButton-agent'
-import AppText from '../../AppComponents/AppText-agent'
-import makePostRequest from '../../api/makePostRequest'
-import { Box, Flex } from '@chakra-ui/react'
-import { useSearchParams, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
-import InputRenderer from './InputRenderer'
-import LoginBottomLink from '../LoginForms/LoginBottomLink'
-import { ADMIN_LOGIN, MAKE_ABSOLUTE_URL } from '../../pages/Auth/AgentComponents/navigation/urls'
+import { POST_RESET_PASSWORD } from "../../api-utils";
+import AppButton from "../../AppComponents/AppButton-agent";
+import AppText from "../../AppComponents/AppText-agent";
+import makePostRequest from "../../api/makePostRequest";
+import { Box, Flex } from "@chakra-ui/react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import InputRenderer from "./InputRenderer";
+import LoginBottomLink from "../LoginForms/LoginBottomLink";
+import {
+  ADMIN_LOGIN,
+  MAKE_ABSOLUTE_URL,
+} from "../../pages/Auth/AgentComponents/navigation/urls";
 
 const AdminSetPasswordBox = () => {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -64,7 +67,7 @@ const AdminSetPasswordBox = () => {
 
   const handleFormSubmit = (val: unknown) => {
     const dataToSubmit = {
-      // @ts-ignore
+      //@ts-expect-error ignore
       ...val,
     };
     mutate(dataToSubmit);
@@ -99,7 +102,7 @@ const AdminSetPasswordBox = () => {
             <AppButton
               isLoading={isLoading}
               className="w-full mt-[30px]"
-              // @ts-ignore
+              //@ts-expect-error ignore
               type="submit"
             >
               Reset Password
@@ -107,7 +110,7 @@ const AdminSetPasswordBox = () => {
           </Flex>
           <AppText
             className="err-text mt-[20px]"
-            // @ts-ignore
+            //@ts-expect-error ignore
             text={error?.response?.data?.data}
           />
         </form>

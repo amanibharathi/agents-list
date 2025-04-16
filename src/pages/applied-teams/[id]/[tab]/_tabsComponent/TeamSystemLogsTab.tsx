@@ -1,11 +1,11 @@
-import AdminFormWrapper from '@/app/admin/_AdminComponent/AdminFormWrapper'
-import AdminHeaderWithButtons from '@/app/admin/_AdminComponent/AdminHeaderWithButtons'
-import { GET_TEAM_ACTIVITY_LOG_LIST } from '@/app/api-utils'
-import DateRangePicker from '@/app/components/DateRangePicker'
-import AppButton from '@/app/components/elements/AppButton'
-import AppText from '@/app/components/elements/AppText'
-import LoaderLayout from '@/app/components/layouts/loaderLayout/LoaderLayout'
-import makeGetRequest from '@/app/utils/api/makeGetRequest'
+import AdminFormWrapper from "@/app/admin/_AdminComponent/AdminFormWrapper";
+import AdminHeaderWithButtons from "@/app/admin/_AdminComponent/AdminHeaderWithButtons";
+import { GET_TEAM_ACTIVITY_LOG_LIST } from "@/app/api-utils";
+import DateRangePicker from "@/app/components/DateRangePicker";
+import AppButton from "@/app/components/elements/AppButton";
+import AppText from "@/app/components/elements/AppText";
+import LoaderLayout from "@/app/components/layouts/loaderLayout/LoaderLayout";
+import makeGetRequest from "@/app/utils/api/makeGetRequest";
 import {
   Step,
   StepIndicator,
@@ -13,30 +13,30 @@ import {
   StepSeparator,
   StepStatus,
   useSteps,
-} from '@chakra-ui/react'
-import moment from 'moment'
-import React, { useState } from 'react'
-import { useInfiniteQuery } from 'react-query'
+} from "@chakra-ui/react";
+import moment from "moment";
+import React, { useState } from "react";
+import { useInfiniteQuery } from "react-query";
 
 const TeamSystemLogsTab = ({
   params,
 }: {
-  params: { tab: string; id: string }
+  params: { tab: string; id: string };
 }) => {
-  const [dateRange, setDateRange] = useState({})
+  const [dateRange, setDateRange] = useState({});
   const { activeStep } = useSteps({
     index: -1,
-  })
+  });
   const {
     data,
     fetchNextPage,
     isFetchingNextPage,
     hasNextPage,
     isLoading,
-    //@ts-ignore
+    //@ts-expect-error ignore
   } = useInfiniteQuery({
     queryKey: [
-      //@ts-ignore
+      //@ts-expect-error ignore
       `${GET_TEAM_ACTIVITY_LOG_LIST}-${dateRange?.startDate}-${dateRange?.endDate}`,
     ],
     queryFn: ({ pageParam = 1 }) =>
@@ -44,30 +44,30 @@ const TeamSystemLogsTab = ({
         page: pageParam,
         start_date:
           dateRange &&
-          //@ts-ignore
+          //@ts-expect-error ignore
           dateRange?.startDate &&
-          //@ts-ignore
-          moment(dateRange?.startDate).format('YYYY-MM-DD'),
+          //@ts-expect-error ignore
+          moment(dateRange?.startDate).format("YYYY-MM-DD"),
         end_date:
           dateRange &&
-          //@ts-ignore
+          //@ts-expect-error ignore
           dateRange?.endDate &&
-          //@ts-ignore
-          moment(dateRange?.endDate).format('YYYY-MM-DD'),
+          //@ts-expect-error ignore
+          moment(dateRange?.endDate).format("YYYY-MM-DD"),
       }),
     initialPageParam: 0,
     getPreviousPageParam: (firstPage: any) =>
       firstPage?.data?.previous ?? undefined,
     getNextPageParam: (lastPage: any) =>
-      lastPage?.data?.next?.split('?page=')?.[1] ?? undefined,
-  })
+      lastPage?.data?.next?.split("?page=")?.[1] ?? undefined,
+  });
 
-  const systemLogs = data?.pages
-  const totalCount = data?.pages[0]?.data?.count
+  const systemLogs = data?.pages;
+  const totalCount = data?.pages[0]?.data?.count;
 
   return (
     <div>
-      <AdminHeaderWithButtons title={'Activity Logs'} />
+      <AdminHeaderWithButtons title={"Activity Logs"} />
       <AdminFormWrapper>
         <LoaderLayout height="18.519vh" isLoading={isLoading}>
           <div className="flex pb-[30px]">
@@ -83,8 +83,8 @@ const TeamSystemLogsTab = ({
                   {systemLogs?.map((systemLog: any) => {
                     return systemLog?.data?.results.map(
                       (each: any, index: any) => (
-                        <Step style={{ width: '100%' }} key={index}>
-                          <StepIndicator bg={'transparent'}>
+                        <Step style={{ width: "100%" }} key={index}>
+                          <StepIndicator bg={"transparent"}>
                             <StepStatus
                               incomplete={
                                 <div className="w-[8px] h-[8px] bg-[#2B5CAB] rounded-full"></div>
@@ -97,14 +97,14 @@ const TeamSystemLogsTab = ({
                             </AppText>
                             <AppText className="text-[16px] leading-[17px] !text-[#616876]">
                               {moment(each?.action_time).format(
-                                'MMMM Do YYYY, h:mm:ss a'
+                                "MMMM Do YYYY, h:mm:ss a"
                               )}
                             </AppText>
                           </div>
                           <StepSeparator className="!bg-[#2B5CAB] separator_custom_class" />
                         </Step>
                       )
-                    )
+                    );
                   })}
                 </Stepper>
               </div>
@@ -130,7 +130,7 @@ const TeamSystemLogsTab = ({
         </LoaderLayout>
       </AdminFormWrapper>
     </div>
-  )
-}
+  );
+};
 
-export default TeamSystemLogsTab
+export default TeamSystemLogsTab;

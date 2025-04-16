@@ -1,19 +1,19 @@
-import { useState, useCallback } from 'react'
-import toast from 'react-hot-toast'
-import { useDebounce } from './useDebounce'
+import { useState, useCallback } from "react";
+import toast from "react-hot-toast";
+import { useDebounce } from "./useDebounce";
 // import { SPONSOR_LIST_API } from '../api-utils'
-import { useQuery } from 'react-query'
+import { useQuery } from "react-query";
 // import makeGetRequest from '../utils/api/makeGetRequest'
-import { SPONSOR_LIST_API } from '../../api-utils'
-import makeGetRequest from '../../api/makeGetRequest'
+import { SPONSOR_LIST_API } from "../../api-utils";
+import makeGetRequest from "../../api/makeGetRequest";
 
 export function useGetAgentList(
   endPoint = SPONSOR_LIST_API,
   notSponsor = false
 ) {
-  const [searchVal, setSearchVal] = useState('')
-  const debouncedValue = useDebounce(searchVal, 300) || ''
-  const apiEndPoint = endPoint + '?search=' + debouncedValue
+  const [searchVal, setSearchVal] = useState("");
+  const debouncedValue = useDebounce(searchVal, 300) || "";
+  const apiEndPoint = endPoint + "?search=" + debouncedValue;
   const {
     isLoading: metaIsLoading,
     data: metaData,
@@ -23,11 +23,11 @@ export function useGetAgentList(
   } = useQuery([apiEndPoint], () => makeGetRequest(apiEndPoint), {
     enabled: !!debouncedValue,
     onError: (err) => {
-      toast.error('Error occured while getting search meta')
-      //@ts-ignore
-      console.error(err)
+      toast.error("Error occured while getting search meta");
+      //@ts-expect-error ignore
+      console.error(err);
     },
-  })
+  });
   const modifyOptionsForSearch = useCallback(
     (opt: any) => {
       const options = opt?.map((m: any) => ({
@@ -43,38 +43,38 @@ export function useGetAgentList(
         profile: m?.profile_picture,
         userId: m?.user?.id,
         team: m?.team?.identity,
-      }))
+      }));
       if (options && options?.length !== 0) {
         return [
           ...options,
           {
-            label: notSponsor ? 'Agent not Available' : 'Sponsor not available',
-            value: '0',
-            phone_number: '',
-            email: '',
+            label: notSponsor ? "Agent not Available" : "Sponsor not available",
+            value: "0",
+            phone_number: "",
+            email: "",
             agent: {
-              primary_state: { identity: 'Add Agent' },
+              primary_state: { identity: "Add Agent" },
             },
           },
-        ]
+        ];
       }
       if (options && options?.length == 0)
         return [
           {
-            label: notSponsor ? 'Agent not Available' : 'Sponsor not available',
-            value: '0',
-            phone_number: '',
-            email: '',
+            label: notSponsor ? "Agent not Available" : "Sponsor not available",
+            value: "0",
+            phone_number: "",
+            email: "",
             agent: {
-              primary_state: { identity: 'Add Agent' },
+              primary_state: { identity: "Add Agent" },
             },
           },
-        ]
+        ];
     },
     [metaData?.data?.results]
-  )
+  );
 
-  const groupedOptions = modifyOptionsForSearch(metaData?.data?.results)
+  const groupedOptions = modifyOptionsForSearch(metaData?.data?.results);
   return {
     metaIsLoading,
     groupedOptions,
@@ -82,5 +82,5 @@ export function useGetAgentList(
     isSuccess,
     setSearchVal,
     searchVal,
-  }
+  };
 }

@@ -10,7 +10,7 @@ const UserAuthMenuContainer = ({
   getMenuBasedOnRole: any;
   isDarkNav?: boolean;
 }) => {
-  //@ts-ignore
+  //@ts-expect-error ignore
   const { setOpenLoginModal, setLoginModalInfo, user_data } = useAppStore();
 
   const isLoggedIn = user_data?.email;
