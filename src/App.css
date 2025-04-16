@@ -74,8 +74,19 @@
   animation: l3 1s infinite linear;
 }
 
+/* used to align filters in admin list */
+.list-filters>.css-1kxonj9 {
+  width: fit-content;
+}
+
+
 @keyframes l3 {
   to {
     transform: rotate(1turn)
   }
+}
+
+.blue-nav-scroll-container::-webkit-scrollbar {
+  height: 0px;
+  width: 0px;
 }

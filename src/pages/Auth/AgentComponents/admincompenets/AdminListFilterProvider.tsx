@@ -9,14 +9,11 @@ import {
   agentProtectedRoutes,
   isPermitted,
 } from "./roles-and-permissions";
+import { Outlet } from "react-router";
 
 export const AdminListFilterContext = createContext({});
 
-export const AdminListFilterProvider = ({
-  children,
-}: {
-  children?: ReactNode;
-}) => {
+export const AdminListFilterProvider = () => {
   const agentsListFilterForm = useForm();
   const TeamListFilterForm = useForm();
   const appliedAgentsFilterForm = useForm();
@@ -53,7 +50,7 @@ export const AdminListFilterProvider = ({
           setSponsors,
         }}
       >
-        {children}
+        <Outlet />
       </AdminListFilterContext.Provider>
     </div>
   );

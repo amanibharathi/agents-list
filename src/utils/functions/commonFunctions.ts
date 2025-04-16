@@ -3,8 +3,6 @@
 import { toast } from "react-hot-toast";
 import { UseFormSetError } from "react-hook-form";
 
-
-
 export const formatPhoneNumber = (value: string) => {
   // Remove all non-numeric characters
   const cleaned = value.replace(/\D/g, "");
@@ -131,24 +129,24 @@ export const setSelectValueFromOptions = (
     return filteredOpt?.[0];
   }
 };
-export const debouncerTimeAdmin = 200
+export const debouncerTimeAdmin = 200;
 export function truncateString(
   str: string,
   maxLength: number,
-  suffix: string = '...'
+  suffix: string = "..."
 ): string {
-  if (str?.length <= maxLength) return str
-  return str?.slice(0, maxLength - suffix?.length) + suffix
+  if (str?.length <= maxLength) return str;
+  return str?.slice(0, maxLength - suffix?.length) + suffix;
 }
 export const splitByDotgetOne = (val, data) => {
-  if (val.includes('.')) {
-    const splitedHead = val?.split('.')
+  if (val.includes(".")) {
+    const splitedHead = val?.split(".");
     // console.log("chk",data,  [splitedHead?.[0]], [splitedHead?.[1]])
-    return data?.[splitedHead?.[1]]
+    return data?.[splitedHead?.[1]];
   }
   // console.log("data", data);
-  return data?.[val]
-}
+  return data?.[val];
+};
 export function getFirstErrorMessage(errorObject: unknown): string | undefined {
   // const getNestedValue = (obj: any, path: string[]): any => {
   //   let current = obj
@@ -168,106 +166,124 @@ export function getFirstErrorMessage(errorObject: unknown): string | undefined {
   ): string | undefined => {
     // @ts-ignore
     for (const key in obj) {
-      const newPath = [...currentPath, key]
+      const newPath = [...currentPath, key];
       // @ts-ignore
-      const value = obj[key]
-      if (typeof value === 'string' && value.trim().length > 0) {
+      const value = obj[key];
+      if (typeof value === "string" && value.trim().length > 0) {
         // Check if value might be an error message
-        return `${newPath.join('.')}: ${value}`
-      } else if (typeof value === 'object' && value !== null) {
-        const nestedError = traverseForError(value, newPath)
+        return `${newPath.join(".")}: ${value}`;
+      } else if (typeof value === "object" && value !== null) {
+        const nestedError = traverseForError(value, newPath);
         if (nestedError) {
-          return nestedError
+          return nestedError;
         }
       }
     }
-    return undefined
-  }
+    return undefined;
+  };
 
-  return traverseForError(errorObject)
+  return traverseForError(errorObject);
 }
 export const commissionPlanOptions = [
-  { label: '60-40 Split', value: '60-40' },
-  { label: '85-15 Split', value: '85-15' },
-]
+  { label: "60-40 Split", value: "60-40" },
+  { label: "85-15 Split", value: "85-15" },
+];
 export const splitByDotGetMany = (val, data) => {
-  if (val?.includes('.')) {
-    let _val = { ...data }
-    const splitedVal = val?.split('.')
+  if (val?.includes(".")) {
+    let _val = { ...data };
+    const splitedVal = val?.split(".");
     if (splitedVal?.length == 4)
-      return data?.[splitedVal?.[1]]?.[splitedVal?.[2]]?.[splitedVal?.[3]]
+      return data?.[splitedVal?.[1]]?.[splitedVal?.[2]]?.[splitedVal?.[3]];
     if (splitedVal?.length == 3)
-      return data?.[splitedVal?.[1]]?.[splitedVal?.[2]]
+      return data?.[splitedVal?.[1]]?.[splitedVal?.[2]];
     else {
-      splitedVal?.map((m) => (_val = _val?.[m]))
-      return _val
+      splitedVal?.map((m) => (_val = _val?.[m]));
+      return _val;
     }
   } else {
-    return data?.[val]
+    return data?.[val];
   }
-}
+};
 export const getFileUploadErrorMsg = (err: any) => {
-  let data = err?.response?.data
+  let data = err?.response?.data;
   while (true) {
-    if (typeof data === 'string') break
-    if (Array.isArray(data)) data = data[0]
-    if (typeof data === 'object') data = data[Object.keys(data)[0]]
+    if (typeof data === "string") break;
+    if (Array.isArray(data)) data = data[0];
+    if (typeof data === "object") data = data[Object.keys(data)[0]];
   }
-  return data
-}
+  return data;
+};
 export const getFileName = (src, isShortName = false) => {
-  const s = src?.split('/')
-  const last = s?.[s?.length - 1]
-  const ext = last?.split('.')
-  const extLast = ext?.[ext?.length - 1]
+  const s = src?.split("/");
+  const last = s?.[s?.length - 1];
+  const ext = last?.split(".");
+  const extLast = ext?.[ext?.length - 1];
   if (isShortName)
-    return last?.length > 10 ? last?.slice(0, 10) + '...' + extLast : last
-  return last
-}
+    return last?.length > 10 ? last?.slice(0, 10) + "..." + extLast : last;
+  return last;
+};
 export const downloadFile = async (url: string, filename?: string) => {
   try {
-    const response = await fetch(url)
-    const blob = await response.blob()
-    const objectURL = URL.createObjectURL(blob)
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const objectURL = URL.createObjectURL(blob);
 
-    const link = document.createElement('a')
-    link.href = objectURL
-    link.download = filename || url.split('/').pop() || 'download'
+    const link = document.createElement("a");
+    link.href = objectURL;
+    link.download = filename || url.split("/").pop() || "download";
 
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
-    URL.revokeObjectURL(objectURL) // Cleanup
+    URL.revokeObjectURL(objectURL); // Cleanup
   } catch (error) {
-    console.error('Error downloading file:', error)
+    console.error("Error downloading file:", error);
   }
-}
-export const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1)
+};
+export const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 export const formatToUSPhone = (input: string) => {
-  if (input === 'undefined' || input === undefined) {
-    return 'NA'
+  if (input === "undefined" || input === undefined) {
+    return "NA";
   } else {
-    return `+1 ` + input?.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')
+    return `+1 ` + input?.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
   }
-}
+};
 export const isEmailValid = (val) => {
   const emailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
-  return emailRegex.test(val)
-}
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  return emailRegex.test(val);
+};
 export const logMe = (...args) => {
   // const isStaging = !['production', 'uat']?.includes(
   //   process.env.NEXT_PUBLIC_NODE_ENV
   // )
-  if (true) console.log(...args)
-}
+  if (true) console.log(...args);
+};
 export const getErrorMsg = (obj: any) => {
-  const err = obj?.response?.data?.data
-  if ([null, undefined]?.includes(err)) return ''
-  if (typeof err === 'string') return err
-  const firstErrorKey = Object?.keys(err)?.[0]
-  const msg = `${err?.[firstErrorKey]}`
+  const err = obj?.response?.data?.data;
+  if ([null, undefined]?.includes(err)) return "";
+  if (typeof err === "string") return err;
+  const firstErrorKey = Object?.keys(err)?.[0];
+  const msg = `${err?.[firstErrorKey]}`;
 
-  return msg
+  return msg;
+};
+
+export const removeSpecialChars = (phoneNumber) => {
+  return phoneNumber?.replace(/[^\d]/g, "");
+};
+
+export function validateName(value: any) {
+  const namePattern = /^[a-zA-Z][a-zA-Z\s-_]*[a-zA-Z]$/;
+
+  if (
+    !namePattern.test(value) ||
+    value.startsWith("-") ||
+    value.startsWith("_") ||
+    value.endsWith("-") ||
+    value.endsWith("_")
+  ) {
+    return "Name must include only letters, spaces, - or _.";
+  }
 }

@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from "react-query";
 import { POST_LOGOUT_API } from "../../api/endpoints/endpoints";
 import makePostRequest from "../../api/makePostRequest";
 import { showToastError } from "../functions/commonFunctions";

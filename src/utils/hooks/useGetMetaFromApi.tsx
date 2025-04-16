@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import makeGetRequest from "../../api/makeGetRequest";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { useDebounce } from "./useDebounce";
 import { DEBOUNCER_TIME } from "../functions/constants";
 
