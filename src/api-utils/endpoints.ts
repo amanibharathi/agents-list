@@ -353,7 +353,7 @@ export const GET_ADMIN_AGENT_PAYMENT_DETAILS = `/payment/list/`;
 export const POST_AGENT_FORWARD_EMAIL = `/agent/forward-email/update/`;
 export const SPONSOR_LIST_API = `admin/sponsor/list/`;
 export const GET_AGENT_SUMMARY_DETAILS = (id: any) =>
-  `/admin/agent/summary/${id}/`;
+  `/api/agent/${id}/approval/summary/`;
 export const GET_ADMIN_DASHBOARD_GRAPH = `/admin/dashboard/graph/`;
 export const GET_NOTIFICATION_TRIGGER = `/agent/send/license-notification/mail/`;
 export const GET_OKTA_USER_GROUP = `/admin/okta-group/list/`;

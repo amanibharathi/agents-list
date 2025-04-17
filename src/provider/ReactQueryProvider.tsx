@@ -1,11 +1,12 @@
-import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactNode } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const ReactQueryProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
+        retry: 1,
       },
     },
   });

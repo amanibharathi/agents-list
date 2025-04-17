@@ -236,6 +236,9 @@ const TeamInformationTab = ({
 
   const { metaData, handleOnInputChange } = useGetMetaFromApi({
     endPoint: ADMIN_AGENT_TEAM_LIST,
+    options: {
+      enabled: false,
+    },
   });
 
   const [team, setTeam] = useState();

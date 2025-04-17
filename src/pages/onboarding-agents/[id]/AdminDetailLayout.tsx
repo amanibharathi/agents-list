@@ -127,11 +127,7 @@ const AdminDetailLayout = () => {
   return (
     <div className="w-full max-w-[1280px] mx-auto py-[40px]">
       <HeaderLayout
-        name={
-          agentData?.first_name
-            ? agentData?.first_name + " " + agentData?.last_name
-            : ""
-        }
+        name={agentData?.full_name}
         id={agentData?.agent_detail?.id}
         status={agentData?.agent_detail?.agent_status}
         email={agentData ? agentData?.email : ""}

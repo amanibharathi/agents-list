@@ -9,7 +9,6 @@ import AuthUILayout from "./pages/Auth/components/AuthUILayout";
 import { theme } from "./lib/chakra-ui/chakra-themes";
 import AppToast from "./AppComponents/AppToast";
 import { getUserToken } from "./utils/functions/tokenAndUserData";
-import { QueryClient, QueryClientProvider } from "react-query";
 import AdminLoginPage from "./login/adminlogin/page";
 import AgentsList from "./pages/agent/AgentsList";
 import { AdminListFilterProvider } from "./pages/Auth/AgentComponents/admincompenets/AdminListFilterProvider";
@@ -19,9 +18,6 @@ import AdminDetailLayout from "./pages/onboarding-agents/[id]/AdminDetailLayout"
 import OnboardingApplication from "./pages/onboarding-agents/[id]/on-oboarding-application/page";
 
 function App() {
-  // Create a new QueryClient instance
-  const queryClient = new QueryClient();
-
   const isAuthenticated = () => {
     const token = getUserToken();
     return Boolean(token);
@@ -90,12 +86,10 @@ function App() {
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <ChakraProvider theme={theme}>
-          <AppToast />
-          <RouterProvider router={router} />
-        </ChakraProvider>
-      </QueryClientProvider>
+      <ChakraProvider theme={theme}>
+        <AppToast />
+        <RouterProvider router={router} />
+      </ChakraProvider>
     </>
   );
 }

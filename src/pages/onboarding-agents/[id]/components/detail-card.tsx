@@ -97,9 +97,11 @@ export default function DetailCard({
     },
   });
   const { search: agentStageList } = useGetAgentStatus(id);
-  let isStageThreeApproved = false;
-  if (!!agentStageList) {
-    isStageThreeApproved = agentStageList[2]?.status === "completed";
+  let isAllStagesCompleted = false;
+  if (agentStageList) {
+    isAllStagesCompleted = agentStageList?.data?.data?.results?.map(
+      (m) => m?.status == "completed"
+    );
   }
 
   const { mutate: freeAgentMutate, isLoading: isFreeAgentLoading } =
@@ -157,6 +159,9 @@ export default function DetailCard({
 
   const { metaData: team, handleOnInputChange } = useGetMetaFromApi({
     endPoint: ADMIN_AGENT_TEAM_LIST + `?status=approved`,
+    options: {
+      enabled: false,
+    },
   });
 
   const teamList = team?.data?.results ?? [];
@@ -348,7 +353,6 @@ export default function DetailCard({
   };
 
   const returnAsTag = (color: any, txt: any) => {
-    //@ts-expect-error ignore
     const tagColor =
       showTextAsTag?.[color?.replaceAll(" ", "_")?.toLowerCase()];
     return (
@@ -376,7 +380,6 @@ export default function DetailCard({
           className="!text-[#4E6085] !text-[16px] !leading-[21px] !font-[600]"
         />
         {agentStatus ? (
-          //@ts-expect-error ignore
           returnAsTag(value, value)
         ) : (
           <>
@@ -433,8 +436,7 @@ export default function DetailCard({
         bodyClassName="!px-[40px] !py-[6px]"
         isOpen={isOpen}
         onClose={onClose}
-        //@ts-expect-error ignore
-        header={`Assign team - ${data?.first_name + " " + data?.last_name}`}
+        header={`Assign team - ${data?.full_name || ""}`}
         headerClassName="rounded-md text-[#10295A] text-[20px] font-[500] !py-[26px] !px-[40px] "
         closeButton={true}
       >
@@ -490,7 +492,7 @@ export default function DetailCard({
                     <div className="flex flex-col gap-[16px]">
                       <Flex gap={"20px"}>
                         <AppText className="text-2xl font-semibold capitalize">
-                          {data?.first_name + " " + data?.last_name}
+                          {data?.full_name}
                         </AppText>
                         <div className="flex self-end flex-col gap-[10px]">
                           <AppButton
@@ -591,8 +593,8 @@ export default function DetailCard({
             {getAgentDetail(
               "Agent Status:",
               returnAsTag(
-                data?.agent_detail?.agent_status,
-                capitalizeFirstLetter(data?.agent_detail?.agent_status)
+                data?.agent_detail?.status,
+                capitalizeFirstLetter(data?.agent_detail?.status)
               ),
               false,
               false
@@ -601,7 +603,7 @@ export default function DetailCard({
               "Capping:",
               returnAsTag(
                 "new",
-                capitalizeFirstLetter(data?.agent_detail?.cap_status)
+                capitalizeFirstLetter(data?.agent_detail?.cap_status || "-")
               ),
               false,
               false,
@@ -655,7 +657,7 @@ export default function DetailCard({
               {isAgentPath &&
                 (isFreeAgentLoading ? (
                   <Spinner size="xs" />
-                ) : isStageThreeApproved || isActiveAgent ? (
+                ) : isAllStagesCompleted || isActiveAgent ? (
                   <Checkbox
                     isChecked={data?.agent_detail?.is_registration_fee_waived}
                   >
