@@ -248,7 +248,7 @@ export const GET_AGENT_INDIVIDUAL_DATA = (id: string | number) =>
 export const GET_ASSIGN_TEAM_IN_ADMIN = (is_applied = false) =>
   `/api/team/list/${is_applied ? "?is_applied=true" : ""}`;
 export const GET_ASSIGN_TEAM_META = (is_applied = false) =>
-  `/team/list/table-meta/${is_applied ? "?is_applied=true" : ""}`;
+  `/api/team/list/table-meta/${is_applied ? "?is_applied=true" : ""}`;
 
 export const GET_BLOGS_LIST_IN_ADMIN = `/admin/resource/list/`;
 export const GET_BLOGS_LIST_META_IN_ADMIN = `/admin/resource/list/table-meta/`;
