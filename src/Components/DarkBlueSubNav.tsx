@@ -39,7 +39,7 @@ const DarkBlueSubNav = ({ navBarData }: { navBarData: INavbarData[] }) => {
                   className={`flex items-center gap-[10px] ${
                     isCurrentPage ? "text-white" : "text-[#AEAEAE]"
                   }`}
-                  to={m?.link}
+                  onClick={() => window.location.href = m?.link}
                 >
                   <AppText
                     className={`whitespace-nowrap capitalize text-[14px] hover:text-white text-[600] ${

@@ -11,13 +11,11 @@ import {
   transformSelectData,
 } from '../../../../../utils/functions/commonFunctions'
 import { useMemo } from 'react'
+import { useParams } from 'react-router-dom'
 // import { getResponse } from '@/app/real-estate-agents/join/onboard/stage/utils/common'
 
-const TeamInformationTab = ({
-  params,
-}: {
-  params: { tab: string; id: string }
-}) => {
+const TeamInformationTabApplied = () => {
+  const params=useParams()
   const newTeamForm = useForm()
   const { data } = useQuery(
     [ADMIN_AGENT_TEAM_DETAIL(params?.id)],
@@ -219,4 +217,4 @@ const TeamInformationTab = ({
   )
 }
 
-export default TeamInformationTab
+export default TeamInformationTabApplied

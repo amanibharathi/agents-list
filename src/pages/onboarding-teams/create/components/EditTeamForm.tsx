@@ -2,7 +2,7 @@
 import { Box, Flex } from '@chakra-ui/react'
 import { createContext, useEffect, useRef, useState } from 'react'
 // import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
-import { MAKE_ADMIN_TEAM_DETAIL_TAB } from '../../../Auth/AgentComponents/navigation/urls'
+import {  MAKE_ADMIN_TEAM_DETAIL_TAB1 } from '../../../Auth/AgentComponents/navigation/urls'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { ADMIN_AGENT_TEAM_DETAIL, ADMIN_TEAM_CUD } from '../../../../api-utils'
 import toast from 'react-hot-toast'
@@ -33,6 +33,7 @@ import AppImage from '../../../../AppComponents/AppImage'
 import AppButton from '../../../../AppComponents/AppButton-agent'
 import { numberToNumeralSystem } from '../../../Auth/AgentComponents/admincompenets'
 import { useNavigate } from 'react-router-dom'
+import teamimage from "../../../../assets/team-image.png"
 
 export const CreateTeamProvider = createContext({});
 
@@ -105,7 +106,7 @@ const EditTeamForm = ({
     {
       onSuccess: (res) => {
         const id = res?.data?.id
-        router(MAKE_ADMIN_TEAM_DETAIL_TAB(id))
+        router(MAKE_ADMIN_TEAM_DETAIL_TAB1(id))
         queryClient.invalidateQueries([ADMIN_AGENT_TEAM_DETAIL(id)])
         toast.success('Team Details Updated Successfully')
       },
@@ -307,7 +308,7 @@ const EditTeamForm = ({
   ];
 
   const goToPrvPage = () => {
-    router(MAKE_ADMIN_TEAM_DETAIL_TAB(id))
+    router(MAKE_ADMIN_TEAM_DETAIL_TAB1(id))
   }
 
   return (
@@ -320,7 +321,7 @@ const EditTeamForm = ({
                 <Flex gap={"60px"} className="items-center">
                   <AppImage
                     className=" h-[120px] w-[160px] object-cover"
-                    src={file ?? "/assets/team-image.png"}
+                    src={file ?? {teamimage}}
                     height={120}
                     width={160}
                     alt="team-image"

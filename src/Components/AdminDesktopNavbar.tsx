@@ -13,6 +13,15 @@ const adminNavbarLinks = () =>
       link: "/admin/agents/applied-agents-list/",
       text: "Applied Agents",
     },
+    {
+      link: "/admin/teams/teams-list/",
+      text: "Active Teams",
+    },
+    {
+      link: "/admin/teams/applied-teams-list/",
+      text: "Applied Teams",
+    },
+
   ]?.filter(Boolean);
 
 const AdminDesktopNavbar = () => {

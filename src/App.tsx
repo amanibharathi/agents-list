@@ -4,12 +4,12 @@ import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
+  useParams,
 } from "react-router-dom";
 import AuthUILayout from "./pages/Auth/components/AuthUILayout";
 import { theme } from "./lib/chakra-ui/chakra-themes";
 import AppToast from "./AppComponents/AppToast";
 import { getUserToken } from "./utils/functions/tokenAndUserData";
-import { QueryClient, QueryClientProvider } from "react-query";
 import AdminLoginPage from "./login/adminlogin/page";
 import AgentsList from "./pages/agent/AgentsList";
 import { AdminListFilterProvider } from "./pages/Auth/AgentComponents/admincompenets/AdminListFilterProvider";
@@ -19,10 +19,16 @@ import AdminDetailLayout from "./pages/onboarding-agents/[id]/AdminDetailLayout"
 import OnboardingApplication from "./pages/onboarding-agents/[id]/on-oboarding-application/page";
 import AppliedTeams from "./pages/components/ListingComponents/AppliedTeams";
 import TeamsList from "./pages/components/ListingComponents/TeamsList";
+import Layout from "./pages/applied-teams/[id]/layout";
+import ApprovedLayout from "./pages/onboarding-teams/[id]/layout";
+import TeamInformationTab from "./pages/onboarding-teams/[id]/[tab]/_tabsComponent/TeamInformationTab";
+import TeamDocumentstab from "./pages/onboarding-teams/[id]/[tab]/_tabsComponent/TeamDocumentstab";
+import TeamInformationTabApplied from "./pages/applied-teams/[id]/[tab]/_tabsComponent/TeamInformationTab";
+import TeamDocumentstabApplied from "./pages/applied-teams/[id]/[tab]/_tabsComponent/TeamDocumentstab";
+import EditPage from "./pages/onboarding-teams/[id]/edit/page";
 function App() {
   // Create a new QueryClient instance
-  const queryClient = new QueryClient();
-
+  const params = useParams();
   const isAuthenticated = () => {
     const token = getUserToken();
     return Boolean(token);
@@ -70,14 +76,7 @@ function App() {
               path: "applied-agents-list",
               element: <AppliedAgents />,
             },
-            {
-              path:"applied-teams-list",
-              element:<AppliedTeams/>
-            },
-            {
-              path:"teams-list",
-              element:<TeamsList/>
-            },
+
             {
               path: ":id",
               element: <AdminDetailLayout />,
@@ -93,18 +92,62 @@ function App() {
           // path: "agents/list",
           // element: <></>,
         },
+        {
+          path: "teams",
+          element: <AdminListFilterProvider />,
+          children: [
+            {
+              path: "applied-teams-list",
+              element: <AppliedTeams />,
+            },
+            {
+              path: "teams-list",
+              element: <TeamsList />,
+            },
+            {
+              path: "edit/:id",
+              element: <EditPage />,
+            },
+            {
+              path: ":id",
+              element: <Layout />,
+              children: [
+                {
+                  path: "team-details",
+                  element: <TeamInformationTabApplied />,
+                },
+                {
+                  path: "documents",
+                  element: <TeamDocumentstabApplied />,
+                },
+              ],
+            },
+            {
+              path: ":id",
+              element: <ApprovedLayout />,
+              children: [
+                {
+                  path: "team-members",
+                  element: <TeamInformationTab />,
+                },
+                {
+                  path: "documents",
+                  element: <TeamDocumentstab />,
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
   ]);
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <ChakraProvider theme={theme}>
-          <AppToast />
-          <RouterProvider router={router} />
-        </ChakraProvider>
-      </QueryClientProvider>
+      <ChakraProvider theme={theme}>
+        <AppToast />
+        <RouterProvider router={router} />
+      </ChakraProvider>
     </>
   );
 }

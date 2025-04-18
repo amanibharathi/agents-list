@@ -249,7 +249,7 @@ export const MAKE_ACTIVE_TEAMS_LIST_PAGE = (
   status,
   sort_by
 ) =>
-  `/admin/agents/teams-list/?${agent_type ? "&agent_type=" + agent_type : ""}${
+  `/admin/teams/teams-list/?${agent_type ? "&agent_type=" + agent_type : ""}${
     state ? "&state=" + state : ""
   }${mls ? "&mls=" + mls : ""}${status ? "&status=" + status : ""}${
     sort_by ? "&sort_by=" + sort_by : ""
@@ -261,7 +261,7 @@ export const MAKE_APPLIED_TEAMS_LIST_PAGE = (
   status,
   sort_by
 ) =>
-  `/admin/agents/applied-teams-list/?${
+  `/admin/teams/applied-teams-list/?${
     agent_type ? "&agent_type=" + agent_type : ""
   }${state ? "&state=" + state : ""}${mls ? "&mls=" + mls : ""}${
     status ? "&status=" + status : ""
@@ -274,7 +274,7 @@ export const MAKE_TEAM_ROSTER_LIST_PAGE = (
   cap,
   split
 ) =>
-  `/admin/agents/onboarding-teams/${id}/team-members?${
+  `/admin/teams/${id}/team-members?${
     role ? "&role=" + role : ""
   }${agent_status ? "&agent_status=" + agent_status : ""}${
     cap ? "&cap=" + cap : ""
@@ -284,6 +284,7 @@ export const MAKE_BROKERAGE_DETAIL_PAGE = (id) =>
   `/admin/states-and-offices/offices/${id}/office-information`;
 //new admin routes
 export const MAKE_AGENT_RELATED_LIST_PAGE = (path) => `/admin/agents/${path}`;
+export const MAKE_AGENT_RELATED_LIST_PAGE1 = (path) => `/admin/teams/${path}`;
 export const MAKE_DASHBOARD_LIST_PAGE = (path, tabPath) =>
   `/admin/dashboard${path ? `/${path}` : ""}${tabPath ? `/${tabPath}` : ""}`;
 export const ADMIN_TEAM_CREATION_PAGE = `/admin/agents/onboarding-teams/create`;
@@ -292,7 +293,9 @@ export const MAKE_ADMIN_TEAM_DETAIL_PAGE = (id) =>
 export const MAKE_AGENT_DETAIL_TAB_PAGE = (id, path) =>
   `/admin/agents/${id}/${path}`;
 export const MAKE_ADMIN_TEAM_DETAIL_TAB = (id, path) =>
-  `/admin/agents/onboarding-teams/${id}/${path ? path : ""}`;
+  `/admin/teams/${id}/${path ? path : ""}`;
+export const MAKE_ADMIN_TEAM_DETAIL_TAB1 = (id, path) =>
+  `/admin/teams/${id}/${path ? path : "team-members"}`;
 export const MAKE_ADMIN_BROKERAGE_DETAILS_TAB = (id, path) =>
   `/admin/states-and-offices/offices/${id}/${path ? path : ""}`;
 export const ADMIN_STATES_AND_BROKERAGES_LISTING = `/admin/states-and-offices/offices`;
@@ -359,11 +362,11 @@ export const MAKE_ADMIN_MG_DETAIL_PAGE = (id, tab = "group-information") =>
   `/admin/states-and-offices/marketing-groups/${id}/${tab}/`;
 export const ADMIN_SMS_CAMPAIGN_CREATE_PAGE = `/admin/settings/campaign/create`;
 export const ADMIN_TEAM_EDIT_PAGE = (id) =>
-  `/admin/agents/onboarding-teams/${id}/edit`;
+  `/admin/teams/edit/${id}`;
 export const ADMIN_TEAM_MEMBERS_INDIVIDUAL_PAGE = (teamId, memberId) =>
-  `/admin/agents/onboarding-teams/${teamId}/team-members/${memberId}`;
+  `/admin/teams/onboarding-teams/${teamId}/team-members/${memberId}`;
 export const MAKE_ADMIN_APPLIED_TEAM_DETAIL_TAB = (id, path) =>
-  `/admin/agents/applied-teams/${id}/${path ? path : ""}`;
+  `/admin/teams/${id}/${path ? path : ""}`;
 export const MAKE_ADMIN_JOIN_REQUEST_PAGE = (path = "agent-list") =>
   `/admin/join-request/${path}`;
 export const ADMIN_JOIN_REQUEST_INDIVIDUAL_LIST_META = (type) =>
@@ -389,7 +392,6 @@ export const ADMIN_DASHBOARD_TEAM_REQUESTS_TABS_LISTING = (
 export const ADMIN_TEAM_REQUEST_INDIVIDUAL_PAGE = (teamId, requestId) =>
   `/admin/agents/onboarding-teams/${teamId}/team-requests/${requestId}`;
 export const ADMIN_TEAM_DOCUMENT_LISTING = (
-  path,
   id,
   document_type,
   uploaded_by,
@@ -397,13 +399,28 @@ export const ADMIN_TEAM_DOCUMENT_LISTING = (
   modified_before,
   sort_by
 ) =>
-  `/admin/agents/${path}/${id}/documents?${
+  `/admin/agents/${id}/documents?${
     document_type ? `&document_type=${document_type}` : ""
   }${uploaded_by ? `&uploaded_by=${uploaded_by}` : ""}${
     modified_after ? "&modified_after=" + modified_after : ""
   }${modified_before ? "&modified_before=" + modified_before : ""}${
     sort_by ? `&sort_by=${sort_by}` : ""
   }`;
+  export const ADMIN_TEAM_DOCUMENT_LISTING1 = (
+    id,
+    document_type,
+    uploaded_by,
+    modified_after,
+    modified_before,
+    sort_by
+  ) =>
+    `/admin/teams/${id}/documents?${
+      document_type ? `&document_type=${document_type}` : ""
+    }${uploaded_by ? `&uploaded_by=${uploaded_by}` : ""}${
+      modified_after ? "&modified_after=" + modified_after : ""
+    }${modified_before ? "&modified_before=" + modified_before : ""}${
+      sort_by ? `&sort_by=${sort_by}` : ""
+    }`;
 export const ADMIN_TEAM_REQUEST_LISTING = (
   id,
   request_type,

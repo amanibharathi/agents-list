@@ -13,7 +13,7 @@ import CommonDocumentUploadModal from "../_TeamDocumentationTabModels/CommonDocu
 import DocumentRemoveModal from "../_TeamDocumentationTabModels/DocumentsRemoveModal";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 // import { ADMIN_TEAM_DOCUMENT_LISTING } from '@/app/utils/navigation'
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import moment from "moment";
 import AdminSerachComponent from "../../../../../login/adminlogin/AdminSerachComponent";
 import {
@@ -30,21 +30,17 @@ import { debouncerTimeAdmin } from "../../../../../utils/functions/commonFunctio
 import AdminFilterRenderer from "../../../../Auth/AgentComponents/admincompenets/AdminFilterRenderer";
 import { AdminListFilterContext } from "../../../../Auth/AgentComponents/admincompenets/AdminListFilterProvider";
 import { useNavigate } from "react-router-dom";
-import { ADMIN_TEAM_DOCUMENT_LISTING } from "../../../../Auth/AgentComponents/navigation/urls";
+import { ADMIN_TEAM_DOCUMENT_LISTING, ADMIN_TEAM_DOCUMENT_LISTING1 } from "../../../../Auth/AgentComponents/navigation/urls";
 // import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
 
-const TeamDocumentstab = ({
-  params,
-}: {
-  params: { tab: string; id: string };
-}) => {
+const TeamDocumentstab = () => {
   //@ts-expect-error ignore
   const { AppliedTeamsRosterFilterForm, dateRange, setDateRange } = useContext(
     AdminListFilterContext
   );
   const { register, control, watch, setValue } = AppliedTeamsRosterFilterForm;
   const router = useNavigate();
-
+  const params=useParams()
   const { page, handleMaxPage, max, handlePaginationClick, setPage } =
     useHandlePagination();
 
@@ -109,8 +105,7 @@ const TeamDocumentstab = ({
 
   useEffect(() => {
     router(
-      ADMIN_TEAM_DOCUMENT_LISTING(
-        "onboarding-teams",
+      ADMIN_TEAM_DOCUMENT_LISTING1(
         params?.id,
         watch("document_type")?.value,
         watch("uploaded_by")?.value,

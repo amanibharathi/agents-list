@@ -6,7 +6,7 @@ import { ColorTags } from './ColorTags'
 import ShowText from '../../onboarding-agents/[id]/components/ShowText'
 import AppText from '../../../AppComponents/AppText-agent'
 import AppImage from '../../../AppComponents/AppImage'
-
+import teamicon from '../../../assets/team-image.png'
 export interface IAdminTeamHeaderPrimaryBox {
   name: string
   teamId: number | string
@@ -51,7 +51,7 @@ const AdminTeamHeaderPrimaryBox = ({
   return (
     <Flex gap={'10px'} className="!w-[600px]">
       <AppImage
-        src={image ? image : '/assets/team-image.png'}
+        src={image ? image : teamicon}
         alt="team-image"
         height={120}
         width={160}

@@ -182,17 +182,23 @@ const AgentsList = () => {
   };
 
   const filterArr = [
+    // {
+    //   type: "select",
+    //   filterLabel: "Brokerage",
+    //   name: "brokerage",
+    //   options: brokerageListData,
+    // },
+    // {
+    //   type: "select",
+    //   filterLabel: "Onboard Type",
+    //   name: "onboard_type",
+    //   options: filterOptions?.onboard_type,
+    // },
     {
       type: "select",
-      filterLabel: "Brokerage",
-      name: "brokerage",
-      options: brokerageListData,
-    },
-    {
-      type: "select",
-      filterLabel: "Onboard Type",
-      name: "onboard_type",
-      options: filterOptions?.onboard_type,
+      filterLabel: "Status",
+      name: "status",
+      options: filterOptions?.status,
     },
     {
       type: "select",

@@ -27,21 +27,18 @@ import CommonDocumentUploadModal from '../../../../onboarding-teams/[id]/[tab]/_
 import DocumentRemoveModal from '../../../../onboarding-teams/[id]/[tab]/_TeamDocumentationTabModels/DocumentsRemoveModal'
 import { useDebounce } from '../../../../../utils/hooks/useDebounce'
 import useHandlePagination from '../../../../../utils/hooks/useHandlePagination'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import useGetTableList from '../../../../../utils/hooks/useGetTableList'
 import { AdminListFilterContext } from '../../../../Auth/AgentComponents/admincompenets/AdminListFilterProvider'
 import { debouncerTimeAdmin } from '../../../../../utils/functions/commonFunctions'
-import { ADMIN_TEAM_DOCUMENT_LISTING } from '../../../../Auth/AgentComponents/navigation/urls'
+import {  ADMIN_TEAM_DOCUMENT_LISTING1 } from '../../../../Auth/AgentComponents/navigation/urls'
 
-const TeamDocumentstab = ({
-  params,
-}: {
-  params: { tab: string; id: string };
-}) => {
+const TeamDocumentstabApplied = () => {
   //@ts-expect-error ignore
   const { AppliedTeamsRosterFilterForm, dateRange, setDateRange } = useContext(
     AdminListFilterContext
   )
+  const params = useParams()
   const { register, control, watch, setValue } = AppliedTeamsRosterFilterForm
   const router = useNavigate()
   const [searchParams] = useSearchParams()
@@ -83,8 +80,7 @@ const TeamDocumentstab = ({
 
   useEffect(() => {
     router(
-      ADMIN_TEAM_DOCUMENT_LISTING(
-        "applied-teams",
+      ADMIN_TEAM_DOCUMENT_LISTING1(
         params?.id,
         watch("document_type")?.value,
         watch("uploaded_by")?.value,
@@ -267,4 +263,4 @@ const TeamDocumentstab = ({
   );
 };
 
-export default TeamDocumentstab;
+export default TeamDocumentstabApplied;

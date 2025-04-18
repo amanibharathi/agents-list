@@ -1,6 +1,6 @@
 
 import { Box, Flex, useDisclosure } from '@chakra-ui/react'
-import { ReactNode, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import makeGetRequest from '../../../api/makeGetRequest'
 import {
@@ -26,22 +26,17 @@ import AdminContainer from '../../../login/adminlogin/AdminContainer'
 import SecondaryNav from '../../onboarding-agents/[id]/on-oboarding-application/components/secondaryNav'
 import AdminBreadcrumbs from '../../Auth/AgentComponents/admincompenets/AdminBreadcrumbs'
 import AppButton from '../../../AppComponents/AppButton-agent'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { MAKE_ACTIVE_TEAMS_LIST_PAGE,MAKE_ADMIN_APPLIED_TEAM_DETAIL_TAB,
-  MAKE_AGENT_RELATED_LIST_PAGE, } from '../../Auth/AgentComponents/navigation/urls'
+  MAKE_AGENT_RELATED_LIST_PAGE,
+  MAKE_AGENT_RELATED_LIST_PAGE1, } from '../../Auth/AgentComponents/navigation/urls'
 import CkAppModal from '../../Auth/AgentComponents/admincompenets/AppModal'
 import makePostRequest from '../../../api/makePostRequest'
 import makePatchRequest from '../../../api/makePatchRequest'
 import ConfirmDeleteTeamModal from '../../onboarding-teams/[id]/[tab]/[memberId]/components/ConfirmDeleteTeam'
 
-const Layout = ({
-  children,
-  params,
-}: {
-  children: ReactNode;
-  params: { id: string; tab: string };
-}) => {
-  const id = params?.id
+const Layout = () => {
+  const {id} = useParams()
   const location = useLocation();
   const pathname = location.pathname;
   const editPage = pathname.split('/')?.includes('edit')
@@ -225,7 +220,7 @@ const Layout = ({
       {
         id: uuidv4(),
         label: "Active Teams",
-        link: MAKE_AGENT_RELATED_LIST_PAGE("teams-list"),
+        link: MAKE_AGENT_RELATED_LIST_PAGE1("teams-list"),
       },
       {
         id: uuidv4(),
@@ -235,7 +230,7 @@ const Layout = ({
       {
         id: uuidv4(),
         label: "Applied Teams",
-        link: MAKE_AGENT_RELATED_LIST_PAGE("applied-teams-list"),
+        link: MAKE_AGENT_RELATED_LIST_PAGE1("applied-teams-list"),
         includes: ["/admin/agents/applied-teams/"],
       },
     ],
@@ -244,13 +239,13 @@ const Layout = ({
 
   return (
     <AdminContainer className="bg-[#ffffff]">
-      <SecondaryNav
+      {/* <SecondaryNav
         wrapperClassName="!justify-start w-full max-w-[1360px] mx-auto px-[10px] bg-[#ffffff] bg-[#ffffff] border-b-[1.5px] border-[#CDCDCD80]"
         isSelectedClassName="!text-[#10295A]"
         tabClassName="!px-[0px]"
         navData={nav}
         urlPath={pathname}
-      />
+      /> */}
       {!editPage && (
         <Flex justifyContent={"space-between"} alignItems={"end"}>
           <AdminBreadcrumbs route={breadcrumbs} />
@@ -316,7 +311,7 @@ const Layout = ({
         </>
       )}
 
-      {children}
+      <Outlet/>
       <CkAppModal
         className="!w-full !max-w-[723px]"
         bodyClassName="!px-[40px] !py-[6px]"

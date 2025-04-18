@@ -16,7 +16,7 @@ import { IoPersonAddOutline } from "react-icons/io5";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { ConfirmRemoveAgentModal } from "../_TeamDocumentationTabModels/ConfirmRemoveAgentModal";
 import TeamDocumentationTabModals from "../_TeamDocumentationTabModels/TeamDocumentationTabModals";
 // import { getorigin } from '@/app/(dashboards)/agent/agent-website/[tabs]/_tabComponents/services'
@@ -50,12 +50,9 @@ import { AdminListFilterContext } from "../../../../Auth/AgentComponents/adminco
 import AppText from "../../../../../AppComponents/AppText-agent";
 import { getorigin } from "./services";
 
-const TeamInformationTab = ({
-  params,
-}: {
-  params: { tab: string; id: string };
-}) => {
+const TeamInformationTab = () => {
   const [isBulkLicenseUpload] = useState(false);
+  const params=useParams()
 
   //@ts-expect-error ignore
   const { AppliedTeamsRosterFilterForm } = useContext(AdminListFilterContext);
@@ -70,7 +67,7 @@ const TeamInformationTab = ({
   const { register, control, watch, setValue } = AppliedTeamsRosterFilterForm;
 
   useEffect(() => {
-    router.push(
+    router(
       MAKE_TEAM_ROSTER_LIST_PAGE(
         params?.id,
         watch("role")?.value,
