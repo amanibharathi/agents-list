@@ -27,7 +27,7 @@ function AppText({
   const textStrokeStyle = textStroke
     ? {
         "-webkit-text-stroke":
-          //@ts-expect-error ignore
+          
           "1px " + "black",
       }
     : {};

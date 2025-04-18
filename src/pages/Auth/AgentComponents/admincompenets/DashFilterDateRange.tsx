@@ -14,7 +14,7 @@ import { DateRange } from "react-date-range";
 import AppButton from "../../../../AppComponents/AppButton-agent";
 
 const DashFilterDateRange = (props: unknown) => {
-  //@ts-expect-error ignore
+
   const setDateRange = (val: any) => {
     //@ts-expect-error ignore
     if (props?.value) {

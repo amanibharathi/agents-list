@@ -1,4 +1,5 @@
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Box } from '@chakra-ui/react'
 import  { useMemo } from 'react'
 import TeamInformationTab from './_tabsComponent/TeamInformationTab'

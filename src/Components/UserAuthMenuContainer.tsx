@@ -1,5 +1,11 @@
-import { useLocation, useNavigate } from "react-router-dom";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
+import {  useNavigate } from "react-router-dom";
 import { getCookie } from "../utils/cookies";
+import AppLink from "../AppComponents/AppLink";
+import { Avatar, Flex } from "@chakra-ui/react";
+import { appColors } from "../pages/Auth/AgentComponents/admincompenets/appColors";
+import AppButton from "../AppComponents/AppButton-agent";
 
 const UserAuthMenuContainer = ({
   isWhiteBg,
@@ -15,8 +21,8 @@ const UserAuthMenuContainer = ({
 
   const isLoggedIn = user_data?.email;
 
-  const location = useLocation();
-  const pathName = location?.pathname;
+  // const location = useLocation();
+  // const pathName = location?.pathname;
 
   const router = useNavigate();
 

@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
-  useParams,
 } from "react-router-dom";
 import AuthUILayout from "./pages/Auth/components/AuthUILayout";
 import { theme } from "./lib/chakra-ui/chakra-themes";
@@ -26,9 +25,9 @@ import TeamDocumentstab from "./pages/onboarding-teams/[id]/[tab]/_tabsComponent
 import TeamInformationTabApplied from "./pages/applied-teams/[id]/[tab]/_tabsComponent/TeamInformationTab";
 import TeamDocumentstabApplied from "./pages/applied-teams/[id]/[tab]/_tabsComponent/TeamDocumentstab";
 import EditPage from "./pages/onboarding-teams/[id]/edit/page";
+import TeamRequestTab from "./pages/onboarding-teams/[id]/[tab]/_tabsComponent/TeamRequestTab";
 function App() {
   // Create a new QueryClient instance
-  const params = useParams();
   const isAuthenticated = () => {
     const token = getUserToken();
     return Boolean(token);
@@ -134,6 +133,10 @@ function App() {
                   path: "documents",
                   element: <TeamDocumentstab />,
                 },
+                {
+                  path:'team-requests',
+                  element:<TeamRequestTab />,
+                }
               ],
             },
           ],

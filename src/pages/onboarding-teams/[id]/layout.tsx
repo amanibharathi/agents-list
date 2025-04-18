@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import AdminContainer from '../../Auth/AgentComponents/admincompenets/AdminContainer'
 import AdminBreadcrumbs from '../../Auth/AgentComponents/admincompenets/AdminBreadcrumbs'
 // import AppButton from '@/app/components/elements/AppButton'

@@ -3,7 +3,7 @@
 // --------------------------------------------------
 export const POST_USER_CREATION = `/access/create-user/`;
 export const POST_LOGIN_API = `/api/access/user/login/`;
-export const POST_LOGOUT_API = "/access/logout/";
+export const POST_LOGOUT_API = "/api/access/user/logout/";
 export const REFRESH_API = `/api/access/user/info/`;
 export const UPDATE_PASSWORD_API = "/access/password/update/";
 export const UPDATE_USER_DATA_API = (id: string) =>
@@ -523,9 +523,9 @@ export const ADMIN_TEAM_REQUEST_UPDATE = (teamId: any, requestId: any) =>
 export const ADMIN_JOIN_REQUEST_DELETE = (id: any) =>
   `/agent/join/request/cd/${id}/`;
 export const ADMIN_TEAM_REQUEST_LIST = (teamId: any) =>
-  `/team/request/list/?team=${teamId}`;
+  `/api/team/request/list/?team=${teamId}`;
 export const ADMIN_TEAM_REQUEST_LIST_META = (teamId: any) =>
-  `/team/request/list/table-meta/?team=${teamId}`;
+  `/api/team/request/list/table-meta/?team=${teamId}`;
 export const ADMIN_TEAM_REQUEST_DETAIL = (teamId: any, requestId: any) =>
   `/team/${teamId}/request/detail/${requestId}/`;
 export const ADMIN_TEAM_MEMBER_DELETE_META = (teamId: any, agentId: any) =>

@@ -18,7 +18,7 @@ const useHandleExportData = () => {
     }
   );
   const generateData = (obj: any) => {
-    //@ts-expect-error ignore
+   
     mutate({ ...obj });
   };
 

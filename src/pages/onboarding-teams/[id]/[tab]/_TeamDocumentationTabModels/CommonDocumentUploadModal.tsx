@@ -321,7 +321,7 @@ const CommonDocumentUploadModal: React.FC<DocumentUploaderProps> = ({
             fileTypeKey={inputObj?.fileTypeKey}
             fileTypes={inputObj?.fileTypes}
             name={inputObj?.name}
-            //@ts-expect-error ignore
+           
             customUiBody={customUiBodyComp}
             customEndPoint={ADMIN_TEAM_DOCUMENT_UPLOAD}
             setUploadError={setShowUploadError}

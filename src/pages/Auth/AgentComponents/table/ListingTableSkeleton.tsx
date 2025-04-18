@@ -1,5 +1,5 @@
 import { Flex, SimpleGrid, Skeleton } from '@chakra-ui/react'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 const startColor = '#f9f9f9'
 // '#f6f6f6'

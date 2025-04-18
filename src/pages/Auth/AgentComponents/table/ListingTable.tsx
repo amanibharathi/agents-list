@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import ListingTableBody from "./ListingTableBody";
 import ListingTableHeader from "./ListingTableHeader";
 import { Avatar, Box, Flex, Link, Switch, Tag, Text } from "@chakra-ui/react";

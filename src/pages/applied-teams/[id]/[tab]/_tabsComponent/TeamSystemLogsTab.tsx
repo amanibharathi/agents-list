@@ -8,7 +8,7 @@ import {
   useSteps,
 } from '@chakra-ui/react'
 import moment from 'moment'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import makeGetRequest from '../../../../../api/makeGetRequest'
 import AdminHeaderWithButtons from '../../../../Auth/AgentComponents/admincompenets/AdminHeaderWithButtons'

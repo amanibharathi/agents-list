@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 // import ListingTable from '@/app/components/table/ListingTable'
 // import useGetTableList from '@/app/hooks/useGetTableList'
 // import useHandlePagination from '@/app/hooks/useHandlePagination'

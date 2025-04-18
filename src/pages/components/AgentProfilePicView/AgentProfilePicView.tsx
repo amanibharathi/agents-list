@@ -2,7 +2,7 @@
 //import AppButton from '@/app/components/elements/AppButton'
 //import AppImage from '@/app/components/elements/AppImage'
 import { Flex } from '@chakra-ui/react'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { IoCloudUploadOutline } from 'react-icons/io5'
 import { PiUserSquareLight } from 'react-icons/pi'
 import AppImage from '../../../AppComponents/AppImage'

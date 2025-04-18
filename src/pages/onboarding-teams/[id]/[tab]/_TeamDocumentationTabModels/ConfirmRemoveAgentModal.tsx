@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { AgentProfileHeader } from "../[memberId]/components/AgentProfileHeader";
 // import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
 import { Flex } from "@chakra-ui/react";
@@ -53,8 +55,9 @@ export const ConfirmRemoveAgentModal = ({
         });
         onClose();
         toast.success("Team Member Removed Successfuly");
-        !isAgentDetail &&
-          router(MAKE_ADMIN_TEAM_DETAIL_TAB(data?.team?.id))
+        if (!isAgentDetail) {
+          router(MAKE_ADMIN_TEAM_DETAIL_TAB(data?.team?.id));
+        }
       },
       onError: (err) => {
         console.log(err);

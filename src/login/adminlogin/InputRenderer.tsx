@@ -28,7 +28,7 @@ interface InputRendererProps {
   classNamePrefix?: string;
 }
 
-//@ts-expect-error ignore
+
 const InputRenderer = ({
   inputObj,
   control,
@@ -54,7 +54,7 @@ const InputRenderer = ({
           name={name}
           control={control}
           {...customizeReg}
-          //@ts-expect-error ignore
+
           options={inputObj?.options}
           {...rest}
           className={`${className}`}

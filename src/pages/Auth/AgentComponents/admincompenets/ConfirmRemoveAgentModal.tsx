@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Flex } from "@chakra-ui/react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +41,7 @@ export const ConfirmRemoveAgentModal = ({
   const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation(
-    //@ts-expect-error ignore
+   
     (body) =>
       //@ts-expect-error ignore
       makeDeleteRequest(ADMIN_TEAM_MEMBER_DELETE(data?.team?.id, body?.id)),

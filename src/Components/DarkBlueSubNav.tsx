@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Flex } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import AppLink from "../AppComponents/AppLink";

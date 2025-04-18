@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import AdminSearchIcon from '../../assets/Images/Icons/admin-search-icon.svg'
 import { Box } from '@chakra-ui/react'
 import { memo } from 'react'

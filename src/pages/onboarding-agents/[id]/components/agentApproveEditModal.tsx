@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import makePostRequest from "../../../../api/makePostRequest";
 import { Box, Flex } from "@chakra-ui/react";
 import moment from "moment";

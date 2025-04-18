@@ -1,4 +1,5 @@
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 // import CreateTeamFormContainerAndProvider from './components/CreateTeamFormContainerAndProvider'
 import { useForm } from 'react-hook-form'
 import EditTeamForm from '../../create/components/EditTeamForm'

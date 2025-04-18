@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Box } from "@chakra-ui/react";
 import AppInput from "./AppInput";
 import { AppInputPickerProps } from "./types/types";

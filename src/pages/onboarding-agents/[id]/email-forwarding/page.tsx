@@ -34,7 +34,7 @@ export default function Page() {
   const notesForm = useForm();
   const { watch, reset } = notesForm;
 
-  //@ts-expect-error ignore
+ 
   const agentStatus = useRef(false);
   const roaEmail = useRef("");
 
@@ -69,7 +69,7 @@ export default function Page() {
         refetch();
       },
       onError: (err: any) => {
-        //@ts-expect-error ignore
+        
         const errMsg = getFirstErrorMessage(err?.response?.data?.data);
         //@ts-expect-error ignore
         toast.error(errMsg);
@@ -130,7 +130,7 @@ export default function Page() {
             <div className="rounded-[8px] px-[20px] py-[14px] border-[1px] border-[#F0F0F0] flex justify-between items-center ">
               {/* Tag */}
               {agentStatus.current
-                ? //@ts-expect-error ignore
+                ? 
                   returnAsTag(showTextAsTag["active"], "active")
                 : returnAsTag(showTextAsTag["in_active"], "in_active")}
               {/* From Email */}

@@ -210,10 +210,16 @@ const TeamsList = () => {
   const { data: agentsStateData } = useQuery([ADMIN_AGENT_STATE_LIST], () =>
     makeGetRequest(ADMIN_AGENT_STATE_LIST)
   )
-
+  // const filterOptions = listMeta?.data?.filter_data
   const listStateData = agentsStateData?.data?.results ?? []
 
   const filterArr = [
+    // {
+    //   type: 'select',
+    //   filterLabel: 'Status',
+    //   name: 'status',
+    //   options: filterOptions?.status,
+    // },
     {
       type: 'select',
       filterLabel: 'State',

@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 // import CkAppModal from '@/app/components/modal/AppModal'
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";

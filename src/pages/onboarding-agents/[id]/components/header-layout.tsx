@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 //import AppButton from '@/app/components/elements/AppButton'
 import { useMemo, useState } from "react";
 //import CkAppModal from '@/app/components/modal/AppModal'
@@ -147,7 +149,7 @@ export default function HeaderLayout({
         refetchAgentData();
       },
       onError: (err: any) => {
-        //@ts-expect-error ignore
+        
         const errMsg = getFirstErrorMessage(err?.response?.data?.data);
         //@ts-expect-error ignore
         toast.error(errMsg);

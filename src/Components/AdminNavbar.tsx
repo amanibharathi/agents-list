@@ -1,11 +1,13 @@
 import { useDisclosure } from "@chakra-ui/react";
 import { createContext } from "react";
 import useManageCookies from "../utils/hooks/useSetCookiesOnSuccess";
-// import { useNavigate } from "react-router-dom";
+ import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { REFRESH_API } from "../api-utils";
 import AdminDesktopNavbar from "./AdminDesktopNavbar";
 import makeGetRequest from "../api/makeGetRequest";
+import ConformLogoutModalAdmin from "./ConformLogoutModalAdmin";
+import { ADMIN_LOGIN } from "../pages/Auth/AgentComponents/navigation/urls";
 
 interface IcontextValue {
   check: boolean;
@@ -15,7 +17,7 @@ export const AdminNavContext = createContext<IcontextValue | null>(null);
 
 const AdminNavbar = () => {
   const {
-    // isOpen, onClose,
+    isOpen, onClose,
     onOpen: openLogoutModal,
   } = useDisclosure();
   const { handleClearCookiesOnSignOut, handleSetCookiesOnSuccess } =
@@ -24,7 +26,7 @@ const AdminNavbar = () => {
     check: true,
     openLogoutModal,
   };
-  // const router = useNavigate();
+   const router = useNavigate();
   const { data } = useQuery([REFRESH_API], () => makeGetRequest(REFRESH_API), {
     onSuccess: (res) => {
       // todorefresh
@@ -34,7 +36,7 @@ const AdminNavbar = () => {
       // }
     },
     onError: () => {
-      // router(MAKE_ABSOLUTE_URL(ADMIN_LOGIN));
+      router(ADMIN_LOGIN);
       handleClearCookiesOnSignOut();
     },
     retry: false,
@@ -42,7 +44,7 @@ const AdminNavbar = () => {
   return (
     <AdminNavContext.Provider value={contextValue}>
       {data && <AdminDesktopNavbar />}
-      {/* <ConformLogoutModalAdmin onClose={onClose} isOpen={isOpen} /> */}
+      <ConformLogoutModalAdmin onClose={onClose} isOpen={isOpen} />
     </AdminNavContext.Provider>
   );
 };

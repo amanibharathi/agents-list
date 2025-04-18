@@ -31,7 +31,7 @@ const ConfirmDeleteAgentModal = ({
           </AppButton>
           <AppButton
             onClick={() =>
-              //@ts-expect-error ignore
+             
               deleteMutate({})
             }
             isLoading={isLoading}

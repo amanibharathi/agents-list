@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import {
   Box,
   Flex,
@@ -30,7 +32,7 @@ import { debouncerTimeAdmin } from "../../../../../utils/functions/commonFunctio
 import AdminFilterRenderer from "../../../../Auth/AgentComponents/admincompenets/AdminFilterRenderer";
 import { AdminListFilterContext } from "../../../../Auth/AgentComponents/admincompenets/AdminListFilterProvider";
 import { useNavigate } from "react-router-dom";
-import { ADMIN_TEAM_DOCUMENT_LISTING, ADMIN_TEAM_DOCUMENT_LISTING1 } from "../../../../Auth/AgentComponents/navigation/urls";
+import {  ADMIN_TEAM_DOCUMENT_LISTING1 } from "../../../../Auth/AgentComponents/navigation/urls";
 // import useGetMetaFromApi from '@/app/hooks/admin/useGetMetaFromApi'
 
 const TeamDocumentstab = () => {

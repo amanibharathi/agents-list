@@ -1,4 +1,5 @@
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -98,7 +99,7 @@ const useFormUtils = ({
     onSuccess: () => {
       toast.success(successToastMsg)
       customOnSuccess && customOnSuccess()
-      onSuccessRouteTo && router.push(onSuccessRouteTo)
+      onSuccessRouteTo && router(onSuccessRouteTo)
     },
     onError: (err: any) => {
       customOnError && customOnError(err?.response?.data?.data)

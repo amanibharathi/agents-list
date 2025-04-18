@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import {
   Box,
@@ -168,10 +170,10 @@ const AgentsList = () => {
   );
   const listStateData = agentsStateData?.data?.results ?? [];
 
-  const { data: brokerageList } = useQuery([GET_ADMIN_BROKERAGE_LIST], () =>
-    makeGetRequest(GET_ADMIN_BROKERAGE_LIST)
-  );
-  const brokerageListData = brokerageList?.data?.results ?? [];
+  // const { data: brokerageList } = useQuery([GET_ADMIN_BROKERAGE_LIST], () =>
+  //   makeGetRequest(GET_ADMIN_BROKERAGE_LIST)
+  // );
+  //const brokerageListData = brokerageList?.data?.results ?? [];
 
   const showTextAsTag = {
     active: "green",

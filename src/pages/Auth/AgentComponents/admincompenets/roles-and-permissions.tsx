@@ -39,7 +39,7 @@ export const isPermitted = (
   const permissionsObj =
     roleAndPermissions?.[isAvailableObj?.module]?.permissions;
 
-  //@ts-expect-error ignore
+
   if (!!permissionsObj) {
     const isTrue = isAvailableObj?.actions?.some(
       (permission: any) => permissionsObj[permission] == true

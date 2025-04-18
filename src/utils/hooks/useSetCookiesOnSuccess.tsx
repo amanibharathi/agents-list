@@ -4,11 +4,11 @@ import {
   clearTokenAndUserData,
   setTokenAndUserData,
 } from "../../pages/Auth/AgentComponents/admincompenets/tokenAndUserData";
-//@ts-expect-error ignore
+
 function useManageCookies() {
   const { setUserDataAndToken, clearUserDataAndToken, setUserRoles } =
     useAppStore();
-  //@ts-expect-error ignore
+  
   const handleSetCookiesOnSuccess = (res: any) => {
     const token = res?.data?.token;
     const userType = res?.data?.current_role_type;

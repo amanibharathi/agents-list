@@ -44,12 +44,12 @@ export function useGetMemberMlsList() {
     initialPageParam: 0,
     onError: (err) => {
       toast.error("Error occured while getting search meta");
-      //@ts-expect-error ignore
+     
       console.error(err);
     },
-    //@ts-expect-error ignore
+   
     getPreviousPageParam: (firstPage) => firstPage?.data?.previous ?? undefined,
-    //@ts-expect-error ignore
+    
     getNextPageParam: (lastPage) => {
       if (lastPage?.data?.next) {
         const urlObj = new URL(lastPage?.data?.next);

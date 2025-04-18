@@ -104,7 +104,7 @@ const AdminLoginComp = ({
           <AppButton
             isLoading={isLoading}
             className="w-full mt-[30px]"
-            //@ts-expect-error ignore
+        
             type="submit"
           >
             Sign in
@@ -112,7 +112,7 @@ const AdminLoginComp = ({
         </Flex>
         <AppText
           className="err-text mt-[20px]"
-          //@ts-expect-error ignore
+       
           text={getErrorMsg(error)}
         />
       </form>

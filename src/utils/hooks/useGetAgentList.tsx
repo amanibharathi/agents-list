@@ -24,7 +24,7 @@ export function useGetAgentList(
     enabled: !!debouncedValue,
     onError: (err) => {
       toast.error("Error occured while getting search meta");
-      //@ts-expect-error ignore
+  
       console.error(err);
     },
   });

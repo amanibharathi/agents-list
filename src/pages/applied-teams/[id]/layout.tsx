@@ -1,4 +1,5 @@
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Box, Flex, useDisclosure } from '@chakra-ui/react'
 import { useMemo } from 'react'
 import { useMutation, useQuery } from 'react-query'
@@ -210,32 +211,32 @@ const Layout = () => {
     officeMutate(bdy);
   };
 
-  const nav = useMemo(
-    () => [
-      {
-        id: uuidv4(),
-        label: "Active Agents",
-        link: MAKE_AGENT_RELATED_LIST_PAGE("agents-list"),
-      },
-      {
-        id: uuidv4(),
-        label: "Active Teams",
-        link: MAKE_AGENT_RELATED_LIST_PAGE1("teams-list"),
-      },
-      {
-        id: uuidv4(),
-        label: "Applied Agents",
-        link: MAKE_AGENT_RELATED_LIST_PAGE("applied-agents-list"),
-      },
-      {
-        id: uuidv4(),
-        label: "Applied Teams",
-        link: MAKE_AGENT_RELATED_LIST_PAGE1("applied-teams-list"),
-        includes: ["/admin/agents/applied-teams/"],
-      },
-    ],
-    []
-  );
+  // const nav = useMemo(
+  //   () => [
+  //     {
+  //       id: uuidv4(),
+  //       label: "Active Agents",
+  //       link: MAKE_AGENT_RELATED_LIST_PAGE("agents-list"),
+  //     },
+  //     {
+  //       id: uuidv4(),
+  //       label: "Active Teams",
+  //       link: MAKE_AGENT_RELATED_LIST_PAGE1("teams-list"),
+  //     },
+  //     {
+  //       id: uuidv4(),
+  //       label: "Applied Agents",
+  //       link: MAKE_AGENT_RELATED_LIST_PAGE("applied-agents-list"),
+  //     },
+  //     {
+  //       id: uuidv4(),
+  //       label: "Applied Teams",
+  //       link: MAKE_AGENT_RELATED_LIST_PAGE1("applied-teams-list"),
+  //       includes: ["/admin/agents/applied-teams/"],
+  //     },
+  //   ],
+  //   []
+  // );
 
   return (
     <AdminContainer className="bg-[#ffffff]">

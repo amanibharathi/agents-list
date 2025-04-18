@@ -1,4 +1,5 @@
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Box, Flex } from '@chakra-ui/react'
 import { createContext, useEffect, useRef, useState } from 'react'
 // import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'

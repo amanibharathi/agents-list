@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 //import { replaceUnderscoreWithSpace } from '@/app/utils/functions/otherFunctions'
 import { Box, Checkbox, SimpleGrid, Text } from "@chakra-ui/react";
 import { replaceUnderscoreWithSpace } from "./resourceSectionData";

@@ -1,6 +1,7 @@
-import AppText from '@/app/components/elements/AppText'
-import React from 'react'
+//import AppText from '@/app/components/elements/AppText'
+//import React from 'react'
 import { FcCancel } from 'react-icons/fc'
+import AppText from '../../AppComponents/AppText-agent'
 
 const NotAuthComp = () => {
   return (

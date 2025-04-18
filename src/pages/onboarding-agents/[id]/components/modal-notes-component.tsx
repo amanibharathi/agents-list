@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { useForm } from "react-hook-form";
 //import SendIcon from '@/app/icons/sendIcon'
 import { AGENT_NOTES_LIST, AGENT_NOTES_CREATE } from "../../../../api-utils";

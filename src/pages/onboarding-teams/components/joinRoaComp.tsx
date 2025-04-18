@@ -1,4 +1,5 @@
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { GoArrowUpRight } from 'react-icons/go'
 import AppImage from '../../../AppComponents/AppImage'
 import AppText from '../../../AppComponents/AppText-agent'

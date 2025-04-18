@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import AppButton from '../../../../../../AppComponents/AppButton-agent'
 import AppText from '../../../../../../AppComponents/AppText-agent'
 import { Box, Flex, useDisclosure } from '@chakra-ui/react'

@@ -1,6 +1,6 @@
 //import AppText from '@/app/components/elements/AppText'
 import { Box, Flex } from '@chakra-ui/react'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import AppText from '../../AppComponents/AppText-agent'
 
 const AdminFormWrapperTeam = ({

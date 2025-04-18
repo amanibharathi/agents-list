@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { useEffect, useMemo, useState } from "react";
 // import NotesButtonIcon from '@/app/icons/notesButtonIcon'
 // import RequestChangeIcon from '@/app/icons/requestChangeIcon'

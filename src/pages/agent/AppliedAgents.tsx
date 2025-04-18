@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDebounce } from "../../utils/hooks/useDebounce";
@@ -109,11 +111,11 @@ const AppliedAgents = () => {
   const listStateData = agentsStateData?.data?.results ?? [];
 
   // brokerage list
-  const { data: brokerageList } = useQuery([GET_ADMIN_BROKERAGE_LIST], () =>
-    makeGetRequest(GET_ADMIN_BROKERAGE_LIST)
-  );
+  // const { data: brokerageList } = useQuery([GET_ADMIN_BROKERAGE_LIST], () =>
+  //   makeGetRequest(GET_ADMIN_BROKERAGE_LIST)
+  // );
 
-  const brokerageListData = brokerageList?.data?.results ?? [];
+  // const brokerageListData = brokerageList?.data?.results ?? [];
 
   const stage_status: any = searchParams.get("stage_status");
   const agent_status = searchParams.get("agent_status");

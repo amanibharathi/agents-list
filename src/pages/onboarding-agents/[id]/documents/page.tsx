@@ -86,7 +86,7 @@ const Page = ({ params }: { params: { tab: string; id: string } }) => {
             fileTypeKey={inputObj?.fileTypeKey}
             fileTypes={inputObj?.fileTypes}
             name={inputObj?.name}
-            //@ts-expect-error ignore
+            
             customUiBody={customUiBodyComp}
             customEndPoint={AGENT_DOCUMENT_UPLOAD}
             customType={{ user: params?.id }}

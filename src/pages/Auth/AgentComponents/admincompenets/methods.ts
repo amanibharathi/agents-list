@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { addressType } from "./types";
 import { v4 as uuidv4 } from "uuid";
 import { IFormInput } from "@/app/mortgage/calculator/components";

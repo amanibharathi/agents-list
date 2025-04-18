@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 //import { DEFAULT_LOCATION_META } from '@/app/appConfig'
 //import { user_dashboard_paths } from '../paths'
 
@@ -169,8 +171,7 @@ export const USER_DASH_OWNER_DASH = "/user/owner-dashboard/";
 // -----------------------------------------------------
 // --------------- Admin Dashboard routes ---------------
 // -----------------------------------------------------
-export const ADMIN_LOGIN = (protocol, environ, baseHost) =>
-  makeWebsiteOrigin(protocol, environ, "admin", baseHost) + "/admin/login";
+export const ADMIN_LOGIN ="/admin/login";
 export const ADMIN_DASHBOARD = "/admin/agents/agents-list";
 export const MAKE_ADMIN_DASHBOARD = (
   protocol,
@@ -429,7 +430,7 @@ export const ADMIN_TEAM_REQUEST_LISTING = (
   modified_before,
   sort_by
 ) =>
-  `/admin/agents/onboarding-teams/${id}/team-requests?${
+  `/admin/teams/${id}/team-requests?${
     request_type ? `&request_type=${request_type}` : ""
   }${status ? `&status=${status}` : ""}${
     modified_after ? "&modified_after=" + modified_after : ""

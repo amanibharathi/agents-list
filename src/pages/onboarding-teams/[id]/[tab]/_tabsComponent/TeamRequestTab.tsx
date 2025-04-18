@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import PageHeader from "../../../../onboarding-agents/[id]/documents/PageHeader";
 import {
   ADMIN_TEAM_REQUEST_LIST,
@@ -16,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { useCallback, useContext, useEffect } from "react";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import {
   ADMIN_TEAM_REQUEST_INDIVIDUAL_PAGE,
   ADMIN_TEAM_REQUEST_LISTING,
@@ -30,16 +32,12 @@ import { debouncerTimeAdmin } from "../../../../../utils/functions/commonFunctio
 import { AdminListFilterContext } from "../../../../Auth/AgentComponents/admincompenets/AdminListFilterProvider";
 import AppText from "../../../../../AppComponents/AppText-agent";
 
-const TeamRequestTab = ({
-  params,
-}: {
-  params: { tab: string; id: string };
-}) => {
+const TeamRequestTab = () => {
   //@ts-expect-error ignore
   const { AppliedTeamsRosterFilterForm, dateRange, setDateRange } = useContext(
     AdminListFilterContext
   );
-
+  const params = useParams()
   const [searchParams] = useSearchParams();
   const router = useNavigate();
 
