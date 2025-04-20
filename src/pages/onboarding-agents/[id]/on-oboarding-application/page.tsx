@@ -151,44 +151,53 @@ export default function OnboardingApplication() {
   useEffect(() => {
     setStageData(stageDataResponse);
   }, [stageDataResponse]);
-  //--
-  // const stageData_2_status =
-  //   stageData[1]?.status === 'approved' ||
-  //   stageData[1]?.status === 'submitted' ||
-  //   stageData[1]?.status === 'rejected'
-  // const stageData_3_status =
-  //   stageData[2]?.status === 'approved' ||
-  //   stageData[2]?.status === 'submitted' ||
-  //   stageData[2]?.status === 'rejected'
+
   const stageData_2_status =
     stageData[1]?.status === "completed" || stageData[1]?.status === "rejected";
   const stageData_3_status =
     stageData[2]?.status === "completed" || stageData[2]?.status === "rejected";
   //--
-  const { data: templateData, refetch } = useQuery(
-    [ADMIN_AGENT_TEMPLATE_GET(id, stageData[0]?.form_template)],
-    () =>
-      makeGetRequest(ADMIN_AGENT_TEMPLATE_GET(id, stageData[0]?.form_template)),
+
+  const roaAppEnd = `/api/agent/onboarding/application/`;
+
+  const templateData = [
     {
-      enabled:
-        stageData.length !== 0 && stageData[0]?.form_template !== undefined,
-    }
+      id: 1,
+      identity: "Personal Information",
+      index: 1,
+      description: "dummy",
+    },
+    {
+      id: 2,
+      identity: "Residential Information",
+      index: 2,
+      description: "dummy",
+    },
+    {
+      id: 3,
+      identity: "License Information",
+      index: 3,
+      description: "dummy",
+    },
+    {
+      id: 4,
+      identity: "Professional Experience",
+      index: 4,
+      description: "dummy",
+    },
+  ];
+
+  const { data: qqq, refetch } = useQuery([roaAppEnd], () =>
+    makeGetRequest(roaAppEnd)
   );
   const { data: sectionMeta } = useQuery(
     [ADMIN_FORM_BUILDER_FORM_GET(stageData[0]?.form_template)],
     () =>
-      makeGetRequest(ADMIN_FORM_BUILDER_FORM_GET(stageData[0]?.form_template)),
-    {
-      enabled:
-        stageData.length !== 0 && stageData[0]?.form_template !== undefined,
-    }
+      makeGetRequest(ADMIN_FORM_BUILDER_FORM_GET(stageData[0]?.form_template))
   );
   const { data: requriedMeta } = useQuery(
     [ADMIN_FORM_BUILDER_SUB_FORM_GET(isChangeReq)],
-    () => makeGetRequest(ADMIN_FORM_BUILDER_SUB_FORM_GET(isChangeReq)),
-    {
-      enabled: isChangeReq !== null,
-    }
+    () => makeGetRequest(ADMIN_FORM_BUILDER_SUB_FORM_GET(isChangeReq))
   );
 
   const { refetch: agentDocumentListRefetch } = useGetAgentDocumentList(id);
@@ -248,17 +257,13 @@ export default function OnboardingApplication() {
       type: "textarea",
     },
   ];
-  const templateList = templateData?.data ?? [];
+  const templateList = templateData ?? [];
 
   if (templateList?.length && templateList?.length < 6) {
     templateList?.push({ index: 5, identity: "Documents" });
     templateList?.push({ index: 6, identity: "Sponsors" });
   }
 
-  // const { data: sponsorData, isLoading: sponsorLoading } = useQuery(
-  //   [ADMIN_AGENT_DETAIL_GET(id)],
-  //   () => makeGetRequest(ADMIN_AGENT_DETAIL_GET(id))
-  // )
   const accordionData = useMemo(
     () => [
       {

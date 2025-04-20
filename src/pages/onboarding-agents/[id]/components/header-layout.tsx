@@ -266,7 +266,7 @@ export default function HeaderLayout({
           {isActiveOrInActive ? null : (
             <AppButton
               label="Approve"
-              disabled={!isFirstThreeStagesCompleted}
+              disabled={isFirstThreeStagesCompleted}
               onClick={() => {
                 if (isAllStagesCompleted) {
                   refetchSummary();

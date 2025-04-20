@@ -35,7 +35,7 @@ import CkAppModal from "../../../../Auth/AgentComponents/admincompenets/AppModal
 import CkInput from "../../../../Auth/AgentComponents/admincompenets/CkInput";
 import makePostRequest from "../../../../../api/makePostRequest";
 import { removeSpecialChars } from "../../../../../utils/functions/commonFunctions";
-import { useAppStore } from "../../../../../store-admin";
+// import { useAppStore } from "../../../../../store-admin";
 
 const formData = [
   {
@@ -76,13 +76,15 @@ export default function SponsorCard() {
   const { isOpen, onClose, onOpen } = useDisclosure();
   // getting sponsor list
   const { groupedOptions, setSearchVal } = useGetAgentList();
-  const { adminRoles } = useAppStore();
+  // const { adminRoles } = useAppStore();
 
-  const roleData = adminRoles["Sponsor Management Policy"]?.permissions;
+  // const roleData = adminRoles["Sponsor Management Policy"]?.permissions;
 
-  const editable = roleData?.is_editable || roleData?.is_creatable;
+  const editable = true;
+  // roleData?.is_editable || roleData?.is_creatable;;
 
-  const removable = roleData?.is_deletable;
+  const removable = true;
+  //  roleData?.is_deletable;
 
   const agentForm = useForm();
 

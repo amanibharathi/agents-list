@@ -28,6 +28,7 @@ import {
   getFirstErrorMessage,
   getFirstErrorMessageCms,
 } from "../../../../utils/functions/commonFunctions";
+import { capsOptions } from "../../../../utils/functions/constants";
 
 const AgentApproveEditModal = ({
   isOpen,
@@ -70,23 +71,12 @@ const AgentApproveEditModal = ({
   );
 
   useEffect(() => {
-    if (metaData && data) {
-      let capStatusValue = metaData?.data?.meta?.cap_status?.filter(
-        (m: any) => m?.id === metaData?.data?.initial?.cap_status
+    if (data) {
+      const capStatusValue = capsOptions?.filter(
+        (m: any) => m?.id === data?.agent_detail?.cap_status
       )?.[0];
-      if (capStatusValue?.id) {
-        capStatusValue = {
-          label: capStatusValue?.identity,
-          value: capStatusValue?.id,
-        };
-      }
 
-      const commPlanValue =
-        commissionPlanOptions?.filter(
-          (f) =>
-            f?.value == metaData?.data?.initial?.commission_plan ||
-            f?.label == metaData?.data?.initial?.commission_plan
-        )?.[0] || "";
+      const commPlan = data?.agent_detail?.commission_plan;
 
       formUtil.reset({
         data: {
@@ -98,12 +88,15 @@ const AgentApproveEditModal = ({
             data?.user_data?.preferred_name
           ),
           joining_date: moment().format("YYYY-MM-DD"),
-          cap_status: capStatusValue,
-          commission_plan: commPlanValue,
+          cap_status: data?.agent_detail?.cap_status && {
+            label: capStatusValue?.identity,
+            value: capStatusValue?.id,
+          },
+          commission_plan: commPlan,
         },
       });
     }
-  }, [data, metaData, metaIsLoading]);
+  }, [data]);
 
   const { data: userGroupData } = useQuery([GET_OKTA_USER_GROUP], () =>
     makeGetRequest(GET_OKTA_USER_GROUP)
@@ -174,7 +167,7 @@ const AgentApproveEditModal = ({
         render: [
           {
             label: "First Name",
-            name: "user_data.first_name",
+            name: "first_name",
             readOnly: true,
             otherRegProps: {
               required: false,
@@ -182,7 +175,7 @@ const AgentApproveEditModal = ({
           },
           {
             label: "Last Name",
-            name: "user_data.last_name",
+            name: "last_name",
             readOnly: true,
             otherRegProps: {
               required: false,
@@ -196,7 +189,7 @@ const AgentApproveEditModal = ({
         render: [
           {
             label: "Preferred Name *",
-            name: "preferred_name",
+            name: "user_profile.preferred_name",
             placeholder: "",
             otherRegProps: {
               required: true,
@@ -204,7 +197,7 @@ const AgentApproveEditModal = ({
           },
           {
             label: "Date of Birth",
-            name: "dob",
+            name: "user_profile.dob",
             readOnly: true,
             type: "dob",
             otherRegProps: {
@@ -219,7 +212,7 @@ const AgentApproveEditModal = ({
         render: [
           {
             label: "City",
-            name: "user_data.city",
+            name: "user_profile.city",
             otherRegProps: {
               required: false,
             },
@@ -259,7 +252,7 @@ const AgentApproveEditModal = ({
             otherRegProps: {
               required: true,
             },
-            options: metaData?.data?.meta?.cap_status || [],
+            options: capsOptions || [],
           },
         ],
       },
@@ -484,7 +477,7 @@ const AgentApproveEditModal = ({
           <form onSubmit={handleSubmit(onSuccess, onError)}>
             {/* SUMMARY -1  */}
             <Box className="grid grid-cols-1 gap-[28px] basis-[70%] border-b-[1px] border-[#CDCDCD] py-[30px]">
-              {formsList?.map((m: any, index: any) => (
+              {formsList?.map((m, index: number) => (
                 <Box className="" key={index}>
                   <NewAdminInputRenderer
                     register={register}
@@ -580,8 +573,8 @@ const AgentApproveEditModal = ({
                         <AppImage
                           alt=""
                           src={tool?.logo?.image}
-                          height="20"
-                          width="20"
+                          // height="20"
+                          // width="20"
                         />
                         <AppText
                           text={tool?.identity}
