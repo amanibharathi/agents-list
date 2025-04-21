@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-nocheck
 import makePostRequest from "../../../../api/makePostRequest";
@@ -64,7 +65,7 @@ const AgentApproveEditModal = ({
 
   const metaEndpoint = ADMIN_AGENT_DETAIL_GET_META(data?.id);
 
-  const { isLoading: metaIsLoading, data: metaData } = useQuery(
+  const { isLoading, data } = useQuery(
     [metaEndpoint],
     () => makeGetRequest(metaEndpoint),
     {
@@ -133,7 +134,7 @@ const AgentApproveEditModal = ({
           toast.success("Agent Onboarded Successfully");
         // queryClient.invalidateQueries(['getAgentStatus', id])
         refetch();
-        refetchAgentData && refetchAgentData();
+        if (refetchAgentData) refetchAgentData();
         onClose();
       },
       onError: (err: any) => {
@@ -559,7 +560,7 @@ const AgentApproveEditModal = ({
               ))}
             </Box>
             {/* SUMMARY -3  */}
-            {!!toolsData?.length ? (
+            {toolsData?.length ? (
               <Box className="grid grid-cols-1 gap-[28px] basis-[70%] border-b-[1px] border-[#CDCDCD] py-[30px]">
                 <div className="flex flex-col gap-[8px]">
                   <AppText
