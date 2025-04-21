@@ -84,7 +84,7 @@ const AdminForgotPasswordStep = () => {
             <AppButton
               isLoading={isLoading}
               className="w-full mt-[30px]"
-              //@ts-expect-error ignore
+            
               type="submit"
             >
               Reset Password
@@ -92,7 +92,7 @@ const AdminForgotPasswordStep = () => {
           </Flex>
           <AppText
             className="err-text mt-[20px]"
-            //@ts-expect-error ignore
+         
             text={errMsg}
           />
         </form>

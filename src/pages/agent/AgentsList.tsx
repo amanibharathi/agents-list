@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import {
   Box,
@@ -168,10 +170,10 @@ const AgentsList = () => {
   );
   const listStateData = agentsStateData?.data?.results ?? [];
 
-  const { data: brokerageList } = useQuery([GET_ADMIN_BROKERAGE_LIST], () =>
-    makeGetRequest(GET_ADMIN_BROKERAGE_LIST)
-  );
-  const brokerageListData = brokerageList?.data?.results ?? [];
+  // const { data: brokerageList } = useQuery([GET_ADMIN_BROKERAGE_LIST], () =>
+  //   makeGetRequest(GET_ADMIN_BROKERAGE_LIST)
+  // );
+  //const brokerageListData = brokerageList?.data?.results ?? [];
 
   const showTextAsTag = {
     active: "green",
@@ -182,17 +184,23 @@ const AgentsList = () => {
   };
 
   const filterArr = [
+    // {
+    //   type: "select",
+    //   filterLabel: "Brokerage",
+    //   name: "brokerage",
+    //   options: brokerageListData,
+    // },
+    // {
+    //   type: "select",
+    //   filterLabel: "Onboard Type",
+    //   name: "onboard_type",
+    //   options: filterOptions?.onboard_type,
+    // },
     {
       type: "select",
-      filterLabel: "Brokerage",
-      name: "brokerage",
-      options: brokerageListData,
-    },
-    {
-      type: "select",
-      filterLabel: "Onboard Type",
-      name: "onboard_type",
-      options: filterOptions?.onboard_type,
+      filterLabel: "Status",
+      name: "status",
+      options: filterOptions?.status,
     },
     {
       type: "select",

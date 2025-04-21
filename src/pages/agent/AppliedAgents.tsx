@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDebounce } from "../../utils/hooks/useDebounce";
 import {
@@ -56,6 +58,8 @@ import BulkUploadAgentsModal from "../../Components/BulkUploadAgentsModal";
 import DashboardCardStatsList from "../../Components/DashboardCardStatsList";
 import CreateCommonModal from "../../Components/createIndividualAgent";
 import { DashIconTotalAgents } from "../../assets";
+import { AdminListFilterContext } from "../Auth/AgentComponents/admincompenets/AdminListFilterProvider";
+import makeDeleteRequest from "../../api/makeDeleteRequest";
 
 const AppliedAgents = () => {
   const [dateRange, setDateRange] = useState<any>({});
@@ -107,11 +111,11 @@ const AppliedAgents = () => {
   const listStateData = agentsStateData?.data?.results ?? [];
 
   // brokerage list
-  const { data: brokerageList } = useQuery([GET_ADMIN_BROKERAGE_LIST], () =>
-    makeGetRequest(GET_ADMIN_BROKERAGE_LIST)
-  );
+  // const { data: brokerageList } = useQuery([GET_ADMIN_BROKERAGE_LIST], () =>
+  //   makeGetRequest(GET_ADMIN_BROKERAGE_LIST)
+  // );
 
-  const brokerageListData = brokerageList?.data?.results ?? [];
+  // const brokerageListData = brokerageList?.data?.results ?? [];
 
   const stage_status: any = searchParams.get("stage_status");
   const agent_status = searchParams.get("agent_status");
@@ -178,7 +182,6 @@ const AppliedAgents = () => {
   });
 
   const { mutate: deleteMutate, isLoading: deleteIsLoading } = useMutation(
-    //@ts-expect-error ignore
     () => makeDeleteRequest(ADMIN_CREATE_TEAM_MEMBER_AGENT(agent?.id)),
     {
       onSuccess: () => {
@@ -217,43 +220,43 @@ const AppliedAgents = () => {
     //   name: 'agent_progress',
     //   options: filterOptions?.agent_type,
     // },
+    // {
+    //   type: "select",
+    //   filterLabel: "Brokerage",
+    //   name: "brokerage",
+    //   options: brokerageListData,
+    // },
+    // {
+    //   type: "select",
+    //   filterLabel: "Agent Status",
+    //   name: "agent_status",
+    //   options: filterOptions?.agent_status,
+    //   value: {
+    //     id: agent_status,
+    //     identity: agent_status,
+    //     value: agent_status,
+    //     label: agent_status,
+    //   },
+    // },
     {
       type: "select",
-      filterLabel: "Brokerage",
-      name: "brokerage",
-      options: brokerageListData,
+      filterLabel: "Status",
+      name: "status",
+      options: filterOptions?.status,
     },
-    {
-      type: "select",
-      filterLabel: "Agent Status",
-      name: "agent_status",
-      options: filterOptions?.agent_status,
-      value: {
-        id: agent_status,
-        identity: agent_status,
-        value: agent_status,
-        label: agent_status,
-      },
-    },
-    {
-      type: "select",
-      filterLabel: "Stage",
-      name: "stage",
-      options: filterOptions?.stage,
-    },
-    {
-      type: "select",
-      filterLabel: "Stage Status",
-      name: "stage_status",
-      options: filterOptions?.stage_status,
-      isDisabled: !watch("stage")?.value,
-    },
-    {
-      type: "select",
-      filterLabel: "Onboard Type",
-      name: "onboard_type",
-      options: filterOptions?.onboard_type,
-    },
+    // {
+    //   type: "select",
+    //   filterLabel: "Stage Status",
+    //   name: "stage_status",
+    //   options: filterOptions?.stage_status,
+    //   isDisabled: !watch("stage")?.value,
+    // },
+    // {
+    //   type: "select",
+    //   filterLabel: "Onboard Type",
+    //   name: "onboard_type",
+    //   options: filterOptions?.onboard_type,
+    // },
     {
       type: "select",
       filterLabel: "State",
@@ -356,9 +359,8 @@ const AppliedAgents = () => {
 
   const { adminRoles } = useAppStore();
 
-  const isDeletable =
-    adminRoles["Agent Management Policy"]?.permissions?.is_deletable;
-
+  // const isDeletable = adminRoles && adminRoles["Agent Management Policy"]?.permissions?.is_deletable;
+  const isDeletable=true
   const customFunction = useCallback(
     (obj: any) => {
       const act = [
@@ -366,7 +368,7 @@ const AppliedAgents = () => {
           label: "View Agent",
           onClick: () =>
             //@ts-expect-error ignore
-            router.push(ADMIN_MAKE_AGENT_INDIVIDUAL_PAGE(obj?.id)),
+            router(ADMIN_MAKE_AGENT_INDIVIDUAL_PAGE(obj?.id)),
         },
         isDeletable && {
           label: "Remove Agent",

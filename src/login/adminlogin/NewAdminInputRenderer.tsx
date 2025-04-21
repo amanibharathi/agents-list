@@ -1,4 +1,4 @@
-import React from 'react'
+
 import AdminInputRenderer from './AdminInputRenderer'
 
 const NewAdminInputRenderer = ({

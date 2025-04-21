@@ -1,10 +1,11 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-nocheck
-import CkInput from '@/app/components/chakraOverwrites/CkInput'
-import AppImage from '@/app/components/elements/AppImage'
-import { AdminSearchIcon } from '@/public'
+import AdminSearchIcon from '../../assets/Images/Icons/admin-search-icon.svg'
 import { Box } from '@chakra-ui/react'
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { UseFormRegisterReturn } from 'react-hook-form'
+import AppImage from '../../AppComponents/AppImage'
+import CkInput from '../../pages/Auth/AgentComponents/admincompenets/CkInput'
 
 const AdminSerachComponent = ({
   placeholder = 'Search',

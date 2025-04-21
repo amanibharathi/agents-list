@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Flex } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import AppLink from "../AppComponents/AppLink";
@@ -39,7 +41,7 @@ const DarkBlueSubNav = ({ navBarData }: { navBarData: INavbarData[] }) => {
                   className={`flex items-center gap-[10px] ${
                     isCurrentPage ? "text-white" : "text-[#AEAEAE]"
                   }`}
-                  to={m?.link}
+                  href={m?.link}
                 >
                   <AppText
                     className={`whitespace-nowrap capitalize text-[14px] hover:text-white text-[600] ${

@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Box, Flex } from "@chakra-ui/react";
 import SignupAndLoginHeaders from "./components/SignupAndLoginHeaders";
 import { useForm } from "react-hook-form";

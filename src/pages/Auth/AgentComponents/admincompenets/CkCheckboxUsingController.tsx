@@ -31,7 +31,7 @@ export const CkCheckboxUsingController = ({
           >
             <div className={`flex flex-col gap-[10px] ${className}`}>
               {
-                //@ts-expect-error ignore
+               
                 inputObj?.options?.map((each: any) => {
                   return (
                     <Checkbox

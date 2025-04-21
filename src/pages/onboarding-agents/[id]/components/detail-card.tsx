@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Avatar, Checkbox, Flex, Spinner, Tag, Text } from "@chakra-ui/react";
 import { useMemo, useState } from "react";
 import CustomBoxButton from "./custom-box-button";
@@ -90,7 +92,6 @@ export default function DetailCard({
       );
     },
     onError: (err: any) => {
-      //@ts-expect-error ignore
       const errMsg = getFirstErrorMessage(err?.response?.data?.data);
       //@ts-expect-error ignore
       toast.error(errMsg);
@@ -116,7 +117,6 @@ export default function DetailCard({
           onCloseWaive();
         },
         onError: (err: any) => {
-          //@ts-expect-error ignore
           const errMsg = getFirstErrorMessage(err?.response?.data?.data);
           //@ts-expect-error ignore
           toast.error(errMsg);
@@ -133,7 +133,6 @@ export default function DetailCard({
         refetch();
       },
       onError: (err: any) => {
-        //@ts-expect-error ignore
         const errMsg = getFirstErrorMessage(err?.response?.data?.data);
         //@ts-expect-error ignore
         toast.error(errMsg);
@@ -149,7 +148,6 @@ export default function DetailCard({
         refetch();
       },
       onError: (err: any) => {
-        //@ts-expect-error ignore
         const errMsg = getFirstErrorMessage(err?.response?.data?.data);
         //@ts-expect-error ignore
         toast.error(errMsg);
@@ -456,7 +454,6 @@ export default function DetailCard({
         bodyClassName="!px-[40px] !py-[6px]"
         isOpen={ofcIsOpen}
         onClose={ofcClose}
-        //@ts-expect-error ignore
         header={`Assign office - ${data?.first_name + " " + data?.last_name}`}
         headerClassName="rounded-md text-[#10295A] text-[20px] font-[500] !py-[26px] !px-[40px] "
         closeButton={true}

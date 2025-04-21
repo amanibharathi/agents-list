@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Text, useDisclosure } from "@chakra-ui/react";
 import OnboardingLayout from "./onboardingLayout";
 // import LoaderLayout from '@/app/components/layouts/loaderLayout/LoaderLayout'

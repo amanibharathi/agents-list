@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import ReactPaginate from "react-paginate";
 
-//@ts-expect-error ignore
+
 const PaginationComponent = ({
   handlePaginationClick,
   pageCount,

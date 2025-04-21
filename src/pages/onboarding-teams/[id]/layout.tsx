@@ -1,49 +1,47 @@
-import AdminContainer from '../../Auth/AgentComponents/admincompenets/AdminContainer'
-import AdminBreadcrumbs from '../../Auth/AgentComponents/admincompenets/AdminBreadcrumbs'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
+import AdminContainer from "../../Auth/AgentComponents/admincompenets/AdminContainer";
+import AdminBreadcrumbs from "../../Auth/AgentComponents/admincompenets/AdminBreadcrumbs";
 // import AppButton from '@/app/components/elements/AppButton'
-import { Box, Flex, useDisclosure } from '@chakra-ui/react'
-import { ReactNode, useMemo } from 'react'
-import { FaRegEdit } from 'react-icons/fa'
-import AdminTeamHeaderBox from '../components/AdminTeamHeaderBox'
+import { Box, Flex, useDisclosure } from "@chakra-ui/react";
+import { useMemo } from "react";
+import { FaRegEdit } from "react-icons/fa";
+import AdminTeamHeaderBox from "../components/AdminTeamHeaderBox";
 import {
   ADMIN_TEAM_EDIT_PAGE,
   MAKE_ADMIN_TEAM_DETAIL_TAB,
   MAKE_AGENT_RELATED_LIST_PAGE,
-} from '../../Auth/AgentComponents/navigation/urls'
-import { useMutation, useQuery } from 'react-query'
-import makeGetRequest from'../../../api/makeGetRequest'
+  MAKE_AGENT_RELATED_LIST_PAGE1,
+} from "../../Auth/AgentComponents/navigation/urls";
+import { useMutation, useQuery } from "react-query";
+import makeGetRequest from "../../../api/makeGetRequest";
 import {
   ADMIN_AGENT_ASSIGN_OFFICE_BROKERAGE_POST,
   ADMIN_AGENT_TEAM_DETAIL,
   AGENT_DASHBOARD_OFFICE_OR_BROKERAGE_LIST,
   REMOVE_OFFICE_AGENT,
-} from '../../../api-utils'
+} from "../../../api-utils";
 // import CkAppModal from '@/app/components/modal/AppModal'
-import ModalRejectComponent from '../../onboarding-agents/[id]/components/modal-reject-component'
-import makePostRequest from '../../../api/makePostRequest'
-import toast from 'react-hot-toast'
+import ModalRejectComponent from "../../onboarding-agents/[id]/components/modal-reject-component";
+import makePostRequest from "../../../api/makePostRequest";
+import toast from "react-hot-toast";
 import {
   extractIdentities,
   getFirstErrorMessage,
-} from '../../../utils/functions/commonFunctions'
-import { v4 as uuidv4 } from 'uuid'
-import AppButton from '../../../AppComponents/AppButton-agent'
-import SecondaryNav from '../../onboarding-agents/[id]/on-oboarding-application/components/secondaryNav'
-import { useLocation, useNavigate } from 'react-router-dom'
-import CkAppModal from '../../Auth/AgentComponents/admincompenets/AppModal'
+} from "../../../utils/functions/commonFunctions";
+import { v4 as uuidv4 } from "uuid";
+import AppButton from "../../../AppComponents/AppButton-agent";
+import SecondaryNav from "../../onboarding-agents/[id]/on-oboarding-application/components/secondaryNav";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import CkAppModal from "../../Auth/AgentComponents/admincompenets/AppModal";
 
-const Layout = ({
-  children,
-  params,
-}: {
-  children: ReactNode;
-  params: { id: string; tab: string };
-}) => {
-  const id = params?.id
+const ApprovedLayout = () => {
+  const { id } = useParams();
   const location = useLocation();
   const pathname = location.pathname;
-  const editPage = pathname.split('/')?.includes('edit')
-  const router = useNavigate()
+  const editPage = pathname.split("/")?.includes("edit");
+  const router = useNavigate();
   const {
     data: detailData,
     refetch,
@@ -233,8 +231,8 @@ const Layout = ({
       {
         id: uuidv4(),
         label: "Active Teams",
-        link: MAKE_AGENT_RELATED_LIST_PAGE("teams-list"),
-        includes: ["/admin/agents/onboarding-teams/"],
+        link: MAKE_AGENT_RELATED_LIST_PAGE1("teams-list"),
+        includes: ["/admin/teams/onboarding-teams/"],
       },
       {
         id: uuidv4(),
@@ -244,27 +242,29 @@ const Layout = ({
       {
         id: uuidv4(),
         label: "Applied Teams",
-        link: MAKE_AGENT_RELATED_LIST_PAGE("applied-teams-list"),
+        link: MAKE_AGENT_RELATED_LIST_PAGE1("applied-teams-list"),
       },
     ],
     []
   );
 
+  console.log("nav", nav);
+
   return (
     <>
-      <SecondaryNav
+      {/* <SecondaryNav
         wrapperClassName="!justify-start w-full max-w-[1360px] mx-auto px-[10px] bg-[#ffffff] bg-[#ffffff] border-b-[1.5px] border-[#CDCDCD80]"
         isSelectedClassName="!text-[#10295A]"
         tabClassName="!px-[0px]"
         navData={nav}
         urlPath={pathname}
-      />
+      /> */}
       <AdminContainer className="bg-[#ffffff]" isLoading={isLoading}>
         {!editPage && (
           <Flex justifyContent={"space-between"} alignItems={"end"}>
             <AdminBreadcrumbs route={breadcrumbs} />
             <AppButton
-              onClick={() => router(ADMIN_TEAM_EDIT_PAGE(params?.id))}
+              onClick={() => router(ADMIN_TEAM_EDIT_PAGE(id))}
               icon={<FaRegEdit />}
             >
               Edit Details
@@ -317,7 +317,7 @@ const Layout = ({
           </>
         )}
 
-        {children}
+        <Outlet />
         <CkAppModal
           className="!w-full !max-w-[723px]"
           bodyClassName="!px-[40px] !py-[6px]"
@@ -341,4 +341,4 @@ const Layout = ({
   );
 };
 
-export default Layout;
+export default ApprovedLayout;

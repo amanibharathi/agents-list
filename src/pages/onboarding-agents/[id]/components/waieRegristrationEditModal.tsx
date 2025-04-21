@@ -47,7 +47,7 @@ const WaieRegristrationEditModal = ({
         (i: any) => i?.id
       ),
     };
-    //@ts-expect-error ignore
+  
     mutate(finalData);
   };
 

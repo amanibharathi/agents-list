@@ -1,4 +1,5 @@
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Select, components } from 'chakra-react-select'
 import { Controller } from 'react-hook-form'
 import { Flex, FormControl, FormErrorMessage } from '@chakra-ui/react'

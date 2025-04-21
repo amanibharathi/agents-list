@@ -37,7 +37,7 @@ export const RequestDetailPage = ({
   const { mutate: requestMutate, isLoading: requestIsLoading } = useMutation(
     (body) =>
       makePutRequest(
-        //@ts-expect-error ignore
+
         ADMIN_TEAM_REQUEST_UPDATE(params.id, params.memberId),
         body
       ),

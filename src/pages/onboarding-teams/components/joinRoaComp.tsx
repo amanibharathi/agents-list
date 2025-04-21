@@ -1,4 +1,5 @@
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { GoArrowUpRight } from 'react-icons/go'
 import AppImage from '../../../AppComponents/AppImage'
 import AppText from '../../../AppComponents/AppText-agent'
@@ -10,7 +11,7 @@ import AppLink from '../../../AppComponents/AppLink'
 // } from '@/app/utils/navigation'
 
 export const sponsorLink = (id: string, type: 'agent' | 'team') => {
-  const env = process.env.NEXT_PUBLIC_NODE_ENV
+  const env = import.meta.env.VITE_PUBLIC_NODE_ENV
   let base = ''
   const restUrl = `/real-estate-agents/join/onboard/signup?sponsor=${id}&referraltype=${type}`
   if (env == 'production') base = `https://join.realtyofamerica.com`

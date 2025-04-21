@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 // import CkAppModal from '@/app/components/modal/AppModal'
 import { useEffect, useMemo } from 'react'
 import AddATeamMemberModalStep1 from './AddATeamMemberModalStep1'

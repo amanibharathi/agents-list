@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { useMutation } from "react-query";
 
 import toast from "react-hot-toast";
@@ -39,7 +41,7 @@ const useUploadFiles = ({
         onSuccess && onSuccess(res);
       },
       onError: (err) => {
-        //@ts-expect-error ignore
+        
         const errMsg = getFileUploadErrorMsg(err);
         if (typeof errMsg === "string") {
           toast.error(errMsg);

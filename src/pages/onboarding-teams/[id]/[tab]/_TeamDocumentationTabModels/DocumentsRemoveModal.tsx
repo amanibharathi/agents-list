@@ -62,7 +62,7 @@ const DocumentRemoveModal: React.FC<DocumentUploaderProps> = ({
   };
 
   const handleRemoveInComponent = (file: any) => {
-    //@ts-expect-error ignore
+
     const filteredImg = selected?.select?.filter(
       (f: any) => f?.document?.id !== file?.document?.id
     );

@@ -3,7 +3,7 @@
 // --------------------------------------------------
 export const POST_USER_CREATION = `/access/create-user/`;
 export const POST_LOGIN_API = `/api/access/user/login/`;
-export const POST_LOGOUT_API = "/access/logout/";
+export const POST_LOGOUT_API = "/api/access/user/logout/";
 export const REFRESH_API = `/api/access/user/info/`;
 export const UPDATE_PASSWORD_API = "/access/password/update/";
 export const UPDATE_USER_DATA_API = (id: string) =>
@@ -246,9 +246,9 @@ export const GET_BECOME_AN_AGENT_META_IN_ADMIN = `/admin/join-as-agent/list/tabl
 export const GET_AGENT_INDIVIDUAL_DATA = (id: string | number) =>
   `/admin/agent/dashboard/${id}/`;
 export const GET_ASSIGN_TEAM_IN_ADMIN = (is_applied = false) =>
-  `/team/list/${is_applied ? "?is_applied=true" : ""}`;
+  `/api/team/list/${is_applied ? "?is_applied=true" : ""}`;
 export const GET_ASSIGN_TEAM_META = (is_applied = false) =>
-  `/team/list/table-meta/${is_applied ? "?is_applied=true" : ""}`;
+  `/api/team/list/table-meta/${is_applied ? "?is_applied=true" : ""}`;
 
 export const GET_BLOGS_LIST_IN_ADMIN = `/admin/resource/list/`;
 export const GET_BLOGS_LIST_META_IN_ADMIN = `/admin/resource/list/table-meta/`;
@@ -301,11 +301,11 @@ export const ADMIN_AGENT_MLS_LIST = `/meta/mls/list/`;
 export const ADMIN_AGENT_STATE_LIST = `/api/meta/state/list/`;
 export const ADMIN_AGENT_BOARD_LIST = `/meta/board/list/`;
 export const ADMIN_AGENT_TEAM_DETAIL = (id: any, is_applied = false) =>
-  `/team/detail/${id}/${is_applied ? "?is_applied=true" : ""}`;
+  `/api/team/detail/${id}/${is_applied ? "?is_applied=true" : ""}`;
 export const GET_ADMIN_TEAM_MEMBERS_LIST = (id: any) =>
-  `/team/${id}/member/list/`;
+  `/api/team/${id}/member/list/`;
 export const GET_ADMIN_TEAM_MEMBERS_LIST_META = (id: any) =>
-  `/team/${id}/member/list/table-meta/`;
+  `/api/team/${id}/member/list/table-meta/`;
 export const ADMIN_AGENT_DETAIL_GET = (id: any) => `/admin/agent/detail/${id}/`;
 export const ADMIN_AGENT_DETAIL_GET_META = (id: any) =>
   `/admin/agent/cud/${id}/meta/`;
@@ -325,7 +325,7 @@ export const AGENT_NOTES_LIST = () => `/agent/stage/review/list/`;
 export const AGENT_NOTES_CREATE = `/agent/stage/review/create/`;
 export const GET_ADMINS_ONBOARD_TYPE_META = `/admin/agent/cd/meta/`;
 export const ADMIN_CREATE_TEAM_MEMBER_AGENT = (id?: any) =>
-  `/admin/agent/cd/${id ? id + "/" : ""}`;
+  `/api/access/user/cud/${id ? id + "/" : ""}`;
 export const AGENT_STAGE_STATUS_UPDATE = (id: any) =>
   `/agent/stage/update/${id}/`;
 export const GET_AGENT_STAGE_LICENSE_LIST = (id: any) =>
@@ -341,12 +341,12 @@ export const ADMIN_BULK_LIST_DOCUMENT = `/admin/agent/bulk-upload/list/`;
 export const ADMIN_BULK_LIST_DOCUMENT_META = `/admin/agent/bulk-upload/list/table-meta/`;
 export const ADMIN_TEAM_LIST_SEND_INVITE = `/admin/agent/send-invite/`;
 export const ADMIN_TEAM_DOCUMENT_LIST = (id: any) =>
-  `/team/${id}/document/list/`;
+  `/api/team/${id}/document/list/`;
 export const ADMIN_TEAM_DOCUMENT_LIST_META = (id: any) =>
-  `/team/${id}/document/list/table-meta/`;
+  `/api/team/${id}/document/list/table-meta/`;
 export const AGENT_RECURITING_JOIN_AS_AGENT = `/agent/join/request/cd/`;
 export const GET_TEAM_ACTIVITY_LOG_LIST = `/team/activity-log/list/`;
-export const POST_REASSIGN_TEAM_MEMBER = `/team/member/reassign/`;
+export const POST_REASSIGN_TEAM_MEMBER = `/api/team/member/reassign/`;
 export const REMOVE_TEAM_AGENT = `/team/member/remove/`;
 export const REMOVE_OFFICE_AGENT = `/brokerage/member-team/remove/`;
 export const GET_ADMIN_AGENT_PAYMENT_DETAILS = `/payment/list/`;
@@ -493,7 +493,7 @@ export const AGENT_TEAM_CUD_API = (id?: string | number, isMeta?: boolean) =>
 // export const GET_TEAM_AGENT_LIST = '/team/unassigned/agent/list/'
 export const GET_TEAM_AGENT_LIST = "/team/agent/list/";
 export const ADMIN_TEAM_DOCUMENT_UPLOAD = `/team/file/upload/`;
-export const ADMIN_TEAM_CUD = (id?: any) => `/team/cud/${id ? `${id}/` : ""}`;
+export const ADMIN_TEAM_CUD = (id?: any) => `/api/team/cud/${id ? `${id}/` : ""}`;
 export const ADMIN_TEAM_MEMBER_DETAIL = (team: string, member: string) =>
   `/team/${team}/member/detail/${member}/`;
 export const ADMIN_TEAM_MEMBER_UPDATE_META = (id: any, user?: any) =>
@@ -523,9 +523,9 @@ export const ADMIN_TEAM_REQUEST_UPDATE = (teamId: any, requestId: any) =>
 export const ADMIN_JOIN_REQUEST_DELETE = (id: any) =>
   `/agent/join/request/cd/${id}/`;
 export const ADMIN_TEAM_REQUEST_LIST = (teamId: any) =>
-  `/team/request/list/?team=${teamId}`;
+  `/api/team/request/list/?team=${teamId}`;
 export const ADMIN_TEAM_REQUEST_LIST_META = (teamId: any) =>
-  `/team/request/list/table-meta/?team=${teamId}`;
+  `/api/team/request/list/table-meta/?team=${teamId}`;
 export const ADMIN_TEAM_REQUEST_DETAIL = (teamId: any, requestId: any) =>
   `/team/${teamId}/request/detail/${requestId}/`;
 export const ADMIN_TEAM_MEMBER_DELETE_META = (teamId: any, agentId: any) =>

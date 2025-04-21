@@ -165,9 +165,7 @@ const AppSelect: React.FC<IAppSelectProps> = ({
                   options={getOptions()}
                   isMulti={isMulti}
                   placeholder={placeholder ?? "Select"}
-                  className={`${
-                    zIndex ? "z-[9]" : ""
-                  } outline-none ${selectControlClassName}`}
+                  className={`${""} outline-none ${selectControlClassName}`}
                   required={isRequired}
                   onChange={onChange}
                   isDisabled={isDisabled}

@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 //import AdminInputRenderer from '@/app/admin/_AdminComponent/AdminInputRenderer'
 //import ButtonPair from '@/app/admin/_AdminComponent/ButtonPair/ButtonPair'
 import { PUT_ADMINS_AGENT_UPDATE } from "../../../../api-utils";

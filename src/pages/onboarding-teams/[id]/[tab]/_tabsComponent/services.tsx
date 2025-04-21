@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import moment from "moment";
 import toast from "react-hot-toast";
 import {

@@ -57,7 +57,7 @@ const CropModal = ({
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  //@ts-expect-error ignore
+                
                   ref={imgRef}
                   alt="Crop me"
                   src={imgSrc}

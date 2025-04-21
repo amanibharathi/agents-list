@@ -126,7 +126,7 @@ const BulkUploadAgentsModal = ({
           fileTypeKey={inputObj?.fileTypeKey}
           fileTypes={inputObj?.fileTypes}
           name={inputObj?.name}
-          //@ts-expect-error ignore
+       
           customUiBody={customUiBodyComp}
           customEndPoint={POST_AGENT_AND_TEAM_BULK_UPLOAD}
           customType={
@@ -143,7 +143,7 @@ const BulkUploadAgentsModal = ({
           tableData={listData}
           //@ts-expect-error ignore
           relativeTime={["created"]}
-          //@ts-expect-error ignore
+         
           // property={['property.property.address']}
           // selectable
           isLoading={isLoading}

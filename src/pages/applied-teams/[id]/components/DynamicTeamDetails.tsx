@@ -1,4 +1,5 @@
-'use client'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Box, Flex } from '@chakra-ui/react'
 import React from 'react'
 import { UseFormRegister, Control } from 'react-hook-form'

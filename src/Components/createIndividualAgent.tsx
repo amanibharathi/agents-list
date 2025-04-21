@@ -67,7 +67,7 @@ export default function CreateCommonModal({
                 <Avatar
                   className="rounded-full h-[140px] w-[140px]"
                   src={
-                    //@ts-expect-error ignore
+              
                     image?.image ?? "/assets/profile-picture.png"
                   }
                   height={"80px"}
@@ -80,7 +80,7 @@ export default function CreateCommonModal({
                   fileTypeKey={inputObj?.fileTypeKey}
                   fileTypes={inputObj?.fileTypes}
                   name={inputObj?.name}
-                  //@ts-expect-error ignore
+                 
                   customUiBody={customUiBodyComp}
                   customEndPoint={ADMIN_TOOLS_IMAGE_UPLOAD}
                   isToolsImage

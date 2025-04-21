@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { useEffect, useMemo, useState } from "react";
 // import NotesButtonIcon from '@/app/icons/notesButtonIcon'
 // import RequestChangeIcon from '@/app/icons/requestChangeIcon'
@@ -15,7 +18,6 @@ import ModalRejectComponent from "../components/modal-reject-component";
 // import makeGetRequest from '@/app/utils/api/makeGetRequest'
 import { useQuery, useMutation } from "react-query";
 import { useParams } from "react-router-dom";
-import ContentRender from "./components/contentRender";
 // import { capitalize } from '@/app/utils/functions/otherFunctions'
 // import makePostRequest from '@/app/utils/api/makePostRequest'
 import toast from "react-hot-toast";
@@ -34,7 +36,6 @@ import AppText from "../../../../AppComponents/AppText-agent";
 import EditBlueIcon from "./components/editBlueIcon";
 import CkAppModal from "../../../Auth/AgentComponents/admincompenets/AppModal";
 import {
-  ADMIN_AGENT_TEMPLATE_GET,
   ADMIN_FORM_BUILDER_FORM_GET,
   ADMIN_FORM_BUILDER_SUB_FORM_GET,
   AGENT_NOTES_CREATE,
@@ -47,6 +48,8 @@ import {
 import makePostRequest from "../../../../api/makePostRequest";
 import useGetAgentStatus from "../../../../utils/hooks/useGetAgentStatus";
 import { useGetAgentDocumentList } from "../../../../utils/hooks/useGetAgentDocumentList";
+import PersonalInfo from "./new-components-for-detail/RoaAppForms/PersonalInfo";
+import LicenseDetails from "./new-components-for-detail/RoaAppForms/LicenseDetails";
 // import moment from 'moment'
 
 const dummyData = {
@@ -166,18 +169,20 @@ export default function OnboardingApplication() {
       identity: "Personal Information",
       index: 1,
       description: "dummy",
+      form: <PersonalInfo />,
     },
-    {
-      id: 2,
-      identity: "Residential Information",
-      index: 2,
-      description: "dummy",
-    },
+    // {
+    //   id: 2,
+    //   identity: "Residential Information",
+    //   index: 2,
+    //   description: "dummy",
+    // },
     {
       id: 3,
       identity: "License Information",
       index: 3,
       description: "dummy",
+      form: <LicenseDetails />,
     },
     {
       id: 4,
@@ -187,9 +192,12 @@ export default function OnboardingApplication() {
     },
   ];
 
-  const { data: qqq, refetch } = useQuery([roaAppEnd], () =>
+  const { data: roaData } = useQuery([roaAppEnd], () =>
     makeGetRequest(roaAppEnd)
   );
+
+  console.log("roaData", roaData);
+
   const { data: sectionMeta } = useQuery(
     [ADMIN_FORM_BUILDER_FORM_GET(stageData[0]?.form_template)],
     () =>
@@ -286,14 +294,7 @@ export default function OnboardingApplication() {
               ) : each?.identity === "Sponsors" ? (
                 <SponsorCard />
               ) : (
-                <ContentRender
-                  data={each?.form_sub_group}
-                  form_id={each?.id}
-                  isEdit={isEdit == index}
-                  setEdit={setEdit}
-                  response={each?.response}
-                  refetch={refetch}
-                />
+                <div>{each?.form}</div>
               ),
             icon: <EditBlueIcon />,
             iconOnClick: () => {

@@ -16,7 +16,16 @@ import AppLayout from "./layout/AppLayout";
 import AppliedAgents from "./pages/agent/AppliedAgents";
 import AdminDetailLayout from "./pages/onboarding-agents/[id]/AdminDetailLayout";
 import OnboardingApplication from "./pages/onboarding-agents/[id]/on-oboarding-application/page";
-
+import AppliedTeams from "./pages/components/ListingComponents/AppliedTeams";
+import TeamsList from "./pages/components/ListingComponents/TeamsList";
+import Layout from "./pages/applied-teams/[id]/layout";
+import ApprovedLayout from "./pages/onboarding-teams/[id]/layout";
+import TeamInformationTab from "./pages/onboarding-teams/[id]/[tab]/_tabsComponent/TeamInformationTab";
+import TeamDocumentstab from "./pages/onboarding-teams/[id]/[tab]/_tabsComponent/TeamDocumentstab";
+import TeamInformationTabApplied from "./pages/applied-teams/[id]/[tab]/_tabsComponent/TeamInformationTab";
+import TeamDocumentstabApplied from "./pages/applied-teams/[id]/[tab]/_tabsComponent/TeamDocumentstab";
+import EditPage from "./pages/onboarding-teams/[id]/edit/page";
+import TeamRequestTab from "./pages/onboarding-teams/[id]/[tab]/_tabsComponent/TeamRequestTab";
 function App() {
   const isAuthenticated = () => {
     const token = getUserToken();
@@ -65,6 +74,7 @@ function App() {
               path: "applied-agents-list",
               element: <AppliedAgents />,
             },
+
             {
               path: ":id",
               element: <AdminDetailLayout />,
@@ -79,6 +89,56 @@ function App() {
 
           // path: "agents/list",
           // element: <></>,
+        },
+        {
+          path: "teams",
+          element: <AdminListFilterProvider />,
+          children: [
+            {
+              path: "applied-teams-list",
+              element: <AppliedTeams />,
+            },
+            {
+              path: "teams-list",
+              element: <TeamsList />,
+            },
+            {
+              path: "edit/:id",
+              element: <EditPage />,
+            },
+            {
+              path: ":id",
+              element: <Layout />,
+              children: [
+                {
+                  path: "team-details",
+                  element: <TeamInformationTabApplied />,
+                },
+                {
+                  path: "documents",
+                  element: <TeamDocumentstabApplied />,
+                },
+              ],
+            },
+            {
+              path: ":id",
+              element: <ApprovedLayout />,
+              children: [
+                {
+                  path: "team-members",
+                  element: <TeamInformationTab />,
+                },
+                {
+                  path: "documents",
+                  element: <TeamDocumentstab />,
+                },
+                {
+                  path: "team-requests",
+                  element: <TeamRequestTab />,
+                },
+              ],
+            },
+          ],
         },
       ],
     },

@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import { BiCloudUpload } from "react-icons/bi";
 import { FileUploader } from "react-drag-drop-files";

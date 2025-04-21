@@ -50,7 +50,7 @@ export default function Page() {
       onError: (err: any) => {
         //@ts-expect-error ignore
         const errMsg = getFirstErrorMessage(err?.response?.data?.data);
-        //@ts-expect-error ignore
+      
         toast.error(errMsg);
       },
     }

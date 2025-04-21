@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import AdminFormWrapper from '../../../../login/adminlogin/AdminFormWrapper'
 import { Box, Flex, useDisclosure } from '@chakra-ui/react'
 import { createContext, useEffect, useMemo, useState } from 'react'

@@ -15,7 +15,7 @@ const setTokenAndUserData = ({
     expires: cookieAge / 86400, // convert seconds to days
   };
 
-  //@ts-expect-error ignore
+
   delete userData?.user_roles;
 
   Cookies.set("token", token, cookieOptions);

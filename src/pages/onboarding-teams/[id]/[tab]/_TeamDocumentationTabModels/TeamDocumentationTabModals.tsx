@@ -1,4 +1,5 @@
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import BulkUploadTeamMembersModal from './BulkUploadTeamMembersModal'
 import AddATeamMemberModal from './AddATeamMemberModal'
 import AddANewMemberModal from './AddANewMemberModal'

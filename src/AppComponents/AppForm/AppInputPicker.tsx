@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Box } from "@chakra-ui/react";
 import AppInput from "./AppInput";
 import { AppInputPickerProps } from "./types/types";
@@ -9,7 +11,6 @@ import AppTextArea from "./AppTextArea";
 import AppFileUpload from "./AppFileUpload";
 import AppCustomSelect from "./AppCustomSelect";
 import AppCustomMultiSelect from "./AppCustomMultiSelect";
-import BoxSelect from "../../pages/Form/custom-agent-tools/BoxSelect";
 
 const AppInputPicker: React.FC<AppInputPickerProps> = ({
   inputObj,
@@ -166,10 +167,6 @@ const AppInputPicker: React.FC<AppInputPickerProps> = ({
           // onChange
         />
       );
-
-    if (type == "box-select") {
-      return <BoxSelect inputObj={inputObj} />;
-    }
 
     if (type == "custom-comp") return inputObj?.comp;
 

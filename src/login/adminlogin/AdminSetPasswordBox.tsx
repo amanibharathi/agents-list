@@ -102,7 +102,7 @@ const AdminSetPasswordBox = () => {
             <AppButton
               isLoading={isLoading}
               className="w-full mt-[30px]"
-              //@ts-expect-error ignore
+             
               type="submit"
             >
               Reset Password

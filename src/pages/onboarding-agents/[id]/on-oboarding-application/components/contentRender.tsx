@@ -69,7 +69,7 @@ export default function ContentRender({
         setEdit(null);
       },
       onError: (err: any) => {
-        //@ts-expect-error ignore
+        
         const errMsg = getFirstErrorMessage(err?.response?.data?.data);
 
         //@ts-expect-error ignore
